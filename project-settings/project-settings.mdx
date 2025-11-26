@@ -1,0 +1,360 @@
+---
+title: "Project Settings"
+icon: "folder-gear"
+description: "Configure And Manage Your Project Settings, Members, Roles, And Monitor Billing And Usage"
+mode: "wide"
+---
+<Tabs>
+  <Tab title="General" icon="info-circle">
+    # General
+
+    **Settings** serves as the main hub for overseeing every aspect of your project. This includes managing configuration, members, billing, roles, API keys, integrations, and security logs. Each section in this article aligns with a tab in Settings, offering detailed insights into the function and usage of each tab, along with some best practice tips. Here you will find deails abou the features and settings available in the General tab.
+
+    <Warning>
+    Some tabs may be hidden based on your role. Contact your project admin if you need access to specific settings.
+    </Warning>
+
+    Project Settings provides comprehensive control over:
+
+    | Features                                                                          | Table of Contents                                                      |
+    |-----------------------------------------------------------------------------------|--------------------------------------------------------------|
+    | **Project Configuration**: Name, description, visibility, and feature settings. | [Accessing Project Settings](/project-settings/project-settings#accessing-project-settings) |
+    | **Team Management**: Add members, assign roles, and manage permissions.         | [Project Details](/project-settings/project-settings#project-details)                             |
+    | **Billing & Credits**: Monitor usage and billing information.                   | [Project Configs](/project-settings/project-settings#project-configs)                             |
+    | **Security**: API keys, integrations, and audit logs.                           | [Export/Clone](/project-settings/project-settings#data)                                        |
+    | **Customization**: Prompts, roles, and project-specific settings.               | [Leave/Delete](/project-settings/project-settings#danger-zone)                                 |
+    
+    ## Accessing Project Settings
+    | From Project Sidebar                           | Direct Navigation                            |
+    |------------------------------------------------|----------------------------------------------|
+    | 1. Open your project.                          | 1. Go to your project dashboard.             |
+    | 2. Click the **Settings** icon in the sidebar. | 2. Click **Project Settings** from the menu. |
+    | 3. Or navigate to the project settings page.   |                                              |
+   
+    Configure basic project information and settings:
+
+    ### Project Details
+    - **Project Name**: When you craeted your project you named it. If you want to change the name you can edit it here and select the Update button to save your change.
+    - **Project ID**: This is the unique ID that is assigned to your project. Use the copy icon to copy it to your clipboard.
+    - **Project Description (optional)**: Although this is optional, as a best practice we recommend giving your project a clear description that will help your teammates understand what it's purpose it and who might find it useful.
+    ![Project Details screenshot](/img/project-settings/project-details.png)
+
+    ### Project Configs
+    - **Make Project Public**: Make your project publicly accessible and visible to others in your EKB instance or on-prem installation.
+    - **Project Team**: Choose the team that this project belongs to. Only team administrators have the ability to modify this setting.
+    - **Share With Team**: Enabling this setting allows everyone in the Project Team to access the project.
+    - **Data Extraction Method**: 
+      - **Cloud**: The **Default** method for extracting information into the Knowledge Base uses a code-based solution. The  **LLM** method uses Google Gemini 2.5 Flash.
+      - **On-Premise**: The **Default** method for extracting information into the Knowledge Base uses a code-based solution. The  **LLM** method uses your chosen LLM.
+    - **Mask Personally Identifiable Information (PII)**: Enabling this setting removes sensitive Personally Identifyable Information from your chats before being sent to the LLM. This enhances the privacy and securiuty of your application.
+    - **Inline Citations**: Enabling this feature adds numbered citations within the body of your chat response. At the bottom of the response the numbered citations appear with links to their source.
+    - **Automator V2**: When activated, the legacy Flows and Runs tabs will be concealed, and workflows will operate using the new execution engine with improved capabilities.
+    - **Transcription**: This setting defines the transcription provider for audio and video uploads as well as meeting transcription. 
+      - **Deepgram**: Deepgram is known for its high accuracy in transcribing audio, especially in noisy environments. It employs advanced speech recognition technology that can handle various accents and dialects effectively. 
+      - **OpenAI Whisper**: OpenAI Whisper is recognized for its capability to transcribe multiple languages and its robustness in understanding context from conversational speech. Whisper's integration with OpenAI's language models allows for enhanced semantic understanding, which can improve the quality of the transcriptions in terms of context and relevance. 
+    ![Project Configs screenshot](/img/project-settings/project-configs.png)
+
+    ### Project Sharing
+    - Select a role for the person you want to invite and select the **Share** button to have a link to your project copied to your clipboard. Whomever you share the link with can use it to become a member and use or modify the project depending on the role you have assigned them to.
+    ![Project Settings Project Sharing section screenshot](/img/project-settings/project-sharing.png)
+
+    ### Data
+    - **Export Project**: Selecting the Esport Project button will automatically download a copy of your project in JSON format to your Downloads directory.
+    - **Clone Project**: This creates a duplicate of your project when you select the Clone Project button.
+    ![Project Settings Data section screenshot](/img/project-settings/data.png)
+
+    ### Danger Zone
+    - **Leave Project**: Selecting the Leave Project button will remove you from the project, but other members will still be able to access it.
+    - **Delete Project**: Selecting the Delete Project button will **PERMANENTLY DELETE** your project.
+    ![Project Settings Danger Zone section screenshot](/img/project-settings/danger-zone.png)
+
+  </Tab>
+  <Tab title="Members" icon="users">
+    # Members
+
+    The **Members** tab allows you to manage and **Add Members** to your project as well as **Export** a list of your project's Members. The Access levels that you find on this tab are controled in the [Roles](/project-settings/project-settings#roles) tab.
+
+    <Info>
+    Only users with appropriate permissions can add or remove members. Project admins have full access to member management.
+    </Info>
+
+    #### Add Member
+    The **Add member** feature enables you to invite people to your project by sharing a link that grants them acces to the project with the Role you assign or by email. People you invite via email address will receive an email notification and a notification when the login that tells themm they've been invited to your project.
+
+    Select the **Add member** button and use one of the following methods to invite new members:
+    1. **Generate Invite Link**: Select a Role, then select the **Copy Link** button to copy a link to your clipboard you can share with your teammates. Anyone who uses the link will automatically be added to the project with the Role you selected when you created it.
+
+    2. **Invite by Email**: Enter an email address, select a Role from the dropdown, then select the **Send Invitation** button to send the invitation. Selecting the plus icon to the right of the Role dropdown allows you to add more than one person at a time.
+
+    <img
+      src="/img/project-settings/invite-users.png"
+      alt="Screenshot of the Invite Users to This Project popup."
+      style={{width: "500px", height: "auto"}}
+      noZoom
+    />
+
+    #### Modify Member Permissions
+    1. Find the Member whose record you want to modify by browsing or using the Search feature.
+    2. Select the **Access** dropdown of the Member's record and select the Role you want to assign them to.
+
+    <img
+      src="/img/project-settings/access-dropdown.png"
+      alt="Screenshot of the Access dropdown."
+      style={{width: "200px", height: "auto"}}
+      noZoom
+    />
+
+    #### Delete Members
+    1. Find the Member whose record you want to delete by browsing or using the Search feature.
+    2. Select the **Access** dropdown of the Member's record and select **Remove** to delete their record.
+    3. Select the **Remove** button in the Remove Member confirmation popup to remove the user's access to your project.
+
+    <img
+      src="/img/project-settings/remove-member.png"
+      alt="Screenshot of the Remove Member confirmation popup."
+      style={{width: "450px", height: "auto"}}
+      noZoom
+    />
+
+    After completing these steps the user will no longer have access to your project, but will still have access to other projects that they are a member of. This action does not delete thier account.
+
+    #### Export A List Of users
+    The **Export** feature produces a CSV file that provides additional detials about the Members of your project. In the CSV file you will find columns for user ID, name, email, team ID, pending status, role ID, role name, the ID of the person who invited them, whether they were invited by email, and the last time they signed in. 
+    1. Select the **Export** button to receeive a CSV file with a list of your project's Members.
+
+    <img
+      src="/img/project-settings/export-members.png"
+      alt="Screenshot highlighting the export button."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+
+    On selecting the Export button, the CSV is automatically downloaded to your Downloads folder.
+
+    ## Best Practices
+    1. **Role Management**: Use least-privilege principle for roles.
+    2. **Member Review**: Regularly review and remove inactive members.
+
+  </Tab>
+  <Tab title="Billing" icon="display-chart-up-circle-dollar">
+    # Billing
+    The **Billing** tab gives you visibility over the credits being used by your project. Credit usage is broken down into total credits used in the last 7 days, last 30 days, and since the project was created. In addition, you will see a list of every chat and the costs associated with them.
+
+    <Warning>
+    All credits used in the project are billed to the team owner. Ensure you understand your billing plan before heavy usage.
+    </Warning>
+
+    <img
+      src="/img/project-settings/billing-tab.png"
+      alt="Screenshot of the Billing tab."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+    1. Project Owner's email where billing will be sent.
+    2. Total credits used since the project was created.
+    3. Total credits used in the last 30 days.
+    4. Total credits used in the last 7 days.
+    5. List of individual chat response costs that identifies the Member Name, Role ID, Actions, Credits, and Date & Time.
+
+    ## Best Practices
+
+    1. **Monitor Usage**: Regularly check billing tab for credit usage.
+    2. **Set Limits**: Use roles to control who can consume credits.
+    3. **Review Actions**: Check billing actions for unexpected usage.
+
+  </Tab>
+  <Tab title="Roles" icon="user-gear">
+    # Roles
+    EKB supports the RBAC (Role Based Access Control) security model by giving you three default **Role** types: Admin, Editor, and Viewer. These default Roles can be expanded by adding your own **Custom Roles** that enable you to have granular control over what Members of your project have access to and the actions they can perform. In this section you will learn about the default Roles and all of the Custom Role options available.
+
+    ## Default Roles
+    - **Admin**: Administrator of the project with full control to edit all settings, add, modify, and remove users, view analytics, and delete the project.
+    - **Editor**: Editors can edit all settings except for Roles. Editors cannot add or remove members, but can modify the project.
+    - **Viewer**: Viewers can only view the project and do not have access to analytics or settings.
+
+    <img
+      src="/img/project-settings/default-roles.png"
+      alt="Screenshot of the Default Roles available."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+
+    ## Custom roles
+    **Custom Roles** are created by setting the access controls for each of the following settings to **View Self**, **View All**, or **Edit**. With the exceptions of Chat, when View All or Edit are not selected, the default setting is **N/A** which means either the user will only have access to their own or will not have access to that feature or action. Details on what "N/A" will mean for a particular feature or action are detailed below.
+
+    <img
+      src="/img/project-settings/custom-role.png"
+      alt="Screenshot of the Custom Role popup."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+
+    ### Creating A Custom Role
+    1. In the Settings > Roles tab, select the Create New Role button in the upper-right corener of the page.
+    2. Enter a name for the Role in the **Role Name** field.
+    3. Select **View Self**, **View All**, or **Edit** for the **Chat** feature.
+        - **View Self**: Only allow this Role to view their own chats.
+        - **View All**: Allow this Role to view any chat created by any team member of this project.
+        - **Edit**: Allow this Role to edit or delete chats that they can View.
+    4. Set one or more of the following permissions to **View All** or **Edit**, otherwise the default will be **N/A** for that feature or action.
+        - **Actions**: Controls access to the Actions (Tools/Workflows) feature.
+          - **N/A**: Can only access their own Actions.
+          - **View All**: Can view all Actions created in the project by any member.
+          - **Edit**: Can Edit all Actions they have access to.
+        - **Agents**: Controls access to create or modify Agents.
+          - **N/A**: Can only access their own Agents.
+          - **View All**: Can view all Agents created in the project by any member.
+         - **Edit**: Can Edit all Agents they have access to.
+        - **Knowledge Base**: Controls access to add or modify content in the Knowledge Base, including Smart Tables.
+          - **N/A**: Cannot access the Knowledge Base.
+         - **View All**: Can view all content within the Knowledge Base.
+         - **Edit**: Can upload, modify, and remove content from the Knwoledge Base, including Smart Tables.
+        - **Documents**: Controls access to the Documents section of the Knowledge Base.
+          - **N/A**: Cannot access the Documents section of the Knowledge Base.
+          - **View All**: Can view all Documents in the Knowledge Base.
+          - **Edit**: Can add, edit, and delete Documents in the Knowledge Base.
+        - **Automator**: Controls access to Workflows.
+          - **N/A**: Can only access their own Workflows.
+          - **View All**: Can view all Workflows created in the project by any member. 
+          - **Edit**: Can Edit all Workflows they have access to.
+        - **Public Chatbot**: Controls access to the Public Chatbot feature.
+          - **N/A**: Has no access to this feature.
+          - **View All**: Can view the Public Chatbot feature.
+          - **Edit**: Can edit the settings within the Public Chatbot feature.
+        - **Analytics**: Controls access to the project Analytics feature.
+          - **N/A**: Cannot access the Analytics feature.
+          - **View All**: Can view the Analytics page.
+          - **Edit**: Can modify the dat ranges of the Analytics page.
+        - **Settings**: Controls access to the project Settings feature.
+          - **N/A**: Cannot access the project Settings feature.
+          - **View All**: Can view Settings for the project.
+          - **Edit**: Can access and modify all settings for the project.
+        - **Roles**: Controls access to the Roles feature within project Settings.
+          - **N/A**: Cannot access the Roles feature within project Settings.
+          - **View All**: Can view Roles within project Settings.
+          - **Edit**: Can add, modify, and delete Roles within project Settings.
+        - **Add Members**: Controls whether the user can add, modify, or remove Members from the project.
+          - **N/A**: Cannot add, modify, or remove Members from the project.
+          - **View All**: Can view Members of the project.
+          - **Edit**: Can add, modify, or remove Members from the project.
+    5. Select the **Create** button after you have set the permissions you want to set.
+    After slecting the Create button the new Custom Role will appear in the list of Role on this page and in the Roles dropdowns for creating Members and modifying their access.
+
+    ## Modifying Roles
+    1. From the list of Roles, select the Edit link for the Role you want to modify.
+    2. Update the Name, Description, or access controls, then select the **Update** button.
+    The changes will immediately be reflected on the Roles page.
+
+    ## Deleting Roles
+    1. From the list of Roles, select the Delete link for the Role you want to delete.
+    2. Select the Delete User Role button from the Delete User Role confirmation popup.
+    
+    ## Best Practices
+
+    1. **Naming**: Give your Custom Roles descriptive names that make it clear what type of user they are or what they have access to.
+    2. **Documentation**: Document your Custom Roles and their purposes with detailed descriptions.
+
+  </Tab>
+  <Tab title="API Keys" icon="key">
+    # API Keys
+    The **API Keys** tab of your project's Settings is where you can easily generate and label API keys, allowing you to seamlessly connect to the platform's features programmatically. Use these keys and Key Secrets to establish and maintain connections with other services effortlessly. We recommend regularly reviewing the API Keys and deleting unneeded API Keys, to protect your project from unauthorized use. 
+
+    <img
+      src="/img/project-settings/api-keys.png"
+      alt="Screenshot of the API Keys tab."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+
+    <Info>
+    API keys are project-specific and provide access to project resources. Keep them secure and rotate them regularly.
+    </Info>
+
+    ## Create New API Key
+    1. In the Settings > API Keys tab, select the **Create API Key** button.
+    2. The Create New API Key popup appears, providing you with your **only opportunity to copy the API Key's Secret**! You can always come to this interface to copy the key, but the Key's Secret is only provided during the creation process.
+    3. After securly storing your API Key and API Key Secret, select the **Done** button.
+    Your new API Key will appear in the list of API Keys.
+    <Danger>DO NOT FORGET TO COPY THE API KEY SECRET! THIS IS THE ONLY TIME IT IS AVAILABLE.</Danger>
+    
+    <img
+      src="/img/project-settings/create-api-key.png"
+      alt="Screenshot of the Create New API Key popup."
+      style={{width: "500px", height: "auto"}}
+      noZoom
+    />
+
+    ## Delete An API Key
+    The Automator Key is created for every project and is a protected API Key that cannot be deleted. Other API Keys you create can be deleted as needed.
+    1. In the Settings > API Key tab, select the **Delete** link for the API Key you want to delete.
+    2. Select the **Delete API Key** button in the Delete API Key confirmation popup.
+    You will see a message indicating that the API Key was deleted successfully and the API Key no longer appears in your list.
+    ### Best Practices
+
+    1. **Clear Naming**: Use descriptive names for your API keys that make it clear what the ket's purpose is.
+
+  </Tab>
+  <Tab title="Integrations" icon="arrow-right-to-bracket">
+    # Integrations
+    Apps that you have integrated EKB into using your API Keys appear in the Project Integrations page. Integrations that are connected are shown and can be disconnected as needed.
+
+    <Info>Migration Notice: Global integrations are being phased out. When you re-authenticate with a service in this project, it will create a new project-specific integration.</Info>
+
+    View and manage project-specific integrations:
+
+    - **OAuth Integrations**: See connected services (Gmail, Slack, etc.)
+    - **Integration Details**: View scope, service name, and connection date
+    - **Remove Integrations**: Disconnect services when no longer needed
+    - **Project vs Global**: Distinguish between project-specific and global integrations
+
+    <Warning>
+    Project integrations are specific to this project. Global integrations (legacy) are being phased out and will be migrated to project-specific integrations.
+    </Warning>
+
+  </Tab>
+  <Tab title="Logs" icon="memo">
+    # Logs
+    The **Logs** tab in Settings gives you visibility over the changes that have been mage to the project settings as well as records of chat prompts and responses. This informatimon can easily be exported to a CSV file. In this section you will learn about the different aspects of the logging system in EKB.
+
+    Logs helps you with:
+
+    - **Audit Trail**: View all project actions and events.
+    - **Filtering**: Filter by user, date range, action type, and role.
+    - **Export Logs**: Download logs for compliance and analysis.
+    - **Search**: Search logs by user email or action.
+    - **Real-time Monitoring**: Track activity as it happens.
+
+    ## Reading The Logs
+    The view you find on the Settings > **Logs** page provides a truncated view of the activities taking place within your project in real-time. You can see who is taking action, when they do it, and what action they took. You can search for a user or filter by Action Type, Document Count, or keywords within a chat message. You can refine your results by date range and export everything to a CSV file with ease. Here you will learn about the different ways you can use the Logs feature.
+
+    <img
+      src="/img/project-settings/settings-logs.png"
+      alt="Screenshot of the Logs interface."
+      style={{width: "100%", height: "auto"}}
+      noZoom
+    />
+
+    ### Log Columns In The interface
+    - **User**:
+    - **Created**:
+    - **Action/Title**: Displays the Action that took place:
+      - **add user**: The User added a new user to the project.
+      - **chat**: The User initiated a chat conversation.
+      - **edit_existing_custom_agent**: The User edited an Agent in the project.
+      - **file_addition**: The User added a new file to the Knowledge Base.
+      - **save_new_custom_agent**: The User saved a new Agent in the project.
+      - **update_favorite**: The User updated a Favorite project.
+      - **update_project**: The User made a change to the project.
+    - **Chat Message**: Displays the chat message input by the user if the Action was chat.
+    - **Role**: The Role of the User who performed the action.
+    - **Documents Used**: Shows the number of documents that were used in generating the response.
+
+    ## Export The Logs
+    Use the Filters and Date Range to get the records you want to capture, then select the Export button. The log file is automatically downloaded as a CSV file to your Downloads folder.
+
+    ## Best Practices
+
+    1. **Regular Audits**: Schedule time to review your logs regularly.
+
+  </Tab>
+</Tabs>

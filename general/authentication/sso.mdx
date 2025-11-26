@@ -1,0 +1,356 @@
+---
+title: "Single Sign-On (SSO)"
+icon: "key"
+description: "Configure SSO authentication with Okta, Azure AD, and custom providers"
+---
+This article on Single Sign-On (SSO) serves as a comprehensive guide for your enterprise to streamline user authentication through integration with popular identity providers such as Okta and Azure Active Directory. You will learn how to configure SSO with Odin AI, allowing your users to authenticate using your organization's existing credentials, thereby enhancing security and simplifying access management. The article highlights the benefits of SSO, including centralized authentication, improved user experience, and compliance with security standards. Additionally, you will find step-by-step instructions for setting up SSO with various providers, troubleshooting common issues, and best practices to ensure a secure and efficient implementation. By the end of this article, you will be equipped with the knowledge to effectively implement and manage SSO within your organization.
+
+<Info>
+Odin AI's support team handles SSO configuration and testing. You only need to configure your identity provider and provide the necessary details (metadata URL, domain, and provider) to [Support](mailto:support@getodin.ai).
+</Info>
+
+### Supported SSO Providers
+
+Odin AI supports SSO with:
+
+- [**Okta**](https://learn.getodin.ai/documentation/authentication/sso#okta-sso-configuration) - Enterprise identity management
+- [**Azure AD**](https://learn.getodin.ai/documentation/authentication/sso#azure-ad-sso-configuration) - Microsoft Azure Active Directory
+- [**Custom SSO**](https://learn.getodin.ai/documentation/authentication/sso#custom-sso-configuration) - SAML 2.0 compatible identity providers
+
+### Benefits
+
+- **Centralized Authentication** - One login for all enterprise applications
+- **Enhanced Security** - Organization-controlled access
+- **User Management** - Centralized user provisioning and deprovisioning
+- **Compliance** - Meets enterprise security requirements
+- **User Experience** - Seamless authentication experience
+
+## Okta SSO Configuration
+
+### Prerequisites
+
+- Okta administrator access
+- Your Odin AI instance URL
+
+### Step 1: Okta Application Setup
+
+1. **Log in to Okta Admin Console**
+   - Visit your Okta admin console
+   - Navigate to **Applications** > **Applications**
+
+2. **Create New Application**
+   - Click **Create App Integration**
+   - Select **SAML 2.0** as the sign-in method
+   - Click **Next**
+
+3. **Configure General Settings**
+   - **App name**: Enter a name (e.g., "Odin AI")
+   - **App logo**: Upload Odin AI logo (optional)
+   - Click **Next**
+
+4. **Configure SAML Settings**
+   - **Single sign-on URL**: `https://your-odin-domain.com/user/okta/sso/saml/acs/admin`
+   - **Audience URI (SP Entity ID)**: `https://your-odin-domain.com`
+   - **Name ID format**: `EmailAddress`
+   - **Application username**: `Email`
+   - **Update application username on**: `Create and update`
+
+5. **Attribute Statements** (Optional)
+   - Add attribute mappings as needed:
+     - `email` → `user.email`
+     - `firstName` → `user.firstName`
+     - `lastName` → `user.lastName`
+
+6. **Group Attribute Statements** (Optional)
+   - Configure group mappings if needed
+
+7. **Feedback** (Optional)
+   - Select feedback options
+   - Click **Finish**
+
+### Step 2: Get Okta Configuration
+
+1. **View SAML Setup Instructions**
+   - In your Okta application, go to **Sign On** tab
+   - Click **View SAML 2.0 Setup Instructions**
+
+2. **Copy Metadata URL**
+   - Note the **Identity Provider metadata URL**
+   - Format: `https://your-okta-domain.okta.com/app/your-app-id/sso/saml/metadata`
+
+3. **Alternative: Download Metadata**
+   - Download the SAML metadata XML file
+   - Save it for configuration
+
+### Step 3: Submit Configuration to Odin AI
+
+Odin AI's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**
+   - Email **support@getodin.ai** with the following information:
+     - **Provider**: Okta
+     - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+     - **Metadata URL**: The Okta metadata URL from Step 2
+     - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain
+
+2. **Odin AI Configuration**
+   - Odin AI's support team will configure SSO on your instance
+   - They will test the SSO connection
+   - You will be notified once configuration is complete
+
+3. **Testing**
+   - Odin AI's team will test the SSO connection
+   - You may be asked to verify the connection works
+   - Once confirmed, SSO will be enabled for your organization
+
+### Troubleshooting Okta SSO
+
+**Issue**: Redirect loop or authentication failure
+
+**Solutions:**
+- Verify the Single sign-on URL matches exactly
+- Check that the Audience URI is correct
+- Ensure Name ID format is set to EmailAddress
+- Verify metadata URL is accessible
+- Check Okta application is active
+
+**Issue**: User not found after SSO login
+
+**Solutions:**
+- Verify email attribute mapping in Okta
+- Check user exists in Odin AI
+- Ensure user provisioning is configured
+- Verify enterprise ID matches email domain
+
+## Azure AD SSO Configuration
+
+### Prerequisites
+
+- Azure Portal administrator access
+- Microsoft 365 account with admin access
+- Your Odin AI instance URL
+
+### Step 1: Azure Portal Setup
+
+1. **Go to Azure Portal**
+   - Visit [portal.azure.com](https://portal.azure.com)
+   - Sign in with your administrator account
+
+2. **Navigate to Azure Active Directory**
+   - Go to **Azure Active Directory** > **Enterprise applications**
+   - Click **New application**
+
+3. **Create Enterprise Application**
+   - Click **Create your own application**
+   - Enter application name (e.g., "Odin AI")
+   - Select **Integrate any other application you don't find in the gallery**
+   - Click **Create**
+
+### Step 2: Configure SAML SSO
+
+1. **Set Up Single Sign-On**
+   - In your application, go to **Single sign-on**
+   - Select **SAML** as the method
+
+2. **Basic SAML Configuration**
+   - **Identifier (Entity ID)**: `https://your-odin-domain.com`
+   - **Reply URL (Assertion Consumer Service URL)**: `https://your-odin-domain.com/user/azure/sso/saml/acs/admin`
+   - **Sign-on URL**: `https://your-odin-domain.com`
+   - **Relay State** (Optional): Leave blank or configure as needed
+
+3. **User Attributes & Claims**
+   - **Unique User Identifier**: `user.mail` or `user.userprincipalname`
+   - **Email**: `user.mail`
+   - **First Name**: `user.givenname`
+   - **Last Name**: `user.surname`
+   - **Display Name**: `user.displayname`
+
+4. **SAML Signing Certificate**
+   - Note the certificate details
+   - Download the certificate if needed (Base64 format)
+
+### Step 3: Get Azure Configuration
+
+1. **Download Federation Metadata**
+   - In the SAML configuration, find **SAML Signing Certificate**
+   - Click **Download** for Federation Metadata XML
+   - Save the metadata file
+
+2. **Alternative: Copy Metadata URL**
+   - Note the **App Federation Metadata Url**
+   - Format: `https://login.microsoftonline.com/{tenant-id}/federationmetadata/2007-06/federationmetadata.xml`
+
+### Step 4: Assign Users
+
+1. **In Azure Portal**
+   - Go to your Enterprise Application
+   - Navigate to **Users and groups**
+   - Click **Add user/group**
+   - Select users or groups to assign
+   - Click **Assign**
+
+2. **User Access**
+   - Assigned users can sign in via SSO once configuration is complete
+   - Users will be redirected to Azure AD for authentication
+
+### Step 5: Submit Configuration to Odin AI
+
+Odin AI's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**
+   - Email **support@getodin.ai** with the following information:
+     - **Provider**: Azure AD (or Azure)
+     - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+     - **Metadata URL**: The Azure metadata URL from Step 3
+     - **Alternative**: Attach the Federation Metadata XML file if you downloaded it
+     - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain
+
+2. **Odin AI Configuration**
+   - Odin AI's support team will configure SSO on your instance
+   - They will test the SSO connection
+   - You will be notified once configuration is complete
+
+3. **Testing**
+   - Odin AI's team will test the SSO connection
+   - You may be asked to verify the connection works
+   - Once confirmed, SSO will be enabled for your organization
+
+### Troubleshooting Azure AD SSO
+
+**Issue**: SAML assertion errors
+
+**Solutions:**
+- Verify Reply URL matches exactly
+- Check Identifier (Entity ID) is correct
+- Ensure user attributes are mapped correctly
+- Verify certificate is valid and not expired
+
+**Issue**: User not found after SSO login
+
+**Solutions:**
+- Verify user is assigned to the application in Azure AD
+- Check email attribute mapping
+- Ensure user exists in Odin AI
+- Verify enterprise ID matches email domain
+
+## Custom SSO Configuration
+
+### Overview
+
+Odin AI supports custom SSO providers that are SAML 2.0 compatible, allowing integration with any identity provider that supports SAML.
+
+### Prerequisites
+
+- SAML 2.0 compatible identity provider
+- Identity provider administrator access
+- SAML metadata URL or XML file
+
+### Step 1: Identity Provider Setup
+
+1. **Configure SAML Application**
+   - In your identity provider, create a new SAML application
+   - Configure the following settings:
+     - **Assertion Consumer Service (ACS) URL**: `https://your-odin-domain.com/user/sso/saml/acs/admin`
+     - **Entity ID / Audience**: `https://your-odin-domain.com`
+     - **Name ID Format**: `EmailAddress` or `Unspecified`
+     - **Attribute Mappings**: Map email, name, and other attributes
+
+2. **Get SAML Metadata**
+   - Obtain the SAML metadata URL or XML file
+   - This contains all necessary configuration information
+
+### Step 2: Submit Configuration to Odin AI
+
+Odin AI's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**
+   - Email **support@getodin.ai** with the following information:
+     - **Provider**: Your identity provider name (e.g., "PingIdentity", "OneLogin", "Auth0")
+     - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+     - **Metadata URL**: The SAML metadata URL from Step 1
+     - **Alternative**: Attach the SAML metadata XML file if you have it
+     - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain
+
+2. **Odin AI Configuration**
+   - Odin AI's support team will configure SSO on your instance
+   - They will test the SSO connection
+   - You will be notified once configuration is complete
+
+3. **Testing**
+   - Odin AI's team will test the SSO connection
+   - You may be asked to verify the connection works
+   - Once confirmed, SSO will be enabled for your organization
+
+## SSO Sign-In Only Mode
+
+### Overview
+
+SSO Sign-In Only mode requires all users with a specific email domain to use SSO authentication, disabling email/password authentication for that domain.
+
+### Configuration
+
+1. **Enable SSO Sign-In Only**
+   - In SSO configuration, enable **SSO Sign-In Only**
+   - This applies to all users with the configured enterprise domain
+
+2. **User Experience**
+   - Users with the domain cannot use email/password
+   - They must use SSO to sign in
+   - Email/password reset is disabled for these users
+
+### Benefits
+
+- **Enhanced Security** - Forces use of organization-controlled authentication
+- **Centralized Access** - All access goes through identity provider
+- **Compliance** - Meets enterprise security policies
+
+## SSO Best Practices
+
+### Configuration
+
+1. **Test Thoroughly** - Test SSO configuration before enabling for all users
+2. **Document Configuration** - Keep records of SSO configuration details
+3. **Monitor Logs** - Regularly review SSO authentication logs
+4. **User Provisioning** - Set up automated user provisioning if possible
+5. **Backup Authentication** - Consider keeping email/password as backup
+
+### Security
+
+1. **Regular Audits** - Review SSO access regularly
+2. **User Management** - Ensure proper user provisioning and deprovisioning
+3. **Access Control** - Configure appropriate access controls
+4. **Monitoring** - Monitor for suspicious authentication attempts
+5. **Certificate Management** - Keep SAML certificates up to date
+
+## Troubleshooting
+
+### General SSO Issues
+
+**Problem**: SSO redirect not working
+
+**Solutions:**
+- Verify SSO configuration is correct
+- Check metadata URL is accessible
+- Verify ACS URL matches exactly
+- Check identity provider logs
+- Verify user is assigned to application
+
+**Problem**: User not found after SSO login
+
+**Solutions:**
+- Verify email attribute mapping
+- Check user exists in Odin AI
+- Ensure enterprise ID matches email domain
+- Verify user provisioning is configured
+
+**Problem**: SAML assertion errors
+
+**Solutions:**
+- Verify SAML configuration matches exactly
+- Check certificate validity
+- Ensure attribute mappings are correct
+- Verify time synchronization between systems
+
+## Contact
+
+For SSO configuration questions or issues, contact [Support](mailto:support@getodin.ai).

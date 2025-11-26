@@ -1,0 +1,129 @@
+---
+title: "Task Monitor"
+icon: "magnifying-glass-chart"
+description: "Super Admins can monitor, filter, and analyze all background tasks and automations in EKB. Track performance, spot issues, and optimize system reliability."
+mode: "wide"
+---
+
+The **Task Monitor** tab helps you track how EKB is performing behind the scenes. Every time a user runs a workflow, uploads a document, uses an AI agent, or triggers automation, it creates a **task**. These tasks are processed by the system in real time.
+
+The Task Monitor gives you a clear view into all those activities, helping you:
+
+- Understand what’s happening across the system
+- Spot any issues before they affect users
+- Improve system performance by identifying slow or failing processes
+
+If you’ve ever wondered, “What’s slowing things down?” or “Why did a task fail?” — this tab is where you’ll find the answers.
+
+---
+
+### Dashboard View
+
+![Task Monitor](/img/sa/sa-task-monitor-1-6-0.png)
+
+---
+
+### Filters (Top Panel)
+
+Use filters to get results based on:
+
+- **Project ID**: Isolate task activity from a specific team or initiative.
+- **User ID or Email**: Audit or troubleshoot tasks run by a specific user.
+- **Date Range**: Defaults to the last 7 days, but can be adjusted.
+- **Refresh Button**: Pulls in the latest data from the task execution logs.
+
+_Tip: Always set filters before analyzing graphs — it ensures you’re only reviewing relevant data._
+
+---
+
+### Top 10 Time-Consuming Tasks
+
+This bar chart lists the **tasks that are taking the most time to execute**, based on system records.
+
+- **Avg Duration (Blue Bar)**: The average time this task takes across all executions.
+- **Median Duration (Purple Bar)**: The middle value — helps you spot if a few slow tasks are skewing the average.
+
+This chart helps answer:
+
+- Which tasks are the most resource-intensive?
+- Are there outliers (e.g., one task spiking to 3x normal time)?
+- Should you optimize, reschedule, or break apart any specific logic?
+
+_Example: If a document extraction task consistently takes 3 minutes, but 90% of others finish in 10 seconds, you may need to revise input formats or split large files._
+
+---
+
+### Overall Success Rate (Donut Chart)
+
+This chart shows the health of your system in terms of **task outcomes**:
+
+- **Success** – The task completed without errors.
+- **Failure** – The task encountered an error (e.g., API failure, timeout, bad data).
+- **Terminated** – The task was forcefully stopped before completion, either manually or by system limits.
+
+_Tip: A high failure or termination rate is a red flag. You may need to look into misconfigured agents, expired API tokens, or inefficient workflows._
+
+---
+
+### Task Execution Distribution
+
+This chart shows **how often each task runs**, and how often it succeeds or fails.
+
+For each task:
+
+- Green bars = Successful runs
+- Red bars = Failures
+- Orange bars = Terminated runs
+
+It helps answer:
+
+- Which tasks are used most frequently?
+- Are there tasks that run often but frequently fail?
+- Are critical workflows being disrupted by repeated failures?
+
+_Example: A task that runs 10,000 times a week with 20% failures could be silently breaking downstream workflows — this chart helps you catch that._
+
+---
+
+### Task Duration Range
+
+This graph breaks down how long each task is taking, over time. For each task, it plots:
+
+- **Average Duration**
+- **Median Duration**
+- **Max Duration**
+- **Min Duration**
+
+This is where you look for **spikes or volatility**. Tasks that normally run in seconds but occasionally take minutes could indicate:
+
+- Backend slowdowns
+- Input anomalies
+- Rate-limiting from third-party APIs
+
+Use this chart to identify which tasks need retry logic, parallel processing, or better input validation.
+
+---
+
+### What Admins Should Do Regularly
+
+| Task | Why It’s Important |
+|------|-------------------|
+| Check the top time-consuming tasks weekly | Identify candidates for optimization or review |
+| Investigate spikes in failures or terminations | Prevent cascading failures in automated workflows |
+| Monitor most frequent tasks | See what’s driving system load and how to prioritize scaling |
+| Filter by project/team | Hold teams accountable for clean and efficient automations |
+| Review success rate over time | Track improvement or degradation in platform reliability |
+
+---
+
+### Example Admin Use Case
+
+Suppose a team reports that “document ingestion is slow this week.”
+
+1. Open the Task Monitor tab.
+2. Filter by that team’s project ID.
+3. Look at “Top Time-Consuming Tasks” to find slow workflows.
+4. Use “Task Duration Range” to identify spikes.
+5. If failures are involved, go to “Task Execution Distribution” and “Overall Success Rate.”
+
+You’ve now isolated the issue, confirmed whether it’s task-related, and can decide whether to contact the team, escalate to DevOps, or adjust configurations.

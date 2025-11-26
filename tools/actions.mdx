@@ -1,0 +1,60 @@
+---
+title: "EKB Tools"
+icon: "bolt"
+description: "Streamline Workflows, Save Time"
+mode: "wide"
+---
+# Tools
+**EKB Tools** provide a powerful yet simple way to automate processes with precision and efficiency. By turning manual tasks into repeatable workflows, they help reduce complexity, save time, and ensure consistency across your operations. With just a few clicks, you can activate intelligent automations that seamlessly connect with your existing systems.
+
+<iframe
+   className="w-full aspect-video rounded-xl"
+   src="https://www.youtube.com/embed/55IjHS7twuU"
+   title="Create a Tool"
+   frameBorder="0"
+   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+   allowFullScreen
+></iframe>
+
+Designed with usability in mind, EKB Tools offer an intuitive interface for interacting with the **Workflows** you build in the Automator. Each Tool follows a structured sequence of steps, guided by the inputs you define. This framework guarantees flexibility and reliability—allowing you to focus on achieving results rather than managing repetitive tasks. 
+
+## Create a Tool
+1. In your EKB project, navigate to **Tools**.<br/>![Tools Navigation](/img/tools/create_a_tool_step_1.png)
+2. Click **Create Tool** at the top-right. You'll be redirected to the _Automator_ to create a new **Workflow**, with an **EKB Action Trigger** block as the first step. In this example, we're going to create a Tool that creates a new task in Asana.<br/>![Create Tool](/img/tools/create_a_tool_step_2.png)
+3. Click the **EKB Action Trigger** block to edit the trigger details. The Trigger is the condition or event that initiates your workflow; when these conditions are met or the required information is provided, the workflow will automatically start.<br/>
+   a. **Action Name**: Enter the name of your action (e.g., "Create Asana Task").<br/>![EKB Action Trigger Configuration](/img/tools/create_a_tool_step_3.png)
+   b. **Action Description**: Enter a short description of what the action does (e.g., "Creates a new task in Asana.").<br/>
+   c. **Fields**: Add the Items (i.e., data or information) your Action requires to run (there's no limit to the number of fields you can add). For example, if we're building a Tool that creates tasks in Asana, the required fields could be: "Task Name", "Task Description", and "Due Date." For each field that you add, enter the following information:<br/>![EKB Action Trigger Fields Configuration](/img/tools/create_a_tool_step_3_c.png)<br/>
+      * **Name**: Enter the Name of the field (e.g., "Task Name").<br/>
+      * **Description**: Enter the Description of the field. This helps the LLM understand what this field is and improves its ability to identify and extract information that best fits this field (e.g., "This is the name of the task.").<br/>
+      * **Data Type**: Select the Data Type of the field (e.g., for the email use case, the data type of the "Task Name" field is `Short text`).<br/>
+      * **Default Value**: Set the field's default value or leave blank. For testing purposes, always enter a sample value in this field (e.g., "Build a Data Extraction Agent.").<br/>
+      * **Required**: Choose if the field is required for the Tool to run. By default, fields are always set as 'Required'.<br/>
+      * **Confirm Button Title** (_Optional_): Edit the title of the confirm button or leave the default value.<br/>
+      * **Cancel Button Title** (_Optional_): Edit the title of the cancel button or leave the default value.<br/>
+      * **Auto Confirm** (_Optional_): Enable if the Action should skip user confirmation when executing the Action. (This option is disabled by default.)<br/>
+4. Once you're done configuring the EKB Action Trigger, click **Load Sample Data** under the _Generate Sample Data_ section below. This tests the Trigger using mock data you entered in the **Default Value** of each field to confirm it's working correctly.<br/>![EKB Action Trigger Sample Data](/img/tools/create_a_tool_step_4.png)
+5. Click the **+** to add the next pieces of your workflow. For this example, we've added an Asana "Create Task" step, in which we connected EKB to our Asana account and mapped all the fields we previously configured.<br/><Tip>Always test each step you add to your workflow. Click the **Load Sample Data** button under the _Generate Sample Data_ section to test that you've configured the step correctly.</Tip><br/>![Asana Create Task Configuration](/img/tools/create_a_tool_step_5.png)<br/>
+6. Once your workflow is complete and successfully tested, click **Publish** at the top-right corner to publish your workflow.<br/>![Publish Workflow](/img/tools/create_a_tool_step_6.png)
+<Check>Your new Tool is now ready to use!</Check>
+
+## Use Tools
+1. To access and use Tools you've created, navigate to **Tools**.
+2. Find the Tool you want to use and click **Run**.<br/>![Tools Navigation](/img/tools/use_tools_step_2.png)
+3. Enter the information in the required fields and click **Confirm**. Depending on the configuration of your Action Trigger, an additional confirmation may be required to run the tool.<br/>![Run Tool](/img/tools/use_tools_step_3.png)
+4. The Tool begins executing the programmed action. You can see the status of the execution in the **Runs** section.<br/>![Tool Runs](/img/tools/use_tools_step_4.png)
+
+## Use Tools in Chat
+
+You can also use Tools directly from the platform Chat by adding the Tool to your custom agent.
+
+<Tip>When using Tools with Custom Agents, it is recommended to enable the **Auto Confirm** setting in your Action Trigger, this skips user confirmation to execute the action.</Tip>
+
+1. Navigate to **Agents** and select an existing agent or create a new _Custom Agent_.
+2. Within the Agent's configuration, add your Tool(s):<br/>
+   a. On the left-hand side, navigate to **Tools**.<br/>![Add Tool to Agent](/img/tools/use_tools_in_chat_step_2_a.png)
+   b. Click on either **+Add Action** buttons.<br/>
+   c. Select the **Tool** you want to add to your agent.<br/>![Select Tool](/img/tools/use_tools_in_chat_step_2_c.png)
+   d. Click **Save Agent** at the top-right corner.<br/>
+3. Navigate to **Chat** on the right-hand side and test the Tool by providing all the required information in the chat.<br/>![Use Tool in Chat](/img/tools/use_tools_in_chat_step_3.png)
+4. Once the required information is provided, the agent will run the Tool and execute the Workflow. You can check the status of the Tool execution in the **Runs** section.<br/>In our example, it created the new tasks in Asana.<br/>![Asana Tasks Created](/img/tools/use_tools_in_chat_step_4.png)

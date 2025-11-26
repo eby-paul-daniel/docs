@@ -1,0 +1,581 @@
+---
+title: Outputs
+icon: "code-branch"
+description: Define JSON schemas to structure agent responses in a consistent format
+---
+
+# Structured Outputs
+
+Structured Outputs allow you to define JSON schemas that your AI agents must follow when responding. This ensures consistent, machine-readable responses that can be easily integrated with other systems, APIs, or automated workflows.
+
+## Overview
+
+Structured Outputs enable you to:
+
+- **Define Response Format** - Create custom JSON schemas for agent responses
+- **Ensure Consistency** - Guarantee agents always return data in the same structure
+- **Enable Integration** - Make responses easily consumable by other systems
+- **Improve Parsing** - Eliminate the need for complex text parsing
+
+## How It Works
+
+### 1. Create JSON Schema
+
+Define the structure you want your agent to follow:
+
+- **Fields** - Specify required and optional fields
+- **Data Types** - Define types (string, number, boolean, array, object)
+- **Nested Structures** - Create complex nested JSON objects
+- **Examples** - Provide example values for clarity
+
+### 2. Assign to Agent
+
+Select the structured output schema for your agent:
+
+- **General Tab** - Choose from available structured outputs
+- **Agent-Specific** - Each agent can use a different schema
+- **Dynamic Selection** - Change schemas as needed
+
+### 3. Agent Response
+
+When enabled, the agent will:
+
+- **Format as JSON** - Return responses in the specified JSON structure
+- **Follow Schema** - Include all required fields
+- **Maintain Structure** - Preserve nested objects and arrays
+- **Validate Format** - Ensure responses match the schema
+
+## Creating Structured Outputs
+
+### Step 1: Access Output Tab
+
+1. Navigate to **Agents** in the sidebar
+2. Select an agent or create a new one
+3. Click **Edit** to open the agent builder
+4. Go to the **Output** tab
+
+### Step 2: Create New Schema
+
+1. Click **Create New** button
+2. Enter a descriptive title for your structured output
+3. Use the JSON builder to define your schema
+
+### Step 3: Define Schema Structure
+
+Use the visual JSON builder to create your schema:
+
+#### Basic Structure
+
+```json
+{
+  "status": "string",
+  "message": "string",
+  "data": {
+    "result": "string"
+  }
+}
+```
+
+#### With Arrays
+
+```json
+{
+  "items": [
+    {
+      "id": "string",
+      "name": "string",
+      "value": "number"
+    }
+  ],
+  "total": "number"
+}
+```
+
+#### Complex Nested Structure
+
+```json
+{
+  "response": {
+    "summary": "string",
+    "details": {
+      "category": "string",
+      "subcategory": "string",
+      "metadata": {
+        "created_at": "string",
+        "updated_at": "string"
+      }
+    },
+    "items": [
+      {
+        "id": "string",
+        "properties": {
+          "name": "string",
+          "value": "number"
+        }
+      }
+    ]
+  }
+}
+```
+
+### Step 4: Save Schema
+
+1. Click **Save** to store your structured output
+2. The schema is now available for use in agents
+
+## Assigning to Agents
+
+### Method 1: From General Tab
+
+1. Open the agent you want to configure
+2. Go to the **General** tab
+3. Find the **Response Format** section
+4. Select your structured output from the dropdown
+5. Save the agent
+
+### Method 2: From Output Tab
+
+1. Open the agent you want to configure
+2. Go to the **Output** tab
+3. Select a structured output from the list
+4. The agent will use this schema for all responses
+
+## Use Cases
+
+### API Integration
+
+**Scenario:** You need agent responses in a format that can be consumed by your API.
+
+**Schema Example:**
+
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "result": "string",
+    "timestamp": "string"
+  }
+}
+```
+
+**Agent Response:**
+
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "result": "Task completed successfully",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+### Data Extraction
+
+**Scenario:** Extract structured data from unstructured text.
+
+**Schema Example:**
+
+```json
+{
+  "entities": [
+    {
+      "type": "string",
+      "value": "string",
+      "confidence": "number"
+    }
+  ],
+  "summary": "string"
+}
+```
+
+**Agent Response:**
+
+```json
+{
+  "entities": [
+    {
+      "type": "person",
+      "value": "John Doe",
+      "confidence": 0.95
+    },
+    {
+      "type": "company",
+      "value": "TechCorp",
+      "confidence": 0.88
+    }
+  ],
+  "summary": "Extracted 2 entities from the text"
+}
+```
+
+### Formatted Reports
+
+**Scenario:** Generate consistent report structures.
+
+**Schema Example:**
+
+```json
+{
+  "report": {
+    "title": "string",
+    "date": "string",
+    "sections": [
+      {
+        "heading": "string",
+        "content": "string",
+        "metrics": {
+          "value": "number",
+          "unit": "string"
+        }
+      }
+    ],
+    "summary": "string"
+  }
+}
+```
+
+### Workflow Automation
+
+**Scenario:** Structure responses for automated workflow processing.
+
+**Schema Example:**
+
+```json
+{
+  "action": "string",
+  "parameters": {
+    "key": "value"
+  },
+  "next_step": "string",
+  "metadata": {
+    "workflow_id": "string",
+    "step_number": "number"
+  }
+}
+```
+
+## Best Practices
+
+### Schema Design
+
+1. **Be Specific** - Clearly define all fields and their types
+2. **Use Examples** - Include example values in your schema
+3. **Keep It Simple** - Avoid overly complex nested structures when possible
+4. **Document Fields** - Use descriptive field names
+5. **Consider Optional Fields** - Mark fields as optional when appropriate
+
+### Field Naming
+
+- **Use Clear Names** - `user_name` instead of `un`
+- **Be Consistent** - Follow a naming convention (snake_case, camelCase)
+- **Avoid Abbreviations** - Use full words when possible
+- **Group Related Fields** - Use nested objects for related data
+
+### Schema Structure
+
+- **Flat When Possible** - Prefer flat structures for simple data
+- **Nest for Organization** - Use nesting for complex, related data
+- **Arrays for Lists** - Use arrays for collections of similar items
+- **Objects for Groups** - Use objects to group related fields
+
+### Testing
+
+1. **Test with Real Queries** - Verify the schema works with actual user questions
+2. **Check All Fields** - Ensure all required fields are populated
+3. **Validate Types** - Confirm data types match the schema
+4. **Handle Edge Cases** - Test with unusual or missing data
+
+## Managing Structured Outputs
+
+### Viewing All Schemas
+
+In the **Output** tab, you can:
+
+- **List All Schemas** - See all structured outputs in your project
+- **Search** - Find schemas by name
+- **Sort** - Sort by creation date or title
+- **View Details** - See schema structure and metadata
+
+### Editing Schemas
+
+1. Click on a schema in the list
+2. Modify the JSON structure using the visual builder
+3. Click **Save** to update the schema
+4. Changes apply to all agents using this schema
+
+### Deleting Schemas
+
+1. Find the schema in the list
+2. Click the **Delete** icon
+3. Confirm deletion
+4. Agents using this schema will revert to normal text responses
+
+<Warning>
+  Deleting a structured output will affect all agents currently using it. Make
+  sure to update those agents before deleting.
+</Warning>
+
+## Response Format
+
+### Normal Response (Default)
+
+When no structured output is selected, agents return free-form text:
+
+```
+The user requested information about project status.
+The project is currently in progress with 75% completion.
+All milestones are on track.
+```
+
+### Structured Response
+
+When a structured output is selected, agents return JSON:
+
+```json
+{
+  "status": "in_progress",
+  "completion_percentage": 75,
+  "milestones": [
+    {
+      "name": "Phase 1",
+      "status": "completed"
+    },
+    {
+      "name": "Phase 2",
+      "status": "in_progress"
+    }
+  ],
+  "on_track": true
+}
+```
+
+## Integration with System Prompt
+
+When a structured output is assigned to an agent:
+
+1. **Schema Included** - The JSON schema is added to the system prompt
+2. **Format Instructions** - Agent receives explicit formatting instructions
+3. **Example Provided** - The schema serves as an example format
+4. **Validation** - Agent attempts to match the exact structure
+
+## Advanced Features
+
+### Dynamic Field Values
+
+Schemas can include fields that adapt to the response:
+
+```json
+{
+  "response_type": "string",
+  "content": {
+    "text": "string",
+    "metadata": {}
+  }
+}
+```
+
+### Conditional Structures
+
+Use different schemas for different response types:
+
+```json
+{
+  "type": "success|error|warning",
+  "message": "string",
+  "data": {} // Structure varies by type
+}
+```
+
+### Array Responses
+
+Handle multiple items in responses:
+
+```json
+{
+  "count": "number",
+  "items": [
+    {
+      "id": "string",
+      "data": {}
+    }
+  ]
+}
+```
+
+## Troubleshooting
+
+### Agent Not Following Schema
+
+**Possible Causes:**
+
+- Schema not assigned to agent
+- Schema structure too complex
+- Agent needs clearer instructions
+
+**Solutions:**
+
+- Verify structured output is selected in General tab
+- Simplify the schema structure
+- Add more explicit field descriptions
+- Test with simpler queries first
+
+### Invalid JSON Responses
+
+**Possible Causes:**
+
+- Schema has syntax errors
+- Agent struggling with complex structure
+- Missing required fields
+
+**Solutions:**
+
+- Validate schema syntax in the JSON builder
+- Check for JSON validation errors
+- Simplify the schema if too complex
+- Review agent responses for parsing errors
+
+### Missing Fields
+
+**Possible Causes:**
+
+- Fields not clearly defined
+- Agent doesn't understand field requirements
+- Schema too vague
+
+**Solutions:**
+
+- Add clear field descriptions
+- Provide example values in schema
+- Make fields optional if not always available
+- Test with specific queries
+
+## Examples
+
+### Example 1: Customer Support Response
+
+**Schema:**
+
+```json
+{
+  "ticket_id": "string",
+  "status": "open|resolved|pending",
+  "response": "string",
+  "next_actions": ["string"],
+  "priority": "low|medium|high|urgent"
+}
+```
+
+**Agent Response:**
+
+```json
+{
+  "ticket_id": "TKT-12345",
+  "status": "resolved",
+  "response": "Your issue has been resolved. The problem was related to account permissions.",
+  "next_actions": ["Refresh your browser", "Log out and log back in"],
+  "priority": "medium"
+}
+```
+
+### Example 2: Data Analysis Response
+
+**Schema:**
+
+```json
+{
+  "analysis": {
+    "summary": "string",
+    "findings": [
+      {
+        "category": "string",
+        "insight": "string",
+        "confidence": "number"
+      }
+    ],
+    "recommendations": ["string"]
+  },
+  "data_points": "number"
+}
+```
+
+**Agent Response:**
+
+```json
+{
+  "analysis": {
+    "summary": "Sales data shows 15% increase in Q4",
+    "findings": [
+      {
+        "category": "revenue",
+        "insight": "Revenue increased by 15% compared to Q3",
+        "confidence": 0.95
+      },
+      {
+        "category": "customers",
+        "insight": "New customer acquisition up 20%",
+        "confidence": 0.88
+      }
+    ],
+    "recommendations": [
+      "Continue current marketing strategy",
+      "Focus on customer retention"
+    ]
+  },
+  "data_points": 1250
+}
+```
+
+### Example 3: Task Management Response
+
+**Schema:**
+
+```json
+{
+  "task": {
+    "id": "string",
+    "title": "string",
+    "status": "todo|in_progress|completed",
+    "assignee": "string",
+    "due_date": "string",
+    "description": "string"
+  },
+  "related_tasks": [
+    {
+      "id": "string",
+      "title": "string"
+    }
+  ]
+}
+```
+
+## Permissions
+
+### Creating Structured Outputs
+
+- **Project Admin** - Can create, edit, and delete structured outputs
+- **Project Member** - Depends on project permissions (flows.edit)
+- **Viewer** - Can view but not modify structured outputs
+
+### Using in Agents
+
+- **Agent Owner** - Can assign structured outputs to their agents
+- **Project Admin** - Can assign to any agent in the project
+- **Project Member** - Can assign to agents they have access to
+
+## Related Features
+
+- **Agent Configuration** - Configure agent personality and behavior
+- **Tools** - Use tools that return structured data
+- **API Integration** - Integrate structured responses with external APIs
+- **Workflows** - Use structured outputs in automated workflows
+
+<Card title="Agent Configuration" icon="settings" href="/agents/agents">
+  Learn how to configure your agents
+</Card>
+
+## Support
+
+Need help with structured outputs? Contact support at support@getodin.ai.

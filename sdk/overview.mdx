@@ -1,0 +1,378 @@
+---
+title: 'SDK Overview'
+icon: "circle-info"
+description: 'Integrate EKB Into Your Applications Using Our TypeScript SDK'
+---
+
+The EKB SDK (Software Development Kit) provides a comprehensive TypeScript/JavaScript library for integrating EKB's powerful features into your applications. Build chat interfaces, manage structured data, enable voice conversations, and leverage AI agents programmatically. This article will give you an overview of the EKB SDK with some use case examples and best practices.
+
+## What is the EKB SDK?
+
+The EKB SDK is a TypeScript library that provides programmatic access to EKB's core features:
+
+- **ChatSDK**: Build conversational AI interfaces with chat management, message handling, and streaming responses.
+- **SmartTablesSDK**: Manage structured data tables with advanced querying, filtering, and AI-powered data processing.
+- **VoiceSDK**: Enable voice conversations with automatic chat integration and React hooks.
+
+## Installation
+
+```bash
+npm install @odin-ai-staging/sdk
+```
+
+Or with yarn:
+
+```bash
+yarn add @odin-ai-staging/sdk
+```
+
+## Quick Start
+
+### Basic Setup
+
+```typescript
+import { ChatSDK } from '@odin-ai-staging/sdk';
+
+// Initialize the SDK
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://your-api-endpoint.com/',
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret'
+});
+
+// Create a chat and send a message
+const chat = await chatSDK.createChat('My First Chat');
+const response = await chatSDK.sendMessage('Hello!', {
+  chatId: chat.chat_id
+});
+
+console.log('AI Response:', response.message);
+```
+
+## Authentication
+
+The SDK supports two authentication methods:
+
+### 1. API Key Authentication (Recommended for Server-Side)
+
+Use API keys for server-to-server communication and external integrations:
+
+```typescript
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://api.example.com/',
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret'
+});
+```
+
+**Getting API Keys:**
+1. Navigate to **My Account** > **API Keys** in your EKB dashboard
+2. Create a new API key pair
+3. Copy the API Key and API Secret
+4. Store them securely (use environment variables, never commit to version control)
+
+### 2. Access Token Authentication (For Web Apps)
+
+Use access tokens for client-side applications with existing user sessions:
+
+```typescript
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://api.example.com/',
+  projectId: 'your-project-id',
+  accessToken: 'user-access-token' // From your authentication system
+});
+```
+
+## SDK Components
+
+### Chat SDK
+
+Build conversational AI interfaces with comprehensive chat management.
+
+**Key Features:**
+- Create, list, and manage chats
+- Send messages with streaming support
+- Knowledge base integration
+- File uploads (images, documents)
+- User feedback (thumbs up/down)
+- Custom agents and models
+
+**Learn More:** [Chat SDK Documentation](./chat)
+
+### Smart Tables SDK
+
+Manage structured data with advanced querying and AI-powered processing.
+
+**Key Features:**
+- Create and manage data tables
+- Advanced filtering and sorting
+- Data import/export (CSV, Excel)
+- AI-powered column computation
+- Custom views and column management
+- Pagination and search
+
+**Learn More:** [Smart Tables SDK Documentation](./smart-tables)
+
+### Voice SDK
+
+Enable voice conversations with automatic chat integration.
+
+**Key Features:**
+- Real-time voice conversations
+- Automatic transcription
+- React hooks for easy integration
+- Audio visualization
+- Session management
+- Chat integration
+
+**Learn More:** [Voice SDK Documentation](./voice)
+
+## Common Use Cases
+
+### 1. Customer Support Chatbot
+
+```typescript
+import { ChatSDK } from '@odin-ai-staging/sdk';
+
+const supportBot = new ChatSDK({
+  baseUrl: process.env.API_BASE_URL,
+  projectId: process.env.PROJECT_ID,
+  apiKey: process.env.API_KEY,
+  apiSecret: process.env.API_SECRET
+});
+
+// Create a support chat session
+const chat = await supportBot.createChat('Support Request');
+
+// Send customer message
+const response = await supportBot.sendMessage(
+  'I need help with my account',
+  {
+    chatId: chat.chat_id,
+    agentType: 'chat_agent',
+    agentId: 'support-agent-id'
+  }
+);
+```
+
+### 2. Data Management Application
+
+```typescript
+import { SmartTablesSDK } from '@odin-ai-staging/sdk';
+
+const dataManager = new SmartTablesSDK({
+  baseUrl: process.env.API_BASE_URL,
+  projectId: process.env.PROJECT_ID,
+  apiKey: process.env.API_KEY,
+  apiSecret: process.env.API_SECRET
+});
+
+// Create a table for customer data
+const table = await dataManager.createTable(
+  'Customer Database',
+  'Manage customer information'
+);
+
+// Add columns
+await dataManager.addColumn(table.id, {
+  name: 'email',
+  type: 'email',
+  description: 'Customer email',
+  notNull: true,
+  unique: true
+});
+
+// Query data
+const results = await dataManager.queryTable(table.id, {
+  filters: [{ column: 'email', operator: 'contains', value: '@example.com' }],
+  pagination: { limit: 50, page: 1 }
+});
+```
+
+### 3. Voice-Enabled Application
+
+```typescript
+import { VoiceSDK } from '@odin-ai-staging/sdk';
+
+const voiceApp = new VoiceSDK({
+  baseUrl: process.env.API_BASE_URL,
+  projectId: process.env.PROJECT_ID,
+  apiKey: process.env.API_KEY,
+  apiSecret: process.env.API_SECRET,
+  agentId: 'voice-agent-id'
+});
+
+// Start a voice conversation
+const sessionId = await voiceApp.startVoiceConversation({
+  saveToChat: true,
+  callbacks: {
+    onConnect: () => console.log('Voice connected'),
+    onMessage: (message) => console.log('Message:', message),
+    onTranscription: (text, isFinal) => {
+      if (isFinal) console.log('User said:', text);
+    }
+  }
+});
+```
+
+## Environment Variables
+
+For production applications, always use environment variables:
+
+```bash
+# .env file
+API_BASE_URL=https://api.getodin.ai
+PROJECT_ID=your-project-id
+API_KEY=your-api-key
+API_SECRET=your-api-secret
+```
+
+```typescript
+// In your code
+const chatSDK = new ChatSDK({
+  baseUrl: process.env.API_BASE_URL!,
+  projectId: process.env.PROJECT_ID!,
+  apiKey: process.env.API_KEY!,
+  apiSecret: process.env.API_SECRET!
+});
+```
+
+## Error Handling
+
+All SDK methods throw errors that should be caught and handled:
+
+```typescript
+try {
+  const chat = await chatSDK.createChat('My Chat');
+  // Handle success
+} catch (error) {
+  if (error instanceof APIError) {
+    console.error(`API Error ${error.status}: ${error.message}`);
+    // Handle specific error codes
+    if (error.status === 401) {
+      // Authentication failed
+    } else if (error.status === 403) {
+      // Permission denied
+    } else if (error.status === 404) {
+      // Resource not found
+    }
+  } else {
+    console.error('Unexpected error:', error);
+  }
+}
+```
+
+## TypeScript Support
+
+The SDK is written in TypeScript and provides full type definitions:
+
+```typescript
+import { ChatSDK, Chat, Message, SendMessageOptions } from '@odin-ai-staging/sdk';
+
+const chatSDK = new ChatSDK(config);
+
+// All methods are fully typed
+const chat: Chat = await chatSDK.createChat('My Chat');
+const options: SendMessageOptions = {
+  chatId: chat.id,
+  agentType: 'chat_agent'
+};
+const response: Message = await chatSDK.sendMessage('Hello', options);
+```
+
+## React Integration
+
+The SDK includes React hooks for easy integration:
+
+```tsx
+import { useVoiceConversation } from '@odin-ai-staging/sdk';
+
+function VoiceChat() {
+  const { status, startSession, endSession } = useVoiceConversation({
+    sdkConfig: {
+      baseUrl: process.env.REACT_APP_API_BASE_URL,
+      projectId: process.env.REACT_APP_PROJECT_ID,
+      agentId: process.env.REACT_APP_AGENT_ID
+    },
+    callbacks: {
+      onConnect: () => console.log('Connected!'),
+      onMessage: (message) => console.log('Message:', message)
+    }
+  });
+
+  return (
+    <div>
+      <button onClick={() => startSession()}>Start Voice Chat</button>
+      <button onClick={() => endSession()}>End Chat</button>
+      <div>Status: {status}</div>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+### 1. **Use Environment Variables**
+Never hardcode API keys or secrets in your code. Always use environment variables.
+
+### 2. **Handle Errors Gracefully**
+Always wrap SDK calls in try-catch blocks and provide meaningful error messages to users.
+
+### 3. **Reuse SDK Instances**
+Create SDK instances once and reuse them rather than creating new instances for each operation.
+
+```typescript
+// Good: Create once, reuse
+const chatSDK = new ChatSDK(config);
+
+async function sendMessage(text: string) {
+  return await chatSDK.sendMessage(text, options);
+}
+
+// Bad: Creating new instances
+async function sendMessage(text: string) {
+  const chatSDK = new ChatSDK(config); // Don't do this
+  return await chatSDK.sendMessage(text, options);
+}
+```
+
+### 4. **Use Streaming for Better UX**
+For chat applications, use streaming responses for real-time feedback:
+
+```typescript
+await chatSDK.sendMessageStream('Hello', {
+  chatId: chat.id,
+  onChunk: (chunk) => {
+    // Update UI in real-time
+    updateChatUI(chunk);
+  },
+  onComplete: (message) => {
+    // Handle completion
+    saveMessage(message);
+  }
+});
+```
+
+### 5. **Implement Pagination**
+When listing chats or querying tables, always implement pagination:
+
+```typescript
+// List chats with pagination
+let cursor: number | undefined;
+let hasMore = true;
+
+while (hasMore) {
+  const result = await chatSDK.listChats(cursor, 30);
+  processChats(result.chats);
+  hasMore = result.has_more;
+  cursor = result.next_cursor;
+}
+```
+
+## Getting Help
+
+- **Documentation**: Browse the detailed documentation for each SDK component.
+- **Support**: Email [Support](support@getodin.ai) for technical assistance.
+- **Examples**: Check the SDK repository for complete working examples.

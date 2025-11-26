@@ -1,0 +1,186 @@
+---
+title: Slack Toolkit
+icon: "slack"
+description: Send messages and interact with Slack workspaces
+---
+
+# Slack Toolkit
+
+The Slack toolkit enables your AI agents to send messages, interact with channels, and manage Slack workspaces. This integration is perfect for team notifications, automated status updates, and workflow automation.
+
+## Overview
+
+**Category**: Communication  
+**Setup Complexity**: Easy  
+**Authentication**: OAuth 2.0  
+**Provider**: Slack
+
+## Available Tools
+
+### Messaging
+
+- **Send Message** - Send messages to channels or users
+- **Send Direct Message** - Send private messages to users
+- **Reply to Message** - Reply to specific messages in threads
+- **Update Message** - Edit existing messages
+- **Delete Message** - Remove messages
+
+### Channel Management
+
+- **List Channels** - Get all accessible channels
+- **Get Channel Info** - Retrieve channel details
+- **Join Channel** - Join public channels
+- **Leave Channel** - Leave channels
+- **Create Channel** - Create new channels
+
+### User Management
+
+- **List Users** - Get workspace users
+- **Get User Info** - Retrieve user details
+- **Search Users** - Find users by name or email
+
+### File Sharing
+
+- **Upload File** - Share files in channels
+- **Get File Info** - Retrieve file details
+- **Download File** - Download shared files
+
+## Setup Instructions
+
+### Cloud Customers (EKB Hosted)
+
+**No setup required!** Slack toolkit is enabled by default for all cloud customers. Users can connect their Slack workspaces directly:
+
+1. **Connect Slack Workspace**
+   - Users can connect their Slack workspaces directly from their agent settings
+   - OAuth flow uses EKB's pre-configured Slack app
+   - Access to messaging, channels, and file sharing
+   - No additional setup or credentials needed
+
+### On-Premise Customers (Self-Hosted)
+
+If you're running EKB on your own infrastructure, you'll need to set up your own OAuth app:
+
+#### Prerequisites
+
+- Slack workspace with admin access
+- Slack API access
+- EKB Super Admin access
+
+#### Step 1: Slack App Setup
+
+1. **Go to Slack API Dashboard**
+
+   - Visit [api.slack.com/apps](https://api.slack.com/apps)
+   - Click "Create New App"
+   - Choose "From scratch"
+
+2. **Configure App Details**
+
+   - **App Name**: Choose a descriptive name
+   - **Workspace**: Select your Slack workspace
+   - **App Description**: Describe your app's purpose
+
+3. **Set OAuth & Permissions**
+
+   - Go to "OAuth & Permissions"
+   - Add the following Bot Token Scopes:
+     - `chat:write` - Send messages
+     - `channels:read` - View public channels
+     - `groups:read` - View private channels
+     - `im:read` - View direct messages
+     - `mpim:read` - View group direct messages
+     - `channels:history` - View public channel messages
+     - `groups:history` - View private channel messages
+     - `im:history` - View direct message history
+     - `mpim:history` - View group direct message history
+     - `users:read` - View user information
+     - `files:read` - View file information
+     - `files:write` - Upload files
+
+4. **Set Redirect URLs**
+   - Add redirect URL: `https://your-odin-domain.com/user/integrations/slack/oauth/callback`
+
+#### Step 2: Get Credentials
+
+1. **Copy Client ID and Secret**
+
+   - From the "Basic Information" page
+   - Copy the Client ID and Client Secret
+
+2. **Note the Signing Secret**
+   - Copy the Signing Secret for webhook verification (optional)
+
+#### Step 3: Configure in EKB
+
+1. **Access Super Admin Panel**
+
+   - Log in to your EKB instance as Super Admin
+   - Navigate to Super Admin > Toolkits
+
+2. **Add Slack Configuration**
+
+   - Find Slack in the toolkit list
+   - Enter the following credentials:
+     - **Slack Client ID**: Your OAuth Client ID
+     - **Slack Client Secret**: Your OAuth Client Secret
+     - **Slack Signing Secret**: Your Signing Secret (optional)
+     - **Slack Redirect URI**: Your configured redirect URI
+
+3. **Save Configuration**
+   - Click "Save" to store the configuration
+
+
+## Best Practices
+
+### Security
+
+- Use minimal required scopes
+- Regularly rotate OAuth credentials
+- Monitor API usage and access logs
+- Implement proper error handling
+- Use webhook verification for security
+
+### Performance
+
+- Use batch operations when possible
+- Implement rate limiting to respect API limits
+- Cache frequently accessed data
+- Use appropriate message formatting
+- Handle API rate limits gracefully
+
+### User Experience
+
+- Provide clear and concise messages
+- Use appropriate emojis and formatting
+- Implement retry mechanisms for failed operations
+- Use thread replies for related messages
+- Respect user preferences and notification settings
+
+## Rate Limits
+
+Slack API has the following rate limits:
+
+- **1+ requests per minute** for most methods
+- **20+ requests per minute** for chat.postMessage
+- **Tier-based limits** for different API methods
+- **Rate limit headers** included in responses
+
+## Related Toolkits
+
+- **Gmail** - Email notifications
+- **Office 365** - Microsoft Teams integration
+- **Asana** - Project management notifications
+- **GitHub** - Development workflow notifications
+
+<Card
+  title="Communication Toolkits"
+  icon="envelope"
+  href="/agents/toolkits/communication"
+>
+  Learn about other communication integrations
+</Card>
+
+## Support
+
+Need help with Slack integration? Contact support at support@getodin.ai.

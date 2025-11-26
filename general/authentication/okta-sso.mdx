@@ -1,0 +1,107 @@
+---
+title: "Okta Single Sign-On (SSO)"
+icon: "space-station-moon"
+description: "Configure SSO Authentication With Okta"
+---
+This article provides a detailed guide on configuring Single Sign-On (SSO) using Okta as your identity provider. By integrating Okta with EKB, your organization can streamline user authentication, allowing employees to access the platform using their existing Okta credentials. You will learn the prerequisites, step-by-step configuration instructions, and troubleshooting tips specifically for Okta SSO.
+
+Using Okta SSO offers several advantages:
+
+- **Centralized Authentication** - One login for all enterprise applications.
+- **Enhanced Security** - Organization-controlled access.
+- **User Management** - Centralized user provisioning and deprovisioning.
+- **Compliance** - Meets enterprise security requirements.
+- **User Experience** - Seamless authentication experience.
+
+## Okta SSO Configuration
+
+In this section, you will find the necessary steps to configure Okta SSO for your EKB instance.
+
+### Prerequisites
+
+Before you begin, ensure you have:
+
+- Okta administrator access.
+- Your EKB instance URL.
+
+### Step 1: Okta Application Setup
+
+1. **Log in to Okta Admin Console**  
+   Visit your Okta admin console and navigate to **Applications** > **Applications**.
+
+2. **Create New Application**  
+   Click **Create App Integration**, select **SAML 2.0** as the sign-in method, and click **Next**.
+
+3. **Configure General Settings**  
+   Enter an app name (e.g., "EKB"), upload the EKB logo if desired, and click **Next**.
+
+4. **Configure SAML Settings**  
+   Enter the following details:
+   - **Single sign-on URL**: `https://your-odin-domain.com/user/okta/sso/saml/acs/admin`
+   - **Audience URI (SP Entity ID)**: `https://your-odin-domain.com`
+   - **Name ID format**: `EmailAddress`
+   - **Application username**: `Email`
+   - **Update application username on**: `Create and update`
+
+5. **Attribute Statements** (Optional)  
+   Add attribute mappings as needed:
+   - `email` → `user.email`
+   - `firstName` → `user.firstName`
+   - `lastName` → `user.lastName`
+
+6. **Group Attribute Statements** (Optional)  
+   Configure group mappings if needed.
+
+7. **Feedback** (Optional)  
+   Select feedback options and click **Finish**.
+
+### Step 2: Get Okta Configuration
+
+1. **View SAML Setup Instructions**  
+   In your Okta application, go to the **Sign On** tab and click **View SAML 2.0 Setup Instructions**.
+
+2. **Copy Metadata URL**  
+   Note the **Identity Provider metadata URL** in the specified format.
+
+3. **Alternative: Download Metadata**  
+   Download the SAML metadata XML file and save it for configuration.
+
+### Step 3: Submit Configuration to EKB
+
+EKB's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**  
+   Email [**Support**](mailto:support@getodin.ai) with the following information:
+   - **Provider**: Okta
+   - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+   - **Metadata URL**: The Okta metadata URL from Step 2
+   - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain.
+
+2. **EKB Configuration**  
+   EKB's support team will configure SSO on your instance and test the connection. You will be notified once configuration is complete.
+
+3. **Testing**  
+   EKB's team will test the SSO connection, and you may be asked to verify that it works. Once confirmed, SSO will be enabled for your organization.
+
+### Troubleshooting Okta SSO
+
+In this section, you will find common issues and solutions related to Okta SSO.
+
+**Issue**: Redirect loop or authentication failure  
+**Solutions**:
+- Verify the Single sign-on URL matches exactly.
+- Check that the Audience URI is correct.
+- Ensure Name ID format is set to EmailAddress.
+- Verify metadata URL is accessible.
+- Check that the Okta application is active.
+
+**Issue**: User not found after SSO login  
+**Solutions**:
+- Verify email attribute mapping in Okta.
+- Check that the user exists in EKB.
+- Ensure user provisioning is configured.
+- Verify enterprise ID matches the email domain.
+
+## Contact
+
+For SSO configuration questions or issues, contact [Support](mailto:support@getodin.ai).

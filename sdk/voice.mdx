@@ -1,0 +1,817 @@
+---
+title: 'Voice SDK'
+description: 'Create voice-enabled applications and AI Agents.'
+icon: 'head-side-speak'
+---
+The VoiceSDK provides advanced voice conversation capabilities with automatic chat system integration, and React hooks for building voice-enabled applications. Create natural voice interactions with AI agents, complete with audio visualization, transcription, and conversation management. In this article you find a Quick Start example that will not only get you up and running quicky, but help you understand how it works. The rest of the article details the various methods you can use, what they are used for, and best practices.
+
+## Installation
+
+```bash
+npm install @odin-ai-staging/sdk @elevenlabs/react
+```
+
+## Quick Start
+
+### Basic Voice Conversation
+In this example, you will learn how to implement real-time voice conversations using the VoiceSDK in both TypeScript and React applications. You start by initializing the VoiceSDK with your API credentials including a specific `agentId` that defines which AI voice agent will handle the conversation, then use `startVoiceConversation()` to begin a voice session with callback handlers that let you respond to connection events, receive AI messages, handle disconnections, and process live transcriptions of what the user is saying (with `isFinal` indicating when a complete phrase has been recognized). The `saveToChat` option allows you to persist the voice conversation as text in your chat history for later reference. For React applications, you'll use the `useVoiceConversation` hook, which provides a cleaner interface with state management built-in: it gives you a `status` variable to track the connection state, `startSession()` and `endSession()` methods to control the conversation, `setVolume()` to adjust audio levels, `getInputByteFrequencyData()` for visualizing audio input (perfect for creating waveform displays), and `conversationState` that contains real-time information like current volume levels. This gives you everything you need to build voice-enabled AI applications with real-time speech recognition and synthesis, perfect for creating voice assistants, hands-free interfaces, or conversational AI experiences—with the React hook handling all the complex state management and WebSocket connections for you.
+
+```typescript
+import { VoiceSDK } from '@odin-ai-staging/sdk';
+
+// Initialize the SDK
+const voiceSDK = new VoiceSDK({
+  baseUrl: 'https://your-api-endpoint.com/',
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret',
+  agentId: 'your-agent-id'
+});
+
+// Start a voice conversation
+async function startVoiceChat() {
+  const sessionId = await voiceSDK.startVoiceConversation({
+    saveToChat: true,
+    callbacks: {
+      onConnect: () => console.log('Voice connected'),
+      onMessage: (message) => console.log('Voice message:', message),
+      onDisconnect: () => console.log('Voice disconnected'),
+      onTranscription: (text, isFinal) => {
+        if (isFinal) console.log('User said:', text);
+      }
+    }
+  });
+  
+  console.log('Voice session started:', sessionId);
+}
+```
+
+### React Hook Usage
+
+```tsx
+import { useVoiceConversation } from '@odin-ai-staging/sdk';
+
+function VoiceChat() {
+  const {
+    status,
+    startSession,
+    endSession,
+    setVolume,
+    getInputByteFrequencyData,
+    conversationState
+  } = useVoiceConversation({
+    sdkConfig: {
+      baseUrl: 'https://your-api-endpoint.com/',
+      projectId: 'your-project-id',
+      agentId: 'your-agent-id'
+    },
+    callbacks: {
+      onConnect: () => console.log('Connected!'),
+      onMessage: (message) => console.log('Message:', message)
+    }
+  });
+
+  return (
+    <div>
+      <button 
+        onClick={() => startSession()}
+        disabled={status === 'connected'}
+      >
+        Start Voice Chat
+      </button>
+      
+      <button 
+        onClick={() => endSession()}
+        disabled={status !== 'connected'}
+      >
+        End Chat
+      </button>
+      
+      <div>Status: {status}</div>
+      <div>Volume: {conversationState.volume}</div>
+    </div>
+  );
+}
+```
+
+## Configuration
+
+### VoiceSDKConfig Interface
+
+```typescript
+interface VoiceSDKConfig extends BaseClientConfig {
+  agentId?: string;            // Default agent ID for conversations
+  defaultVoiceSettings?: VoiceSettings;  // Default voice configuration
+}
+```
+
+### VoiceSettings
+
+```typescript
+interface VoiceSettings {
+  stability?: number;          // Voice stability (0.0 to 1.0)
+  similarityBoost?: number;    // Voice similarity boost (0.0 to 1.0)
+  style?: number;             // Voice style (0.0 to 1.0)
+  useSpeakerBoost?: boolean;  // Enable speaker boost
+}
+```
+
+**Example Configuration:**
+```typescript
+const voiceSDK = new VoiceSDK({
+  baseUrl: 'https://api.example.com/',
+  projectId: 'proj_123',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret',
+  agentId: 'agent_456',
+  defaultVoiceSettings: {
+    stability: 0.8,
+    similarityBoost: 0.7,
+    style: 0.3,
+    useSpeakerBoost: true
+  }
+});
+```
+
+## Core Features
+
+### Voice Conversation Sessions
+
+The VoiceSDK manages voice conversation sessions with automatic chat integration:
+
+```typescript
+interface VoiceConversationSession {
+  id: string;                    // Session identifier
+  chatId?: string;               // Associated chat ID
+  startTime: number;             // Session start timestamp
+  endTime?: number;              // Session end timestamp
+  messages: VoiceMessage[];      // Voice messages in session
+  metadata?: {
+    agentId?: string;
+    voiceSettings?: VoiceSettings;
+    totalDuration?: number;
+    userInfo?: { name: string; id: string };
+  };
+}
+```
+
+### Voice Messages
+
+```typescript
+interface VoiceMessage {
+  id: string;                    // Message ID
+  type: 'user_speech' | 'ai_speech' | 'system';
+  text: string;                  // Transcribed/generated text
+  audioUrl?: string;             // Audio file URL
+  timestamp: number;             // Message timestamp
+  duration?: number;             // Audio duration in seconds
+  voiceSettings?: VoiceSettings; // Voice settings used
+  saved?: boolean;               // Whether saved to database
+}
+```
+
+## Session Management
+
+### `startVoiceConversation(options?)`
+
+Start a new voice conversation session.
+
+```typescript
+async startVoiceConversation(
+  options?: StartVoiceConversationOptions
+): Promise<string>
+```
+
+**StartVoiceConversationOptions:**
+```typescript
+interface StartVoiceConversationOptions {
+  callbacks?: VoiceConversationCallbacks;
+  saveToChat?: boolean;          // Auto-save to chat history
+  existingChatId?: string;       // Continue existing chat
+  agentId?: string;             // Override default agent
+  voiceSettings?: VoiceSettings; // Custom voice settings
+  userInfo?: { name: string; id: string };
+}
+```
+
+**Example:**
+```typescript
+const sessionId = await voiceSDK.startVoiceConversation({
+  saveToChat: true,
+  existingChatId: 'chat_123',
+  voiceSettings: {
+    stability: 0.9,
+    similarityBoost: 0.8
+  },
+  userInfo: {
+    name: 'John Doe',
+    id: 'user_456'
+  },
+  callbacks: {
+    onConnect: () => console.log('Voice conversation started'),
+    onMessage: (message) => handleVoiceMessage(message),
+    onTranscription: (text, isFinal) => {
+      if (isFinal) displayTranscription(text);
+    },
+    onConversationSaved: (chatId, messageId) => {
+      console.log(`Conversation saved to chat ${chatId}`);
+    }
+  }
+});
+```
+
+### `endVoiceSession(sessionId, reason?)`
+
+End a voice conversation session.
+
+```typescript
+async endVoiceSession(sessionId: string, reason?: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await voiceSDK.endVoiceSession(sessionId, 'User ended conversation');
+```
+
+### `getVoiceState(sessionId)`
+
+Get current voice conversation state.
+
+```typescript
+getVoiceState(sessionId: string): VoiceConversationState | null
+```
+
+**Example:**
+```typescript
+const state = voiceSDK.getVoiceState(sessionId);
+if (state) {
+  console.log('Connection status:', state.connectionStatus);
+  console.log('Is speaking:', state.isSpeaking);
+  console.log('Volume:', state.volume);
+}
+```
+
+## React Integration
+
+### useVoiceConversation Hook
+
+The `useVoiceConversation` hook provides React integration with state management:
+
+```typescript
+function useVoiceConversation(options: VoiceHookOptions): {
+  // Hook properties
+  status: VoiceStatus;
+  isSpeaking: boolean;
+  startSession: (config?: VoiceSessionConfig) => Promise<string>;
+  endSession: () => Promise<void>;
+  setVolume: (options: { volume: number }) => void;
+  
+  // Enhanced SDK properties
+  conversationState: VoiceConversationState;
+  currentSessionId: string | null;
+  getInputByteFrequencyData: () => Uint8Array | null;
+  getOutputByteFrequencyData: () => Uint8Array | null;
+}
+```
+
+**Complete React Example:**
+```tsx
+import React, { useState } from 'react';
+import { useVoiceConversation } from '@odin-ai-staging/sdk';
+
+function VoiceConversationComponent() {
+  const [messages, setMessages] = useState<string[]>([]);
+  const [isRecording, setIsRecording] = useState(false);
+
+  const {
+    status,
+    isSpeaking,
+    startSession,
+    endSession,
+    setVolume,
+    conversationState,
+    currentSessionId,
+    getInputByteFrequencyData
+  } = useVoiceConversation({
+    sdkConfig: {
+      baseUrl: process.env.REACT_APP_API_BASE_URL,
+      projectId: process.env.REACT_APP_PROJECT_ID,
+      agentId: process.env.REACT_APP_AGENT_ID
+    },
+    callbacks: {
+      onConnect: () => {
+        console.log('Connected to voice chat');
+        setIsRecording(true);
+      },
+      onDisconnect: () => {
+        console.log('Disconnected from voice chat');
+        setIsRecording(false);
+      },
+      onTranscription: (text, isFinal) => {
+        if (isFinal) {
+          setMessages(prev => [...prev, `You: ${text}`]);
+        }
+      },
+      onMessage: (message) => {
+        if (message.type === 'ai_speech') {
+          setMessages(prev => [...prev, `AI: ${message.text}`]);
+        }
+      },
+      onError: (error) => {
+        console.error('Voice error:', error);
+        setIsRecording(false);
+      }
+    }
+  });
+
+  const handleStartConversation = async () => {
+    try {
+      await startSession({
+        saveToChat: true,
+        voiceSettings: {
+          stability: 0.8,
+          similarityBoost: 0.7
+        }
+      });
+    } catch (error) {
+      console.error('Failed to start conversation:', error);
+    }
+  };
+
+  const handleEndConversation = async () => {
+    try {
+      await endSession();
+    } catch (error) {
+      console.error('Failed to end conversation:', error);
+    }
+  };
+
+  const handleVolumeChange = (volume: number) => {
+    setVolume({ volume });
+  };
+
+  return (
+    <div className="voice-conversation">
+      <div className="controls">
+        <button 
+          onClick={handleStartConversation}
+          disabled={status === 'connected'}
+        >
+          Start Voice Chat
+        </button>
+        
+        <button 
+          onClick={handleEndConversation}
+          disabled={status !== 'connected'}
+        >
+          End Voice Chat
+        </button>
+      </div>
+
+      <div className="status">
+        <div>Status: {status}</div>
+        <div>Speaking: {isSpeaking ? 'Yes' : 'No'}</div>
+        <div>Recording: {isRecording ? 'Yes' : 'No'}</div>
+        <div>Volume: {conversationState.volume}</div>
+      </div>
+
+      <div className="volume-control">
+        <label>Volume:</label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={conversationState.volume}
+          onChange={(e) => handleVolumeChange(parseInt(e.target.value))}
+        />
+      </div>
+
+      <div className="messages">
+        {messages.map((message, index) => (
+          <div key={index} className="message">
+            {message}
+          </div>
+        ))}
+      </div>
+
+      {currentSessionId && (
+        <AudioVisualizer 
+          getInputData={getInputByteFrequencyData}
+          isActive={status === 'connected'}
+        />
+      )}
+    </div>
+  );
+}
+```
+
+## Voice Controls
+
+### Volume Control
+
+```typescript
+// Set volume (0-100)
+await voiceSDK.setVolume(sessionId, 75);
+```
+
+### Microphone Control
+
+```typescript
+// Mute/unmute microphone
+await voiceSDK.setMicrophoneMuted(sessionId, true);  // Mute
+await voiceSDK.setMicrophoneMuted(sessionId, false); // Unmute
+```
+
+### Voice Settings Updates
+
+```typescript
+// Update voice settings during conversation
+await voiceSDK.updateVoiceSettings(sessionId, {
+  stability: 0.9,
+  similarityBoost: 0.8,
+  style: 0.4
+});
+```
+
+## Audio Visualization
+
+### Real-time Audio Data
+
+```typescript
+// Get audio frequency data for visualization
+const audioData = voiceSDK.getAudioFrequencyData(sessionId);
+
+if (audioData) {
+  const inputData = audioData.input;   // User's audio input
+  const outputData = audioData.output; // AI's audio output
+  
+  // Use for audio visualization
+  renderAudioVisualization(inputData, outputData);
+}
+```
+
+### Audio Visualization Component
+
+```tsx
+import React, { useRef, useEffect } from 'react';
+
+interface AudioVisualizerProps {
+  getInputData: () => Uint8Array | null;
+  isActive: boolean;
+}
+
+function AudioVisualizer({ getInputData, isActive }: AudioVisualizerProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const animate = () => {
+      const data = getInputData();
+      
+      if (data) {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw frequency bars
+        const barWidth = canvas.width / data.length;
+        
+        for (let i = 0; i < data.length; i++) {
+          const barHeight = (data[i] / 255) * canvas.height;
+          
+          ctx.fillStyle = `hsl(${i * 2}, 100%, 50%)`;
+          ctx.fillRect(
+            i * barWidth,
+            canvas.height - barHeight,
+            barWidth - 1,
+            barHeight
+          );
+        }
+      }
+      
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+  }, [isActive, getInputData]);
+
+  return (
+    <canvas 
+      ref={canvasRef}
+      width={400}
+      height={100}
+      className="audio-visualizer"
+    />
+  );
+}
+```
+
+## Chat Integration
+
+### Automatic Chat Saving
+
+Voice conversations can be automatically saved to your chat system:
+
+```typescript
+const sessionId = await voiceSDK.startVoiceConversation({
+  saveToChat: true,  // Enable automatic saving
+  existingChatId: 'chat_123',  // Optional: continue existing chat
+  callbacks: {
+    onConversationSaved: (chatId, messageId) => {
+      console.log(`Voice conversation saved to chat ${chatId}`);
+      // Update UI to show the saved conversation
+      refreshChatHistory(chatId);
+    }
+  }
+});
+```
+
+### Manual Chat Integration
+
+```typescript
+// Get conversation history from voice session
+const messages = voiceSDK.getConversationHistory(sessionId);
+
+// Save to chat manually
+for (const message of messages) {
+  if (message.type === 'user_speech') {
+    await chatSDK.sendMessage(message.text, {
+      chatId: 'chat_123',
+      metadata: {
+        voiceMessage: true,
+        audioUrl: message.audioUrl,
+        sessionId: sessionId
+      }
+    });
+  }
+}
+```
+
+### Contextual Updates
+
+Send additional context to the voice conversation:
+
+```typescript
+// Send context from chat history
+await voiceSDK.sendContextualUpdate(
+  sessionId,
+  'User previously asked about pricing. Current conversation is about features.'
+);
+```
+
+## Error Handling
+
+```typescript
+try {
+  const sessionId = await voiceSDK.startVoiceConversation({
+    callbacks: {
+      onError: (error) => {
+        console.error('Voice conversation error:', error);
+        
+        // Handle specific error types
+        if (error.message.includes('microphone')) {
+          showMicrophonePermissionDialog();
+        } else if (error.message.includes('network')) {
+          showNetworkErrorMessage();
+        }
+      },
+      onDisconnect: (details) => {
+        console.log('Disconnected:', details?.reason);
+        
+        // Handle different disconnection reasons
+        if (details?.reason === 'user_ended') {
+          showConversationSummary();
+        } else if (details?.reason === 'error') {
+          showReconnectOption();
+        }
+      }
+    }
+  });
+} catch (error) {
+  console.error('Failed to start voice conversation:', error);
+  
+  if (error.message.includes('agent')) {
+    showAgentConfigError();
+  }
+}
+```
+
+## Examples
+
+### Voice-Enabled Customer Support
+
+```typescript
+import { VoiceSDK, ChatSDK } from '@odin-ai-staging/sdk';
+
+class VoiceCustomerSupport {
+  private voiceSDK: VoiceSDK;
+  private chatSDK: ChatSDK;
+  private activeSession?: string;
+
+  constructor() {
+    const config = {
+      baseUrl: process.env.API_BASE_URL,
+      projectId: process.env.PROJECT_ID,
+      apiKey: process.env.API_KEY,
+      apiSecret: process.env.API_SECRET,
+    };
+
+    this.voiceSDK = new VoiceSDK(config);
+    this.chatSDK = new ChatSDK(config);
+  }
+
+  async startSupportSession(customerId: string, issueType: string) {
+    try {
+      // Create a new chat for this support session
+      const chat = await this.chatSDK.createChat(
+        `Voice Support - ${issueType}`,
+        [] // Could add relevant document keys based on issue type
+      );
+
+      // Start voice conversation
+      this.activeSession = await this.voiceSDK.startVoiceConversation({
+        saveToChat: true,
+        existingChatId: chat.chat_id,
+        agentId: this.getAgentForIssueType(issueType),
+        userInfo: {
+          name: `Customer ${customerId}`,
+          id: customerId
+        },
+        callbacks: {
+          onConnect: () => {
+            console.log('Support session started');
+            this.logSupportEvent('session_started', { customerId, issueType });
+          },
+          onTranscription: (text, isFinal) => {
+            if (isFinal) {
+              this.logSupportEvent('customer_spoke', { 
+                customerId, 
+                text: text.substring(0, 100) // Log first 100 chars
+              });
+            }
+          },
+          onMessage: (message) => {
+            if (message.type === 'ai_speech') {
+              this.logSupportEvent('agent_responded', {
+                customerId,
+                responseLength: message.text.length
+              });
+            }
+          },
+          onConversationSaved: (chatId, messageId) => {
+            console.log(`Support conversation saved to chat ${chatId}`);
+          },
+          onDisconnect: (details) => {
+            this.logSupportEvent('session_ended', {
+              customerId,
+              reason: details?.reason,
+              duration: this.getSessionDuration()
+            });
+          }
+        }
+      });
+
+      return {
+        sessionId: this.activeSession,
+        chatId: chat.chat_id
+      };
+    } catch (error) {
+      console.error('Failed to start support session:', error);
+      throw error;
+    }
+  }
+
+  async endSupportSession() {
+    if (this.activeSession) {
+      await this.voiceSDK.endVoiceSession(this.activeSession);
+      this.activeSession = undefined;
+    }
+  }
+
+  private getAgentForIssueType(issueType: string): string {
+    const agentMap = {
+      'technical': 'agent_technical_support',
+      'billing': 'agent_billing_support',
+      'general': 'agent_general_support'
+    };
+    return agentMap[issueType] || agentMap['general'];
+  }
+
+  private logSupportEvent(event: string, data: any) {
+    console.log(`Support Event: ${event}`, data);
+    // Send to your analytics/logging system
+  }
+
+  private getSessionDuration(): number {
+    // Calculate session duration
+    return 0; // Placeholder
+  }
+}
+```
+
+## Best Practices
+
+### Error Handling and Fallbacks
+
+```typescript
+const voiceSupport = {
+  async startWithFallback() {
+    try {
+      return await this.voiceSDK.startVoiceConversation(options);
+    } catch (error) {
+      console.warn('Voice failed, falling back to text chat:', error);
+      
+      // Fallback to text-only chat
+      return await this.chatSDK.createChat('Support Chat (Text)');
+    }
+  }
+};
+```
+
+### Resource Management
+
+```typescript
+class VoiceManager {
+  private activeSessions = new Set<string>();
+
+  async startSession(options: any) {
+    const sessionId = await this.voiceSDK.startVoiceConversation(options);
+    this.activeSessions.add(sessionId);
+    return sessionId;
+  }
+
+  async cleanup() {
+    // End all active sessions
+    for (const sessionId of this.activeSessions) {
+      try {
+        await this.voiceSDK.endVoiceSession(sessionId);
+      } catch (error) {
+        console.warn('Failed to end session:', sessionId, error);
+      }
+    }
+    this.activeSessions.clear();
+  }
+}
+```
+
+### Performance Optimization
+
+```typescript
+// Use React.memo for audio visualization components
+const AudioVisualizer = React.memo(({ getInputData, isActive }) => {
+  // Throttle animation updates
+  const throttledAnimate = useCallback(
+    throttle(() => {
+      // Animation logic
+    }, 16), // ~60fps
+    []
+  );
+  
+  // ... component logic
+});
+```
+
+### Accessibility
+
+```typescript
+function VoiceAccessibleChat() {
+  const [transcript, setTranscript] = useState('');
+  
+  const { startSession } = useVoiceConversation({
+    callbacks: {
+      onTranscription: (text, isFinal) => {
+        setTranscript(text);
+        
+        // Update screen reader
+        if (isFinal) {
+          announceToScreenReader(`You said: ${text}`);
+        }
+      }
+    }
+  });
+
+  return (
+    <div>
+      <button 
+        aria-label="Start voice conversation"
+        onClick={startSession}
+      >
+        🎤 Start Voice Chat
+      </button>
+      
+      <div 
+        aria-live="polite"
+        aria-label="Voice transcript"
+      >
+        {transcript}
+      </div>
+    </div>
+  );
+}
+```

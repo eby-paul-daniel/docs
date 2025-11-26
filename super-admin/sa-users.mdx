@@ -1,0 +1,22 @@
+---
+title: "Users"
+icon: "users"
+description: "Manage individual users — see who’s on the platform, grant/revoke admin rights, track usage, and understand user distribution across teams."
+mode: "wide"
+---
+![Users](/img/sa/sa-users-1-6-0.png)
+
+**Users**
+
+1. **Search**: Search for users by User Name or Email.
+2. **User Id**: UUID for the user.
+3. **Name**: Full name of the user.
+4. **Email**: The email address used to log into EKB.
+5. **Admin Status**: Whether the user is a “User” or “Admin”. Admins can access this dashboard and perform elevated actions.
+6. **Credits Used**: Indicates how many credits (EKB’s internal usage measure) have been consumed by the project / user.
+    - Credits are consumed through:
+      - Chat Usage: Each prompt in the chat consumes n credits based on what’s defined for that particular measure.
+      - Knowledge Base (KB) Usage: Extraction of documents → up to 5000 words → 1 credit
+    - Monitoring credit usage here helps identify high-activity or resource-heavy projects and optimise system performance and cost management of LLMs.
+7. **Actions**: “Make Admin” (grants super admin rights), “View Team” (opens team assignments and roles), and Delete User (Deletes the User from your instance).
+

@@ -1,0 +1,421 @@
+---
+title: Python Toolkit
+icon: "python"
+description: Execute Python code in a secure sandbox environment with your AI agents
+---
+
+# Python Toolkit
+
+The Python toolkit enables your AI agents to execute Python code in a secure, sandboxed environment. This integration is perfect for data analysis, mathematical calculations, file processing, and any task that requires Python programming capabilities.
+
+## Overview
+
+**Category**: Development  
+**Setup Complexity**: Easy  
+**Authentication**: None Required  
+**Provider**: EKB
+
+## Key Features
+
+### Code Execution
+
+- **Safe Execution**: Run Python code in a secure sandbox
+- **Package Support**: Install and use Python packages
+- **File Operations**: Read and write files within the sandbox
+- **Data Processing**: Perform complex data analysis
+- **Visualization**: Generate charts and graphs
+
+### Security Features
+
+- **Sandboxed Environment**: Isolated execution environment
+- **Resource Limits**: Memory and execution time limits
+- **File System Access**: Limited to sandbox directory
+- **Network Access**: Controlled network permissions
+- **Package Restrictions**: Safe package installation
+
+## Available Tools
+
+### Core Execution
+
+- **Execute Python Code** - Run Python code snippets
+- **Install Package** - Install Python packages
+- **List Files** - View files in the sandbox
+- **Read File** - Read file contents
+- **Write File** - Create or modify files
+
+## Setup Instructions
+
+### No Setup Required!
+
+The Python toolkit requires no additional setup or configuration. It's ready to use immediately with your agents.
+
+### What You Get
+
+- **Secure Sandbox**: Isolated Python execution environment
+- **Package Management**: Install packages as needed
+- **File System Access**: Limited file operations within sandbox
+- **Resource Management**: Automatic memory and time limits
+- **Error Handling**: Comprehensive error reporting
+
+## Usage Examples
+
+### Data Analysis
+
+```python
+# Example: Analyze sales data
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def analyze_sales_data(sales_data):
+    # Load data into DataFrame
+    df = pd.DataFrame(sales_data)
+
+    # Calculate summary statistics
+    summary = df.describe()
+
+    # Create visualization
+    plt.figure(figsize=(10, 6))
+    df['sales'].plot(kind='line')
+    plt.title('Sales Over Time')
+    plt.xlabel('Date')
+    plt.ylabel('Sales Amount')
+
+    # Save plot
+    plt.savefig('sales_analysis.png')
+
+    return {
+        'summary': summary.to_dict(),
+        'chart': 'sales_analysis.png'
+    }
+```
+
+### Mathematical Calculations
+
+```python
+# Example: Financial calculations
+import numpy as np
+
+def calculate_loan_payment(principal, annual_rate, years):
+    """
+    Calculate monthly loan payment using the standard formula
+    """
+    monthly_rate = annual_rate / 12
+    num_payments = years * 12
+
+    if monthly_rate == 0:
+        return principal / num_payments
+
+    payment = principal * (monthly_rate * (1 + monthly_rate)**num_payments) / \
+              ((1 + monthly_rate)**num_payments - 1)
+
+    return round(payment, 2)
+
+def calculate_compound_interest(principal, rate, time, compound_frequency=12):
+    """
+    Calculate compound interest
+    """
+    amount = principal * (1 + rate/compound_frequency)**(compound_frequency * time)
+    interest = amount - principal
+    return {
+        'final_amount': round(amount, 2),
+        'interest_earned': round(interest, 2)
+    }
+```
+
+### File Processing
+
+```python
+# Example: Process CSV files
+import csv
+import json
+
+def process_csv_file(file_path):
+    """
+    Process CSV file and convert to JSON
+    """
+    data = []
+
+    with open(file_path, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            data.append(row)
+
+    # Process data (example: calculate totals)
+    total_sales = sum(float(row['sales']) for row in data if row['sales'])
+
+    return {
+        'records': data,
+        'total_records': len(data),
+        'total_sales': total_sales
+    }
+
+def generate_report(data, output_file):
+    """
+    Generate a formatted report
+    """
+    report = f"""
+    Sales Report
+    ===========
+
+    Total Records: {len(data)}
+    Total Sales: ${sum(float(row['sales']) for row in data if row['sales']):,.2f}
+
+    Top Products:
+    """
+
+    # Sort by sales
+    sorted_data = sorted(data, key=lambda x: float(x['sales']), reverse=True)
+
+    for i, row in enumerate(sorted_data[:5]):
+        report += f"{i+1}. {row['product']}: ${float(row['sales']):,.2f}\n"
+
+    # Write to file
+    with open(output_file, 'w') as file:
+        file.write(report)
+
+    return f"Report saved to {output_file}"
+```
+
+### API Data Processing
+
+```python
+# Example: Process API data
+import requests
+import json
+
+def fetch_and_process_api_data(api_url):
+    """
+    Fetch data from API and process it
+    """
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+
+        data = response.json()
+
+        # Process the data
+        processed_data = {
+            'total_items': len(data),
+            'categories': list(set(item.get('category', 'Unknown') for item in data)),
+            'price_range': {
+                'min': min(item.get('price', 0) for item in data),
+                'max': max(item.get('price', 0) for item in data),
+                'average': sum(item.get('price', 0) for item in data) / len(data)
+            }
+        }
+
+        return processed_data
+
+    except requests.RequestException as e:
+        return {'error': f'API request failed: {str(e)}'}
+```
+
+### Data Visualization
+
+```python
+# Example: Create charts and graphs
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+def create_sales_chart(sales_data):
+    """
+    Create a comprehensive sales visualization
+    """
+    df = pd.DataFrame(sales_data)
+
+    # Set up the plotting style
+    plt.style.use('seaborn-v0_8')
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+
+    # Sales over time
+    axes[0, 0].plot(df['date'], df['sales'])
+    axes[0, 0].set_title('Sales Over Time')
+    axes[0, 0].set_xlabel('Date')
+    axes[0, 0].set_ylabel('Sales')
+
+    # Sales by category
+    category_sales = df.groupby('category')['sales'].sum()
+    axes[0, 1].pie(category_sales.values, labels=category_sales.index, autopct='%1.1f%%')
+    axes[0, 1].set_title('Sales by Category')
+
+    # Sales distribution
+    axes[1, 0].hist(df['sales'], bins=20, alpha=0.7)
+    axes[1, 0].set_title('Sales Distribution')
+    axes[1, 0].set_xlabel('Sales Amount')
+    axes[1, 0].set_ylabel('Frequency')
+
+    # Top products
+    top_products = df.groupby('product')['sales'].sum().nlargest(10)
+    axes[1, 1].barh(range(len(top_products)), top_products.values)
+    axes[1, 1].set_yticks(range(len(top_products)))
+    axes[1, 1].set_yticklabels(top_products.index)
+    axes[1, 1].set_title('Top 10 Products by Sales')
+    axes[1, 1].set_xlabel('Total Sales')
+
+    plt.tight_layout()
+    plt.savefig('sales_analysis.png', dpi=300, bbox_inches='tight')
+
+    return 'sales_analysis.png'
+```
+
+## Supported Packages
+
+The Python toolkit supports most standard Python packages. Some commonly used packages include:
+
+### Data Analysis
+
+- **pandas** - Data manipulation and analysis
+- **numpy** - Numerical computing
+- **scipy** - Scientific computing
+- **scikit-learn** - Machine learning
+
+### Visualization
+
+- **matplotlib** - Plotting and visualization
+- **seaborn** - Statistical data visualization
+- **plotly** - Interactive plots
+
+### Web and API
+
+- **requests** - HTTP library
+- **urllib** - URL handling
+- **json** - JSON processing
+
+### File Processing
+
+- **csv** - CSV file handling
+- **openpyxl** - Excel file processing
+- **PyPDF2** - PDF processing
+
+### Utilities
+
+- **datetime** - Date and time handling
+- **re** - Regular expressions
+- **os** - Operating system interface
+- **sys** - System-specific parameters
+
+## Security and Limitations
+
+### Security Features
+
+- **Sandboxed Environment**: Code runs in isolation
+- **Resource Limits**: Memory and execution time restrictions
+- **File System Access**: Limited to sandbox directory
+- **Network Access**: Controlled network permissions
+- **Package Restrictions**: Safe package installation
+
+### Resource Limits
+
+- **Memory Limit**: Prevents excessive memory usage
+- **Execution Time**: Timeout for long-running operations
+- **File Size**: Limits on file operations
+- **Network Requests**: Controlled network access
+
+### Best Practices
+
+- **Error Handling**: Always handle exceptions properly
+- **Resource Management**: Clean up resources when done
+- **Input Validation**: Validate all inputs
+- **Output Sanitization**: Sanitize outputs for security
+
+## Troubleshooting
+
+### Common Issues
+
+**Package Installation Errors**
+
+```
+Error: Package not found
+```
+
+- **Solution**: Check package name spelling and availability
+- **Alternative**: Use built-in Python modules when possible
+
+**Memory Errors**
+
+```
+Error: Out of memory
+```
+
+- **Solution**: Optimize code to use less memory
+- **Alternative**: Process data in smaller chunks
+
+**Timeout Errors**
+
+```
+Error: Execution timeout
+```
+
+- **Solution**: Optimize code for better performance
+- **Alternative**: Break complex operations into smaller parts
+
+**File Access Errors**
+
+```
+Error: Permission denied
+```
+
+- **Solution**: Check file permissions and paths
+- **Alternative**: Use relative paths within sandbox
+
+### Debug Tips
+
+1. **Test Code Incrementally**
+
+   - Start with simple operations
+   - Add complexity gradually
+   - Test each component separately
+
+2. **Use Logging**
+
+   - Add print statements for debugging
+   - Use logging module for better output
+   - Check error messages carefully
+
+3. **Monitor Resource Usage**
+   - Watch memory usage
+   - Monitor execution time
+   - Check file system usage
+
+## Best Practices
+
+### Code Organization
+
+- **Modular Design**: Break code into functions
+- **Error Handling**: Use try-except blocks
+- **Documentation**: Add comments and docstrings
+- **Testing**: Test code before deployment
+
+### Performance
+
+- **Efficient Algorithms**: Use appropriate algorithms
+- **Memory Management**: Clean up unused variables
+- **Batch Processing**: Process data in batches
+- **Caching**: Cache frequently used data
+
+### Security
+
+- **Input Validation**: Validate all inputs
+- **Output Sanitization**: Sanitize outputs
+- **Error Handling**: Don't expose sensitive information
+- **Resource Limits**: Respect system limits
+
+## Related Toolkits
+
+- **SQL Database** - For database operations
+- **Web Search** - For data gathering
+- **File Management** - For file operations
+- **Data Visualization** - For chart creation
+
+<Card
+  title="SQL Database Toolkit"
+  icon="database"
+  href="/agents/toolkits/sql-database"
+>
+  Combine Python with database operations
+</Card>
+
+## Support
+
+Need help with Python integration? Check out our [troubleshooting guide](/agents/toolkits/troubleshooting) or contact support at support@getodin.ai.

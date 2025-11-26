@@ -1,0 +1,272 @@
+---
+title: "Integrate EKB Chatbot to Your Website & Apps"
+icon: "handshake"
+description: "Seamless Integration, Anywhere You Need"
+mode: "wide"
+---
+
+Bring EKB's conversational AI chatbot directly into your digital experience with ease. Whether you want to add it to a website, Next.js, React.js, Angular, or WordPress, the integration process is simple and designed to fit seamlessly into your existing setup. This guide walks you through each option, helping you deliver smarter customer engagement and real-time support right where your users need it.
+
+## Integrate to Your Website
+<AccordionGroup>
+    <Accordion title="Chat Window">
+        To add the chatbot anywhere on your website, use the HTML script below to add the chatbot in a "new window" format to enhance your website with AI-powered chatbots that can handle visitor inquiries seamlessly.
+        Add this script to your HTML code.         
+        <Warning>Make sure to replace `Your_Project_ID_Here` with your Project's ID.</Warning>
+        ```<div id="odin-chatbot"></div>
+        <script>
+            window.project_id = "Your_Project_ID_Here";
+            window.frame_type = "window";
+        </script>
+        <script
+            src="https://app.getodin.ai/loader.min.js"
+            project_id="Your_Project_ID_Here"
+            frame_type="window"
+            defer
+        ></script>
+        ```
+    </Accordion>
+    <Accordion title="Chat Bubble">
+        To add the chatbot as a chat bubble to the bottom-right of your website, use the HTML script below. This is ideal for providing instant support, allowing users to interact with the EKB chatbot easily.
+        Add this script to your HTML code.
+        <Warning>Make sure to replace `Your_Project_ID_Here` with your Project's ID.</Warning>
+        ```<script>
+            window.project_id = "Your_Project_ID_Here";
+            window.frame_type = "widget";
+        </script>
+        <script
+            src="https://app.getodin.ai/loader.min.js"
+            project_id="Your_Project_ID_Here"
+            frame_type="widget"
+            defer
+        ></script>
+        ```
+    </Accordion>
+</AccordionGroup>
+
+## Integrate to Next.js App
+<AccordionGroup>
+    <Accordion title="Chat Window">
+        To integrate EKB chatbot into your Next.js app as a chat window, follow these instructions:
+        1. Place the following script in the `rootLayout` or **App file**:
+            ```import Script from "next/script"
+            export default function TalkToEKB() {
+                return (
+                    <div className="chatbot-talk py-10 lg:pb-20 lg:pt-[70px]">
+                        <div className="p-3 md:p-4">
+                            <h4 className="mb-12 text-center text-[24px] md:text-[54px]">
+                                <span className="gradient-title">Talk to EKB Now</span>
+                            </h4>
+                            <div id="odin-chatbot"></div>
+                            <Script>
+                                {`window.project_id = "Your_Project_ID_Here";
+                                window.frame_type = "window";`}
+                            </Script>
+                            <Script
+                                src="https://app.getodin.ai/loader.min.js"
+                                project_id="Your_Project_ID_Here"
+                                frame_type="window"
+                                defer
+                            ></Script>
+                        </div>
+                    </div>
+                )
+            }
+            ```
+        2. Add the following `<div>` tag in the component where you want the Chat Window to appear.
+            ```<div id="odin-chatbot"></div>```
+    </Accordion>
+    <Accordion title="Chat Bubble">
+        To integrate EKB chatbot into your Next.js app as a chat bubble, follow these instructions:
+        1. Place the following script in the `rootLayout` or **App file**:
+            ```import Script from "next/script"
+            export default function RootLayout({
+                children,
+            }: {
+                children: React.ReactNode
+            }) {
+                return (
+                    <html lang="en">
+                        <body>{children}</body>
+                        <Script>
+                            {`window.project_id = "Your_Project_ID_Here";
+                                window.frame_type = "widget";`}
+                        </Script>
+                        <Script
+                            src="https://app.getodin.ai/loader.min.js"
+                            project_id="Your_Project_ID_Here"
+                            frame_type="widget"
+                            defer
+                        ></Script>
+                    </html>
+                )
+            }
+            ```
+        2. If you've added the Chatbot as a Chat Window previously, make sure you remove the following `<div>` tag while using the chat widget.
+            ```<div id="odin-chatbot"></div>```
+    </Accordion>
+</AccordionGroup>
+
+## Integrate to React.js App
+<AccordionGroup>
+    <Accordion title="Chat Window">
+        1. Add the following script within the `<head>` tag of the index.html file located in the public folder.
+        ```<script>
+                window.project_id="Your_Project_ID_Here";
+                window.frame_type="window";
+            </script>
+            <script
+                src="https://app.getodin.ai/loader.min.js"
+                project_id="Your_Project_ID_Here"
+                frame_type="window"
+                defer
+            ></script>
+        ```
+        2. Add the following `<div>` tag in the page or component where you want the Chat Window to appear.
+            ```import React from "react";
+            export default function Home() {
+                return (
+                    <div>
+                        <div className="card bg-dark text-white border-0 mx-3">
+                            <img
+                                className="card-img img-fluid"
+                                src="./assets/main.png.jpg"
+                                alt="Card"
+                                height={500}
+                            />
+                            <div className="card d-flex align-items-center">
+                                <div className="container">
+                                    <h5 className="card-title">New Season Arrivals</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="odin-chatbot"></div>
+                    </div>
+                );
+            };
+            ```
+    </Accordion>
+    <Accordion title="Chat Bubble">
+        1. Add the following script within the `<head>` tag of the index.html file located in the public folder.
+        ```<script>
+            window.project_id="Your_Project_ID_Here";
+            window.frame_type="window";
+        </script>
+        <script
+            src="https://app.getodin.ai/loader.min.js"
+            project_id="Your_Project_ID_Here"
+            frame_type="window"
+            defer
+        ></script>
+        ```
+        2. If you've added the Chatbot as a Chat Window previously, make sure you remove the following `<div>` tag while using the chat widget.
+            ```<div id="odin-chatbot"></div>```
+    </Accordion>
+</AccordionGroup>
+
+## Integrate to Angular Project
+<AccordionGroup>
+    <Accordion title="Chat Window">
+        1. Add the following script to the index.html file located in the public folder.
+            ```<!doctype html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>Angular</title>
+            <base href="/">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/x-icon" href="favicon.ico">
+            </head>
+            <body>
+            <app-root></app-root>
+                <script>
+                window.project_id="Your_Project_ID_Here";
+                window.frame_type="window";
+                </script>
+                <script
+                src="https://app.getodin.ai/loader.min.js"
+                project_id="Your_Project_ID_Here"
+                frame_type="window"
+                defer
+                ></script>
+            </body>
+            ```
+        2. Add the following `<div>` tag in the page or component where you want the Chat Window to appear.
+            ```<div class="contents">
+                <div class="side">
+                    <img src="assets/logo.svg" width="200" height="200" />
+                    <h1>EKB Chatbot</h1>
+                    <p>Congratulations! Your app is running. 🎉</p>
+                </div>
+                <div id="odin-chatbot" style="width: 380px"></div>
+            </div>
+            ```
+    </Accordion>
+    <Accordion title="Chat Bubble">
+        1. Add the following script to the index.html file located in the public folder.
+            ```<!doctype html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <title>Angular</title><base href="/">
+                <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico">
+            </head>
+            <body>
+                <app-root></app-root>
+                <script>
+                    window.project_id="Your_Project_ID_Here";
+                    window.frame_type="widget";
+                </script>
+                <script
+                    src="https://app.getodin.ai/loader.min.js"
+                    project_id="Your_Project_ID_Here"
+                    frame_type="widget"
+                    defer>
+                </script>
+            </body>
+            ```
+        2. If you've added the Chatbot as a Chat Window previously, make sure you remove the following `<div>` tag while using the chat widget.
+            ```<div id="odin-chatbot"></div>```
+    </Accordion>
+</AccordionGroup>
+
+## Integrate to WordPress Site
+<AccordionGroup>
+    <Accordion title="Chat Window">
+        To add the chatbot to your WordPress site, you can add the following jQuery script to the page using the `Custom HTML` block in the WordPress editor:
+            ```<script>
+                setTimeout(function() {
+                    var scriptContent = jQuery('#opbcb-odin-chatbot-root');
+
+                    if (scriptContent.length) {
+                        jQuery('#odin-chatbot').append(scriptContent);
+                    } else {
+                        console.log('Element not found: #opbcb-odin-chatbot-root');
+                    }
+                }, 
+                1000);
+            </script>
+            ```
+    </Accordion>
+    <Accordion title="Chat Bubble">
+        To add the chatbot as a chat bubble to your WordPress site, you can add the **Chat Window** script, mentioned above, to the page using the `Custom HTML` block in the WordPress editor and then add the following CSS script:
+        ```.opbcb-chat-container {
+            border-radius: 20px;
+            bottom: 90px;
+            height: 88% !important;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+            max-height: 750px;
+            max-width: 450px;
+            position: fixed;
+            right: 5px;
+            transition: all .3s ease;
+            width: 100%;
+            z-index: 999;
+            top: 30px !important;
+        }
+        ```
+        <Note>If you want to add the Chat Bubble in the footer of the page, then you need to first add the script in the `Custom HTML` block of the footer along with the CSS code.</Note>
+    </Accordion>
+</AccordionGroup>

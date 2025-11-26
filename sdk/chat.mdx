@@ -1,0 +1,670 @@
+---
+title: 'Chat SDK'
+icon: "comment-question"
+description: 'Integrate conversational AI interfaces into your application using the EKB Chat SDK.'
+---
+The ChatSDK is the core component of the EKB Content Creator SDK that enables you to build conversational AI applications with ease. It provides comprehensive chat management, message handling, streaming responses, and knowledge base integration. In this article you will learn how to install the SDK and get up and running quickly with our 'Quick Start' example. You can explore the various configuration options, learn about authentication, and the core methods that you can use with this SDK. You will also discover use case examples 
+
+## Installation
+
+```bash
+npm install @odin-ai-staging/sdk
+```
+
+## Quick Start
+
+```typescript
+import { ChatSDK } from '@odin-ai-staging/sdk';
+
+// Initialize the SDK
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://your-api-endpoint.com/',
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret'
+});
+
+// Create a chat and send a message
+async function quickExample() {
+  // Create a new chat
+  const chat = await chatSDK.createChat('My First Chat');
+  
+  // Send a message
+  const response = await chatSDK.sendMessage('Hello, how can you help me?', {
+    chatId: chat.chat_id
+  });
+  
+  console.log('AI Response:', response.message);
+}
+```
+
+## Configuration
+
+### ChatSDKConfig Interface
+
+```typescript
+interface ChatSDKConfig {
+  baseUrl: string;          // API endpoint URL
+  projectId: string;        // Your project identifier
+  apiKey?: string;          // API key for authentication
+  apiSecret?: string;       // API secret for authentication
+  accessToken?: string;     // Access token for web app usage
+}
+```
+
+### Configuration Options
+
+- **baseUrl**: The base URL of your API endpoint
+- **projectId**: Your unique project identifier
+- **apiKey** & **apiSecret**: For server-side authentication
+- **accessToken**: For client-side authentication (web apps)
+
+## Authentication
+
+The ChatSDK supports two authentication methods:
+
+### API Key Authentication (Server-side)
+```typescript
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://api.example.com/',
+  projectId: 'proj_123',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret'
+});
+```
+
+### Access Token Authentication (Client-side)
+```typescript
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://api.example.com/',
+  projectId: 'proj_123',
+  accessToken: 'your-access-token'
+});
+```
+
+## Core Methods
+
+### Chat Management
+
+#### `createChat(name?, documentKeys?)`
+
+Creates a new chat conversation.
+
+```typescript
+async createChat(
+  name?: string,           // Optional chat name (defaults to "Untitled")
+  documentKeys?: string[]  // Optional document keys for knowledge base context
+): Promise<CreateChatResponse>
+```
+
+**Example:**
+```typescript
+// Create a basic chat
+const chat = await chatSDK.createChat('Customer Support Chat');
+
+// Create a chat with knowledge base context
+const chatWithDocs = await chatSDK.createChat(
+  'Product Documentation Chat',
+  ['doc_key_1', 'doc_key_2']
+);
+```
+
+#### `listChats(cursor?, limit?)`
+
+Retrieve a paginated list of chats in the project.
+
+```typescript
+async listChats(
+  cursor?: number,  // Optional cursor for pagination
+  limit?: number    // Number of chats to return (default: 30, max: 100)
+): Promise<ListChatsResponse>
+```
+
+**Example:**
+```typescript
+// Get first 10 chats
+const chats = await chatSDK.listChats(undefined, 10);
+
+// Get next page using cursor
+if (chats.next_cursor) {
+  const nextPage = await chatSDK.listChats(chats.next_cursor, 10);
+}
+```
+
+#### `getChatHistory(chatId)`
+
+Retrieve a chat with its complete message history.
+
+```typescript
+async getChatHistory(chatId: string): Promise<ChatHistoryResponse>
+```
+
+**Example:**
+```typescript
+const chatHistory = await chatSDK.getChatHistory('chat_123');
+console.log('Messages:', chatHistory.messages);
+```
+
+#### `deleteChat(chatId)`
+
+Delete a chat and all its messages permanently.
+
+```typescript
+async deleteChat(chatId: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await chatSDK.deleteChat('chat_123');
+```
+
+#### `updateChatName(chatId, newName)`
+
+Update the display name of an existing chat.
+
+```typescript
+async updateChatName(chatId: string, newName: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await chatSDK.updateChatName('chat_123', 'Updated Chat Name');
+```
+
+### Message Handling
+
+#### `sendMessage(message, options?)`
+
+Send a message and receive the AI response.
+
+```typescript
+async sendMessage(
+  message: string,
+  options?: SendMessageOptions
+): Promise<SendMessageResponse>
+```
+
+**SendMessageOptions:**
+```typescript
+interface SendMessageOptions {
+  chatId?: string;          // Target chat ID
+  agentType?: AgentType;    // Type of AI agent to use
+  agentId?: string;         // Specific agent ID
+  documentKeys?: string[];  // Knowledge base documents
+  images?: File[];          // Image attachments
+  metadata?: Record<string, any>;  // Custom metadata
+  modelName?: ModelName;    // AI model to use
+  useKnowledgebase?: boolean;      // Enable knowledge base
+  isTest?: boolean;         // Test mode flag
+  googleSearch?: boolean;   // Enable web search
+  formatInstructions?: string;     // Response format guidance
+  ignoreChatHistory?: boolean;     // Ignore conversation history
+  exampleJson?: string;     // Example JSON for structured responses
+  skipStream?: boolean;     // Disable streaming
+}
+```
+
+**Example:**
+```typescript
+// Basic message
+const response = await chatSDK.sendMessage('What is artificial intelligence?', {
+  chatId: 'chat_123'
+});
+
+// Advanced message with options
+const advancedResponse = await chatSDK.sendMessage(
+  'Analyze this data and provide insights',
+  {
+    chatId: 'chat_123',
+    modelName: 'gpt-4o',
+    useKnowledgebase: true,
+    googleSearch: true,
+    formatInstructions: 'Provide response in bullet points'
+  }
+);
+```
+
+#### `sendFeedback(messageId, chatId, feedback)`
+
+Provide feedback on an AI response.
+
+```typescript
+async sendFeedback(
+  messageId: string,
+  chatId: string,
+  feedback: boolean  // true = thumbs up, false = thumbs down
+): Promise<void>
+```
+
+**Example:**
+```typescript
+// Positive feedback
+await chatSDK.sendFeedback('msg_123', 'chat_123', true);
+
+// Negative feedback
+await chatSDK.sendFeedback('msg_123', 'chat_123', false);
+```
+
+## Streaming Support
+
+### `sendMessageStream(message, options)`
+
+Send a message with real-time streaming response.
+
+```typescript
+async sendMessageStream(
+  message: string,
+  options: SendMessageOptions & StreamCallbacks
+): Promise<void>
+```
+
+**StreamCallbacks:**
+```typescript
+interface StreamCallbacks {
+  onChunk?: (chunk: string) => void;           // Text chunks
+  onMessageObject?: (messageObject: any) => void;  // Structured data
+  onComplete?: (message: Message) => void;     // Final message
+  onError?: (error: Error) => void;           // Error handler
+  onChatNameUpdate?: (chatName: string) => void;   // Chat name changes
+  onDocumentChunk?: (chunk: string) => void;  // Document processing updates
+  onMessageEnd?: () => void;                  // Stream completion
+}
+```
+
+**Example:**
+```typescript
+await chatSDK.sendMessageStream(
+  'Tell me about machine learning',
+  {
+    chatId: 'chat_123',
+    onChunk: (chunk) => {
+      // Display text as it streams in
+      console.log('Chunk:', chunk);
+      updateUI(chunk);
+    },
+    onComplete: (message) => {
+      console.log('Complete message:', message);
+      finalizeUI(message);
+    },
+    onError: (error) => {
+      console.error('Stream error:', error);
+      showError(error.message);
+    }
+  }
+);
+```
+
+## Error Handling
+
+The SDK throws `APIError` objects for API-related failures:
+
+```typescript
+interface APIError {
+  message: string;  // Error description
+  status: number;   // HTTP status code
+  detail?: string;  // Additional error details
+}
+```
+
+**Example:**
+```typescript
+try {
+  const response = await chatSDK.sendMessage('Hello');
+} catch (error) {
+  if (error instanceof APIError) {
+    console.error(`API Error ${error.status}: ${error.message}`);
+    if (error.detail) {
+      console.error('Details:', error.detail);
+    }
+  } else {
+    console.error('Unexpected error:', error);
+  }
+}
+```
+
+## Examples
+
+### Basic Chat Application
+In this example, you will learn how to build a basic chat application using the EKB SDK with simple, non-streaming message exchanges. You start by creating a `SimpleChatApp` class that initializes the ChatSDK with your API credentials pulled from environment variables (base URL, project ID, API key, and secret). The class tracks your current chat session with `currentChatId` and provides three main methods: `startNewChat()` creates a new chat conversation with a custom name, `sendMessage()` sends a message to the AI and returns the complete response (automatically creating a new chat if one doesn't exist), and `getChatList()` retrieves all your existing chat conversations. Unlike streaming implementations, this approach waits for the full AI response before displaying it, making it perfect for simpler use cases where you don't need real-time token-by-token updates. The example uses the GPT-4o-mini model and includes error handling throughout, with console logging to help you track the conversation flow—giving you a straightforward foundation for building basic chatbot functionality without the complexity of streaming callbacks.
+
+```typescript
+import { ChatSDK } from '@odin-ai-staging/sdk';
+
+class SimpleChatApp {
+  private chatSDK: ChatSDK;
+  private currentChatId?: string;
+
+  constructor() {
+    this.chatSDK = new ChatSDK({
+      baseUrl: process.env.API_BASE_URL,
+      projectId: process.env.PROJECT_ID,
+      apiKey: process.env.API_KEY,
+      apiSecret: process.env.API_SECRET
+    });
+  }
+
+  async startNewChat(name: string = 'New Chat') {
+    try {
+      const chat = await this.chatSDK.createChat(name);
+      this.currentChatId = chat.chat_id;
+      console.log(`Created chat: ${chat.name} (${chat.chat_id})`);
+      return chat;
+    } catch (error) {
+      console.error('Failed to create chat:', error);
+      throw error;
+    }
+  }
+
+  async sendMessage(message: string) {
+    if (!this.currentChatId) {
+      await this.startNewChat();
+    }
+
+    try {
+      const response = await this.chatSDK.sendMessage(message, {
+        chatId: this.currentChatId,
+        modelName: 'gpt-4o-mini'
+      });
+
+      console.log('User:', message);
+      console.log('AI:', response.message);
+      
+      return response;
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      throw error;
+    }
+  }
+
+  async getChatList() {
+    try {
+      const chats = await this.chatSDK.listChats();
+      return chats.chats;
+    } catch (error) {
+      console.error('Failed to get chat list:', error);
+      throw error;
+    }
+  }
+}
+
+// Usage
+const app = new SimpleChatApp();
+await app.sendMessage('Hello, how are you?');
+```
+
+### Streaming Chat with Real-time Updates
+In this example, you will learn how to build a streaming chat interface that connects to the EKB API and displays AI responses in real-time. You start by creating a `StreamingChat` class that initializes the ChatSDK with your API credentials and a reference to an HTML element where messages will appear. When you send a message using `sendStreamingMessage()`, you'll set up callback handlers that process the streaming response as it arrives: the `onChunk` callback appends each piece of text to your UI immediately (creating that characteristic "typing" effect), while `onMessageObject` lets you handle rich content like images. You'll also implement error handling with `onError`, update your chat title with `onChatNameUpdate`, and use `onComplete` to add thumbs up/down feedback buttons once the message finishes streaming. This example shows you how to display images dynamically, collect user feedback on AI responses, and configure the chat to use GPT-4o with Knowledge Base integration—giving you everything you need to create a ChatGPT-like interface with real-time streaming responses and interactive features.
+
+```typescript
+import { ChatSDK, StreamCallbacks } from '@odin-ai-staging/sdk';
+
+class StreamingChat {
+  private chatSDK: ChatSDK;
+  private messageElement: HTMLElement;
+
+  constructor(messageElement: HTMLElement) {
+    this.messageElement = messageElement;
+    this.chatSDK = new ChatSDK({
+      baseUrl: 'https://your-api.com/',
+      projectId: 'your-project-id',
+      accessToken: 'your-access-token'
+    });
+  }
+
+  async sendStreamingMessage(message: string, chatId: string) {
+    // Clear previous content
+    this.messageElement.innerHTML = '';
+
+    const callbacks: StreamCallbacks = {
+      onChunk: (chunk: string) => {
+        // Append each chunk to the UI
+        this.messageElement.innerHTML += chunk;
+        this.messageElement.scrollIntoView();
+      },
+
+      onMessageObject: (messageObj: any) => {
+        // Handle structured data like images, cards, etc.
+        if (messageObj.image_urls) {
+          this.displayImages(messageObj.image_urls);
+        }
+      },
+
+      onComplete: (message: any) => {
+        console.log('Message complete:', message);
+        // Add final styling, enable feedback buttons, etc.
+        this.finalizeMessage(message);
+      },
+
+      onError: (error: Error) => {
+        console.error('Streaming error:', error);
+        this.messageElement.innerHTML = `Error: ${error.message}`;
+      },
+
+      onChatNameUpdate: (chatName: string) => {
+        // Update chat title in UI
+        document.title = chatName;
+      }
+    };
+
+    try {
+      await this.chatSDK.sendMessageStream(message, {
+        chatId,
+        modelName: 'gpt-4o',
+        useKnowledgebase: true,
+        ...callbacks
+      });
+    } catch (error) {
+      console.error('Failed to send streaming message:', error);
+    }
+  }
+
+  private displayImages(imageUrls: string[]) {
+    imageUrls.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.style.maxWidth = '100%';
+      this.messageElement.appendChild(img);
+    });
+  }
+
+  private finalizeMessage(message: any) {
+    // Add feedback buttons
+    const feedbackDiv = document.createElement('div');
+    feedbackDiv.innerHTML = `
+      <button onclick="this.provideFeedback('${message.id}', true)">👍</button>
+      <button onclick="this.provideFeedback('${message.id}', false)">👎</button>
+    `;
+    this.messageElement.appendChild(feedbackDiv);
+  }
+
+  async provideFeedback(messageId: string, isPositive: boolean) {
+    try {
+      await this.chatSDK.sendFeedback(messageId, 'chat_id', isPositive);
+      console.log('Feedback sent successfully');
+    } catch (error) {
+      console.error('Failed to send feedback:', error);
+    }
+  }
+}
+```
+
+### Knowledge Base Integration
+In this example, you will discover how to build a Knowledge Base-powered chat application that can answer questions based on specific documents you upload to your Knowledge Base. The `KnowledgeBasedChat` class initializes the ChatSDK with your API credentials from environment variables, then uses two key methods to interact with your documents: `createDocumentChat()` sets up a new chat session linked to specific documents by passing an array of documentKeys (unique identifiers for your uploaded documents), and `askDocumentQuestion()` sends questions to the AI with Knowledge Base features enabled. When you ask questions, you'll configure the chat to use `useKnowledgebase: true` and specify `agentType: 'document_agent'` to ensure the AI retrieves relevant information from your documents, while `formatInstructions` tells the AI to include citations for its sources. The response includes a sources property that shows you which documents the AI referenced when generating its answer, making this perfect for building document Q&A systems, research assistants, or any application where you need AI responses grounded in specific content rather than general knowledge. This enables full transparency into how the AI arrived at its answers.
+
+```typescript
+import { ChatSDK } from '@odin-ai-staging/sdk';
+
+class KnowledgeBasedChat {
+  private chatSDK: ChatSDK;
+
+  constructor() {
+    this.chatSDK = new ChatSDK({
+      baseUrl: process.env.API_BASE_URL,
+      projectId: process.env.PROJECT_ID,
+      apiKey: process.env.API_KEY,
+      apiSecret: process.env.API_SECRET
+    });
+  }
+
+  async createDocumentChat(documentKeys: string[], chatName?: string) {
+    try {
+      const chat = await this.chatSDK.createChat(
+        chatName || 'Document Q&A',
+        documentKeys
+      );
+      
+      console.log(`Created document chat with ${documentKeys.length} documents`);
+      return chat;
+    } catch (error) {
+      console.error('Failed to create document chat:', error);
+      throw error;
+    }
+  }
+
+  async askDocumentQuestion(question: string, chatId: string, documentKeys?: string[]) {
+    try {
+      const response = await this.chatSDK.sendMessage(question, {
+        chatId,
+        documentKeys,
+        useKnowledgebase: true,
+        agentType: 'document_agent',
+        formatInstructions: 'Provide citations for your sources'
+      });
+
+      // Display sources if available
+      if (response.message.sources) {
+        console.log('Sources:', response.message.sources);
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Failed to ask document question:', error);
+      throw error;
+    }
+  }
+}
+
+// Usage
+const kbChat = new KnowledgeBasedChat();
+const chat = await kbChat.createDocumentChat(['doc_1', 'doc_2'], 'Product FAQ');
+const answer = await kbChat.askDocumentQuestion(
+  'What are the key features of the product?',
+  chat.chat_id
+);
+```
+
+## Best Practices
+
+### Error Handling
+Always implement proper error handling for all SDK methods:
+
+```typescript
+try {
+  const response = await chatSDK.sendMessage(message, options);
+  // Handle success
+} catch (error) {
+  if (error instanceof APIError) {
+    // Handle API errors
+    console.error(`API Error: ${error.message}`);
+  } else {
+    // Handle unexpected errors
+    console.error('Unexpected error:', error);
+  }
+}
+```
+
+### Streaming for Better UX
+Use streaming for longer responses to provide real-time feedback:
+
+```typescript
+// Instead of waiting for complete response
+const response = await chatSDK.sendMessage(longQuery);
+
+// Use streaming for better user experience
+await chatSDK.sendMessageStream(longQuery, {
+  onChunk: (chunk) => updateUI(chunk),
+  onComplete: (message) => finalizeUI(message)
+});
+```
+
+### Optimize API Calls
+- Reuse chat IDs instead of creating new chats for each message
+- Use pagination for chat lists
+- Implement caching for frequently accessed data
+
+```typescript
+class OptimizedChatManager {
+  private chatCache = new Map<string, any>();
+  private currentChatId?: string;
+
+  async getOrCreateChat(name?: string) {
+    if (this.currentChatId) {
+      return this.currentChatId;
+    }
+
+    const chat = await this.chatSDK.createChat(name);
+    this.currentChatId = chat.chat_id;
+    return this.currentChatId;
+  }
+
+  async getCachedChatHistory(chatId: string) {
+    if (this.chatCache.has(chatId)) {
+      return this.chatCache.get(chatId);
+    }
+
+    const history = await this.chatSDK.getChatHistory(chatId);
+    this.chatCache.set(chatId, history);
+    return history;
+  }
+}
+```
+
+### Configuration Management
+Store configuration securely and use environment variables:
+
+```typescript
+// Good: Use environment variables
+const chatSDK = new ChatSDK({
+  baseUrl: process.env.ODIN_API_BASE_URL,
+  projectId: process.env.ODIN_PROJECT_ID,
+  apiKey: process.env.ODIN_API_KEY,
+  apiSecret: process.env.ODIN_API_SECRET
+});
+
+// Bad: Hardcode credentials
+const chatSDK = new ChatSDK({
+  baseUrl: 'https://api.example.com',
+  projectId: 'hardcoded-project-id',
+  apiKey: 'hardcoded-api-key',
+  apiSecret: 'hardcoded-secret'
+});
+```
+
+### Memory Management
+Clean up resources and avoid memory leaks:
+
+```typescript
+class ChatApplication {
+  private activeStreams = new Set<AbortController>();
+
+  async sendStreamingMessage(message: string, options: any) {
+    const controller = new AbortController();
+    this.activeStreams.add(controller);
+
+    try {
+      await this.chatSDK.sendMessageStream(message, {
+        ...options,
+        signal: controller.signal  // If supported
+      });
+    } finally {
+      this.activeStreams.delete(controller);
+    }
+  }
+
+  cleanup() {
+    // Cancel all active streams
+    this.activeStreams.forEach(controller => controller.abort());
+    this.activeStreams.clear();
+  }
+}
+```

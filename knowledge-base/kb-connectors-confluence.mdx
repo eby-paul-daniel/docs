@@ -1,0 +1,26 @@
+---
+title: "Connect Confluence to the Knowledge Base"
+icon: "confluence"
+description: "Sync Confluence Pages with the Knowledge Base"
+mode: "wide"
+---
+With the Confluence connector, you can seamlessly bring pages, spaces, and documentation into EKB’s Knowledge Base. Once connected, EKB keeps your Confluence content synced, making it fully searchable and accessible for AI agents. This integration ensures that important knowledge stored in Confluence is always up to date, empowering your team to retrieve answers, surface insights, and build workflows directly from your existing Confluence content.
+## Connecting to Confluence
+Follow these steps to set up a Google Drive connection to the Knowledge Base:
+1. In your EKB project, navigate to the **Knowledge Base**.
+2. At the top-right corner, click the **gear** icon to access the Knowledge Base Settings.
+3. Navigate to the **Connectors** tab.
+4. Find the _Confluence_ option and click **Connect**.
+5. A pop-up appears. Select the **Connection Type** based on the type of deployment:<br/>![Confluence Connection Types](/img/knowledge-base/confluence-connection-types.png)
+    * **Confluence Cloud** – If you select this option, you'll be redirected to Atlassian to authenticate into your account and provide all the necessary permissions for EKB to access your Confluence account.
+    * **Confluence On-Premise** – If you select this option, you'll be required to the **Confluence Server URL** and **Bearer Token**.
+6. Once connected, you should see your Confluence account listed under the Confluence connection.<br/>![Confluence Connected](/img/knowledge-base/confluence-connected.png)
+
+<Check>Now you're ready to sync pages from Confluence into the Knowledge Base!</Check>
+## Adding Pages from Confluence
+1. Navigate to **Knowledge Base** > **KB Data**.
+2. Click **+ New** and select **URL Upload**.
+3. In the pop-up that appears, paste the URL of the Confluence space or page you want to add to the Knowledge Base.
+4. After you paste the URL, the **Extract Subpages from URL** option will appear underneath it. This option allows us to extract the nested pages in the provided link. Disabling it results in only extracting only the provided page.<br/>![Extract Subpages from URL](/img/knowledge-base/extract-subpages-from-url.png)
+
+<Check>Once files are added, you'll receive the below confirmation message. You can find the Confluence pages with their **page ID** as the document name.<br/>![Confirmation Message](/img/knowledge-base/add-url-confirmation-message.png)</Check>

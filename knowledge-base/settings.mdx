@@ -1,0 +1,292 @@
+---
+title: Settings
+icon: "folder-gear"
+description: Configure chunking strategies, chunk configuration, and chunk enrichment settings
+---
+
+# Settings
+
+The **Settings** tab in Knowledge Base Settings allows you to configure how your documents are processed and chunked. These settings control how content is divided into chunks, which affects how the AI agent retrieves and uses information from your knowledge base.
+
+## Overview
+
+The Settings tab includes:
+
+- **Chunking Strategy** - How documents are split into chunks
+- **Chunk Configuration** - Size and overlap settings for chunks
+- **Chunk Enhancement Settings** - Optional AI-powered chunk enrichment
+
+## Accessing Settings
+
+1. Navigate to **Knowledge Base** in the sidebar
+2. Go to the **KB Data** section
+3. Click the **Settings** icon (gear icon)
+4. Select the **Settings** tab
+
+## Chunking Strategy
+
+The chunking strategy determines how documents are divided into smaller, processable chunks for embedding and retrieval.
+
+### Sentence Chunking
+
+Divides text into chunks based on sentence boundaries, ensuring that each chunk contains complete sentences.
+
+**Best For:**
+
+- Natural language documents
+- Preserving sentence context
+- General-purpose content
+
+**Configuration:**
+
+- Uses sentence tokenizer for natural language boundaries
+- Ensures chunks contain complete sentences
+- Maintains readability and context
+
+### Semantic Chunking
+
+Divides text into semantically meaningful chunks, which may not align with sentence boundaries.
+
+**Best For:**
+
+- Complex documents
+- Preserving semantic context
+- Advanced retrieval needs
+
+**Configuration:**
+
+- Automatically determines chunk boundaries
+- Preserves semantic meaning
+- May not align with sentence boundaries
+
+## Chunk Configuration
+
+Chunk configuration appears when you select **Sentence Chunking**. This allows you to fine-tune how documents are divided.
+
+### Chunk Size
+
+The maximum size of each chunk in tokens/characters.
+
+**Default:** 64
+
+**Recommendation:** 64-512 tokens for most use cases
+
+**Considerations:**
+
+- Larger chunks preserve more context but may be less precise for retrieval
+- Smaller chunks are more precise but may lose context
+- Balance between context preservation and retrieval accuracy
+
+**How to Configure:**
+
+1. Select **Sentence Chunking** as your chunking strategy
+2. Enter the desired chunk size in the **Chunk Size** field
+3. Value must be at least 1
+
+### Chunk Overlap
+
+The number of overlapping tokens/characters between adjacent chunks. This helps maintain context across chunk boundaries.
+
+**Default:** 6
+
+**Recommendation:** 10-20% of the set chunk size
+
+**Considerations:**
+
+- Overlap ensures important information isn't split across chunk boundaries
+- Too much overlap wastes storage and processing
+- Too little overlap may lose context between chunks
+
+**How to Configure:**
+
+1. Select **Sentence Chunking** as your chunking strategy
+2. Enter the desired overlap in the **Chunk Overlap** field
+3. Value must be non-negative and less than chunk size
+
+**Example:**
+
+- If chunk size is 64, recommended overlap is 6-13 tokens
+- If chunk size is 512, recommended overlap is 51-102 tokens
+
+## Chunk Enhancement Settings
+
+Chunk enhancement uses AI to enhance chunks with additional context and metadata for better retrieval.
+
+### Chunk Enrichment
+
+Enable chunk enrichment to enhance chunks with additional context for better retrieval.
+
+**Benefits:**
+
+- Better search accuracy
+- Improved context understanding
+- Enhanced retrieval quality
+
+**How to Enable:**
+
+1. Toggle the **Chunk Enrichment** switch to enable
+2. Select an **LLM Model** for enrichment (required when enabled)
+3. Save settings
+
+**Considerations:**
+
+- Increases processing time
+- Requires LLM model selection
+- Adds computational cost
+- Improves search quality
+
+### LLM Model Selection
+
+When chunk enrichment is enabled, you must select an LLM model for chunk enrichment and content analysis.
+
+**Available Models:**
+
+- All predefined models (GPT-4o, Claude, Gemini, etc.)
+- Custom models configured in your project
+
+**How to Select:**
+
+1. Enable **Chunk Enrichment**
+2. Click the **LLM Model** dropdown
+3. Select the desired model from the list
+4. Save settings
+
+**Model Selection Tips:**
+
+- Use models with strong reasoning capabilities for better enrichment
+- Consider processing time vs. quality trade-offs
+- Test different models to find the best fit for your content
+
+## Saving and Applying Settings
+
+### Save Settings
+
+Saves your configuration but only applies to new documents synced or added going forward.
+
+**Steps:**
+
+1. Configure your settings
+2. Click **Save Settings**
+3. Settings are saved to the database
+4. New documents will use these settings
+
+<Warning>
+  Saved settings only apply to new documents. Existing documents continue using
+  their original chunking configuration.
+</Warning>
+
+### Apply to All Documents
+
+Re-indexes all existing documents in your knowledge base with the current settings.
+
+**Steps:**
+
+1. Configure and save your settings
+2. Click **Apply to All Documents**
+3. Confirm the action in the modal
+4. Monitor progress as documents are re-synced
+
+**What Happens:**
+
+- All documents are re-synced with new settings
+- Chunks are regenerated with new configuration
+- Embeddings are updated
+- Process runs in the background
+
+**Progress Tracking:**
+
+- Real-time updates on document sync status
+- Success/failure status for each document
+- Total files processed indicator
+
+<Warning>
+  Applying settings to all documents can take significant time depending on the
+  number of documents. This process cannot be cancelled once started.
+</Warning>
+
+## Best Practices
+
+### Chunking Strategy Selection
+
+1. **Start with Sentence Chunking** - Best for most use cases
+2. **Use Semantic Chunking** - For complex or technical documents
+3. **Test Both** - Compare retrieval quality for your content
+
+### Chunk Size Configuration
+
+1. **Start with Default (64)** - Good baseline for most content
+2. **Increase for Context-Heavy Content** - Documents requiring more context
+3. **Decrease for Precise Retrieval** - When exact matches are important
+4. **Test Different Sizes** - Find optimal size for your use case
+
+### Chunk Overlap Configuration
+
+1. **Use 10-20% of Chunk Size** - Recommended range
+2. **Increase for Critical Information** - When context is essential
+3. **Decrease for Storage Efficiency** - When storage is a concern
+4. **Balance Context vs. Efficiency** - Find the sweet spot
+
+### Chunk Enrichment
+
+1. **Enable for Complex Content** - When simple chunking isn't enough
+2. **Select Appropriate Model** - Use models with strong reasoning
+3. **Monitor Performance** - Watch for processing time increases
+4. **Test Quality Improvements** - Verify enhanced retrieval quality
+
+## Troubleshooting
+
+### Settings Not Applied
+
+**Problem:** Settings saved but documents not using new configuration
+
+**Solutions:**
+
+1. Click **Apply to All Documents** to re-index existing documents
+2. Verify settings were saved correctly
+3. Check if new documents are using the settings
+4. Wait for background sync to complete
+
+### Poor Retrieval Quality
+
+**Problem:** AI agent not finding relevant information
+
+**Solutions:**
+
+1. Adjust chunk size (try larger chunks for more context)
+2. Increase chunk overlap
+3. Enable chunk enrichment
+4. Test different chunking strategies
+
+### Processing Time Issues
+
+**Problem:** Documents taking too long to process
+
+**Solutions:**
+
+1. Reduce chunk size
+2. Disable chunk enrichment
+3. Use faster LLM models for enrichment
+4. Check document size and complexity
+
+## Related Features
+
+- **Connectors** - Integrate external data sources
+- **Crawlers** - Automatically fetch web content
+- **Sync & Schedule** - Manage sync schedules
+- **Templates** - Create response templates
+
+<Card title="Connectors" icon="plug" href="/knowledge-base/connectors">
+  Learn about connecting external data sources
+</Card>
+
+<Card title="Crawlers" icon="spider" href="/knowledge-base/kb-crawler">
+  Learn about web crawlers
+</Card>
+
+<Card
+  title="Sync & Schedule"
+  icon="clock"
+  href="/knowledge-base/sync-and-schedule"
+>
+  Learn about sync scheduling
+</Card>

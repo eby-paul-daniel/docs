@@ -1,0 +1,577 @@
+---
+title: 'On-Premise Troubleshooting'
+icon: 'screwdriver-wrench'
+description: 'L1 diagnostic steps for troubleshooting on-premise EKB deployments'
+---
+
+# On-Premise Troubleshooting
+
+This guide provides Level 1 (L1) diagnostic steps for troubleshooting issues in on-premise EKB deployments. These steps help identify common problems with containers, databases, services, and system resources.
+
+<Warning>
+**Prerequisites**: You need SSH access to the customer's VM/server where EKB is deployed, and appropriate permissions to run Docker commands and access container logs.
+</Warning>
+
+## Container Status Checks
+
+### Check All Container Status
+
+First, verify which containers are running and their health status:
+
+```bash
+# Check all containers status
+docker ps -a
+
+# Check containers with health status
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Health}}"
+
+# Check specific container status
+docker ps -a | grep <container_name>
+```
+
+**Expected Containers:**
+- `web` - Frontend application
+- `api` or `fastapi_backend` - Backend API server
+- `worker` or `celery_worker` - Celery worker(s)
+- `redis` - Redis cache
+- `rabbitmq` - RabbitMQ message queue
+- `supabase-studio` - Supabase Studio
+- `supabase-kong` - Kong API Gateway
+- `supabase-auth` - Auth service
+- `supabase-db` or `postgres` - PostgreSQL database
+- Other Supabase services (storage, meta, etc.)
+
+**What to Check:**
+- All containers should be in "Up" status
+- No containers should be in "Restarting" or "Exited" state
+- Health checks should show "healthy" where applicable
+
+### Restart Failed Containers
+
+If containers are stopped or restarting:
+
+```bash
+# Restart a specific container
+docker restart <container_name>
+
+# Restart all containers
+docker compose restart
+
+# Restart specific service
+docker compose restart <service_name>
+```
+
+## Backend Container Logs
+
+### Check API Container Logs
+
+The backend API container logs contain critical information about errors, database connections, and service issues:
+
+```bash
+# View recent logs (last 100 lines)
+docker logs --tail 100 api
+
+# Or for fastapi_backend
+docker logs --tail 100 fastapi_backend
+
+# Follow logs in real-time
+docker logs -f api
+
+# View logs with timestamps
+docker logs -t api
+
+# View logs from specific time
+docker logs --since 30m api
+
+# View logs between timestamps
+docker logs --since "2024-01-01T00:00:00" --until "2024-01-01T23:59:59" api
+```
+
+**What to Look For:**
+- Database connection errors
+- Redis connection failures
+- RabbitMQ connection issues
+- Authentication errors
+- API endpoint errors (500, 503, etc.)
+- Import/export errors
+- Knowledge Base processing errors
+- Worker task failures
+
+### Check Worker Container Logs
+
+Worker containers handle background tasks (KB processing, embeddings, etc.):
+
+```bash
+# Check worker logs
+docker logs --tail 100 worker
+
+# Or for celery_worker
+docker logs --tail 100 celery_worker
+
+# Check all worker instances
+docker ps | grep worker
+docker logs <worker_container_name>
+```
+
+**What to Look For:**
+- Task execution errors
+- Memory issues
+- Timeout errors
+- Database connection errors in workers
+- Knowledge Base sync failures
+- Embedding generation errors
+
+### Check Web Container Logs
+
+Frontend container logs can reveal UI and API connection issues:
+
+```bash
+# Check web container logs
+docker logs --tail 100 web
+
+# Follow logs
+docker logs -f web
+```
+
+**What to Look For:**
+- Build errors
+- API connection failures
+- Environment variable issues
+- Port binding errors
+
+## Database Status
+
+### Check PostgreSQL/Supabase Database Status
+
+```bash
+# Check database container status
+docker ps | grep -E "(db|postgres|supabase-db)"
+
+# Check database container logs
+docker logs --tail 100 supabase-db
+
+# Or for postgres container
+docker logs --tail 100 postgres
+
+# Connect to database (if psql is available)
+docker exec -it supabase-db psql -U postgres
+
+# Check database connections
+docker exec supabase-db psql -U postgres -c "SELECT count(*) FROM pg_stat_activity;"
+
+# Check database size
+docker exec supabase-db psql -U postgres -c "SELECT pg_size_pretty(pg_database_size('postgres'));"
+```
+
+**What to Check:**
+- Database container is running
+- No connection errors in logs
+- Database is not full (check disk space)
+- Active connections are within limits
+- No long-running queries blocking operations
+
+### Check Database Connectivity from API
+
+```bash
+# Test database connection from API container
+docker exec api python -c "
+import os
+from sqlalchemy import create_engine
+try:
+    engine = create_engine(os.environ.get('DATABASE_URL'))
+    conn = engine.connect()
+    print('Database connection successful')
+    conn.close()
+except Exception as e:
+    print(f'Database connection failed: {e}')
+"
+```
+
+### Check Database Migrations
+
+```bash
+# Check if migrations are up to date
+docker exec api alembic current
+
+# Check migration history
+docker exec api alembic history
+
+# View pending migrations
+docker exec api alembic heads
+```
+
+## Redis Status
+
+### Check Redis Container
+
+```bash
+# Check Redis container status
+docker ps | grep redis
+
+# Check Redis logs
+docker logs --tail 100 redis
+
+# Test Redis connection
+docker exec redis redis-cli ping
+
+# Should return: PONG
+
+# Check Redis info
+docker exec redis redis-cli info
+
+# Check Redis memory usage
+docker exec redis redis-cli info memory
+
+# Check connected clients
+docker exec redis redis-cli info clients
+```
+
+**What to Check:**
+- Redis is responding to ping
+- Memory usage is within limits
+- No connection errors
+- No eviction errors (memory full)
+
+### Test Redis from API Container
+
+```bash
+# Test Redis connection from API
+docker exec api python -c "
+import redis
+import os
+try:
+    r = redis.Redis(host='redis', port=6379, decode_responses=True)
+    r.ping()
+    print('Redis connection successful')
+except Exception as e:
+    print(f'Redis connection failed: {e}')
+"
+```
+
+## RabbitMQ Status
+
+### Check RabbitMQ Container
+
+```bash
+# Check RabbitMQ container status
+docker ps | grep rabbitmq
+
+# Check RabbitMQ logs
+docker logs --tail 100 rabbitmq
+
+# Check RabbitMQ management (if accessible)
+# Access: http://<server-ip>:15672
+# Default credentials: user/password
+```
+
+**What to Check:**
+- Container is running
+- No connection errors
+- Queues are processing messages
+- No message backlog
+
+### Check RabbitMQ from API
+
+```bash
+# Test RabbitMQ connection
+docker exec api python -c "
+import pika
+try:
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters('rabbitmq', 5672, '/',
+            pika.PlainCredentials('user', 'password'))
+    )
+    print('RabbitMQ connection successful')
+    connection.close()
+except Exception as e:
+    print(f'RabbitMQ connection failed: {e}')
+"
+```
+
+## System Resources
+
+### Check Disk Space
+
+Low disk space can cause database, storage, and container issues:
+
+```bash
+# Check overall disk usage
+df -h
+
+# Check disk usage for Docker volumes
+docker system df
+
+# Check specific volume usage
+docker volume inspect <volume_name>
+
+# Check directory sizes
+du -sh /var/lib/docker/volumes/*
+du -sh ./supabase/docker/volumes/*
+
+# Check in-container disk usage (for database)
+docker exec supabase-db df -h
+```
+
+**What to Check:**
+- Root partition has sufficient space (>20% free recommended)
+- Docker volumes are not full
+- Database data directory has space
+- Supabase storage has space
+
+### Check Memory Usage
+
+```bash
+# Check system memory
+free -h
+
+# Check container memory usage
+docker stats --no-stream
+
+# Check specific container memory
+docker stats <container_name> --no-stream
+```
+
+**What to Check:**
+- System has available memory
+- Containers are not hitting memory limits
+- No OOM (Out of Memory) kills in logs
+
+### Check CPU Usage
+
+```bash
+# Check CPU usage
+top
+# or
+htop
+
+# Check container CPU usage
+docker stats --no-stream
+```
+
+## Network Connectivity
+
+### Check Container Network
+
+```bash
+# Check Docker network
+docker network ls
+
+# Inspect network configuration
+docker network inspect <network_name>
+
+# Check if containers can communicate
+docker exec api ping -c 3 redis
+docker exec api ping -c 3 rabbitmq
+docker exec api ping -c 3 supabase-db
+```
+
+### Check Port Availability
+
+```bash
+# Check if ports are in use
+netstat -tulpn | grep -E "(3001|8001|6379|5672|5432|8000)"
+
+# Or using ss
+ss -tulpn | grep -E "(3001|8001|6379|5672|5432|8000)"
+
+# Check port from container
+docker exec api curl -I http://localhost:8001/health
+```
+
+## Environment Variables
+
+### Check Environment Configuration
+
+```bash
+# Check environment variables for a container
+docker exec api env | grep -E "(DATABASE|REDIS|RABBITMQ|API)"
+
+# Check .env files (if accessible)
+cat ./env/.env.server | grep -v "PASSWORD\|SECRET\|KEY"  # Exclude sensitive data
+cat ./env/.env.web | grep -v "PASSWORD\|SECRET\|KEY"
+
+# Check environment from docker-compose
+docker compose config
+```
+
+**What to Check:**
+- Database connection strings are correct
+- Redis and RabbitMQ hostnames are correct
+- API URLs are properly configured
+- Required environment variables are set
+- No typos in variable names
+
+## File Permissions
+
+### Check File and Directory Permissions
+
+```bash
+# Check permissions on key directories
+ls -la ./alignment-project-server
+ls -la ./ai-content-creator
+ls -la ./supabase/docker/volumes
+
+# Check Docker socket permissions
+ls -la /var/run/docker.sock
+
+# Check certificate files (if using HTTPS)
+ls -la ./certs/
+```
+
+**What to Check:**
+- Application directories are readable
+- Docker socket has correct permissions
+- Volume mounts have proper permissions
+- Certificate files are accessible
+
+## Service-Specific Checks
+
+### Knowledge Base Issues
+
+If Knowledge Base is not updating or processing:
+
+```bash
+# Check worker logs for KB processing
+docker logs --tail 200 worker | grep -i "knowledge\|kb\|embedding"
+
+# Check for embedding model issues
+docker logs api | grep -i "embedding\|model"
+
+# Check Supabase storage
+docker logs supabase-storage
+
+# Check file upload limits
+docker exec supabase-db psql -U postgres -c "
+SELECT name, file_size_limit 
+FROM storage.buckets;
+"
+```
+
+### Chat/Agent Issues
+
+```bash
+# Check API logs for agent errors
+docker logs --tail 200 api | grep -i "agent\|chat\|llm"
+
+# Check worker logs for agent tasks
+docker logs --tail 200 worker | grep -i "agent\|chat"
+```
+
+### Authentication Issues
+
+```bash
+# Check auth service logs
+docker logs --tail 100 supabase-auth
+
+# Check database for auth issues
+docker exec supabase-db psql -U postgres -c "
+SELECT * FROM auth.users LIMIT 5;
+"
+```
+
+## Common Error Patterns
+
+### Database Connection Errors
+
+**Symptoms:**
+- "Connection refused" errors
+- "Too many connections" errors
+- Timeout errors
+
+**Diagnostic Steps:**
+1. Check database container is running: `docker ps | grep db`
+2. Check database logs: `docker logs supabase-db`
+3. Check connection limits: `docker exec supabase-db psql -U postgres -c "SHOW max_connections;"`
+4. Check active connections: `docker exec supabase-db psql -U postgres -c "SELECT count(*) FROM pg_stat_activity;"`
+5. Verify DATABASE_URL in environment variables
+
+### Redis Connection Errors
+
+**Symptoms:**
+- "Connection refused" to Redis
+- Cache misses
+- Session issues
+
+**Diagnostic Steps:**
+1. Check Redis container: `docker ps | grep redis`
+2. Test Redis: `docker exec redis redis-cli ping`
+3. Check Redis logs: `docker logs redis`
+4. Verify Redis hostname in environment variables
+
+### Worker Task Failures
+
+**Symptoms:**
+- Tasks not completing
+- Knowledge Base not syncing
+- Background jobs failing
+
+**Diagnostic Steps:**
+1. Check worker logs: `docker logs worker`
+2. Check worker container status: `docker ps | grep worker`
+3. Check RabbitMQ queues: Access RabbitMQ management UI
+4. Check for memory issues: `docker stats worker`
+
+### Storage/File Upload Issues
+
+**Symptoms:**
+- File uploads failing
+- "File too large" errors
+- Storage quota exceeded
+
+**Diagnostic Steps:**
+1. Check disk space: `df -h`
+2. Check Supabase storage logs: `docker logs supabase-storage`
+3. Check file size limits in Supabase config
+4. Check storage bucket configuration
+
+## Quick Diagnostic Script
+
+Create a diagnostic script to run all checks at once:
+
+```bash
+#!/bin/bash
+echo "=== EKB On-Premise Diagnostics ==="
+echo ""
+echo "1. Container Status:"
+docker ps --format "table {{.Names}}\t{{.Status}}"
+echo ""
+echo "2. Disk Space:"
+df -h | grep -E "(Filesystem|/dev/)"
+echo ""
+echo "3. Memory:"
+free -h
+echo ""
+echo "4. Redis:"
+docker exec redis redis-cli ping 2>/dev/null || echo "Redis not responding"
+echo ""
+echo "5. Database:"
+docker exec supabase-db psql -U postgres -c "SELECT version();" 2>/dev/null || echo "Database not responding"
+echo ""
+echo "6. Recent API Errors (last 20 lines):"
+docker logs --tail 20 api 2>/dev/null | grep -i error || echo "No recent errors"
+echo ""
+echo "=== Diagnostics Complete ==="
+```
+
+Save as `diagnostics.sh`, make executable: `chmod +x diagnostics.sh`, and run: `./diagnostics.sh`
+
+## Escalation Information
+
+When escalating to L2 support, provide:
+
+1. **Container Status**: Output of `docker ps -a`
+2. **Recent Logs**: Last 100-200 lines from relevant containers
+3. **System Resources**: Output of `df -h` and `free -h`
+4. **Error Messages**: Specific error messages from logs
+5. **Configuration**: Environment variable names (not values) that are set
+6. **Timeline**: When the issue started
+7. **Impact**: What functionality is affected
+
+**Contact Support**: support@getodin.ai
+
+## Additional Resources
+
+- [On-Premise Installation Guide](/platform-admin/on-premise-installation)
+- [Platform Admin Documentation](/platform-admin/on-premise-installation)
+- [Docker Documentation](https://docs.docker.com/)
+

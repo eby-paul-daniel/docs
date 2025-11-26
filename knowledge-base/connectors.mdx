@@ -1,0 +1,258 @@
+---
+title: Connectors
+icon: "plug"
+description: Connect and sync data from third-party applications and databases
+---
+
+# Connectors
+
+The **Connectors** tab in Knowledge Base Settings allows you to connect and sync data from third-party applications and databases. Connectors automatically fetch and sync content from external sources into your knowledge base.
+
+## Overview
+
+Connectors enable integration with:
+
+- **Cloud Storage** - Google Drive, SharePoint
+- **Documentation Platforms** - Confluence, Zoomin
+- **Databases** - MySQL, Microsoft SQL Server, Oracle, Generic SQL
+- **Business Systems** - Odoo
+
+## Accessing Connectors
+
+1. Navigate to **Knowledge Base** in the sidebar
+2. Go to the **KB Data** section
+3. Click the **Settings** icon (gear icon)
+4. Select the **Connectors** tab
+
+## Available Connectors
+
+### Google Drive
+
+Connect your Google Drive account to sync files and folders.
+
+**Features:**
+- Sync files and folders from Google Drive
+- Automatic updates when files change
+- Support for Google Docs, Sheets, Slides, PDFs, and more
+- Folder-level sync configuration
+
+<Card title="Google Drive Connector" icon="drive" href="/knowledge-base/kb-connectors-google-drive">
+  Learn how to set up Google Drive connector
+</Card>
+
+### SharePoint
+
+Connect your SharePoint site to sync documents and files.
+
+**Features:**
+- Sync documents from SharePoint sites
+- Support for Office documents
+- Automatic sync on schedule
+- Site-level and folder-level configuration
+
+### Confluence
+
+Connect your Confluence workspace to sync pages and spaces.
+
+**Features:**
+- Sync Confluence pages and spaces
+- Support for Confluence Cloud and On-Premise
+- Automatic updates when pages change
+- Space-level sync configuration
+
+<Card title="Confluence Connector" icon="confluence" href="/knowledge-base/kb-connectors-confluence">
+  Learn how to set up Confluence connector
+</Card>
+
+### Zoomin
+
+Connect your Zoomin documentation site to sync content.
+
+**Features:**
+- Sync documentation from Zoomin
+- Automatic content updates
+- Support for Zoomin documentation structure
+
+### Odoo
+
+Connect your Odoo instance to sync business data and documents.
+
+**Features:**
+- Sync documents from Odoo
+- Support for Odoo modules
+- Automatic sync configuration
+
+### MySQL
+
+Connect your MySQL database to sync data and documents.
+
+**Features:**
+- Query and sync data from MySQL databases
+- Support for custom SQL queries
+- Automatic sync on schedule
+- Table-level configuration
+
+### Microsoft SQL Server
+
+Connect your SQL Server database to sync data and documents.
+
+**Features:**
+- Query and sync data from SQL Server
+- Support for custom SQL queries
+- Automatic sync configuration
+- Database and table-level access
+
+### Oracle
+
+Connect your Oracle database to sync data and documents.
+
+**Features:**
+- Query and sync data from Oracle databases
+- Support for custom SQL queries
+- Automatic sync configuration
+- Schema-level access
+
+### Generic SQL
+
+Connect any SQL-compatible database to sync data.
+
+**Features:**
+- Support for any SQL-compatible database
+- Custom connection configuration
+- Flexible query support
+- Automatic sync on schedule
+
+## Managing Connectors
+
+### Adding a Connector
+
+1. Go to the **Connectors** tab
+2. Find the connector you want to add
+3. Click **Connect** or **Add Connection**
+4. Follow the authentication flow
+5. Configure sync settings
+6. Save the connection
+
+### Viewing Connected Connectors
+
+Connected connectors are displayed with:
+- Connection name or account
+- Last sync time
+- Sync status
+- Connection type
+
+### Editing Connector Settings
+
+1. Find the connected connector
+2. Click **Settings** or **Configure**
+3. Update sync configuration
+4. Modify sync schedule if needed
+5. Save changes
+
+### Disconnecting a Connector
+
+1. Find the connected connector
+2. Click **Disconnect** or **Remove**
+3. Confirm the disconnection
+4. Connection is removed and syncing stops
+
+<Warning>
+Disconnecting a connector will stop syncing and may remove synced content from your knowledge base.
+</Warning>
+
+## Sync Configuration
+
+### Manual Sync
+
+Manually trigger a sync for a specific connector:
+
+1. Find the connector
+2. Click **Sync Now** or **Manual Sync**
+3. Wait for sync to complete
+4. Check sync status
+
+### Automatic Sync
+
+Configure automatic syncing:
+
+1. Go to **Sync & Schedule** tab
+2. Configure sync schedule for connectors
+3. Set sync frequency
+4. Save schedule
+
+<Card title="Sync & Schedule" icon="clock" href="/knowledge-base/sync-and-schedule">
+  Learn about sync scheduling
+</Card>
+
+## Best Practices
+
+### Connector Setup
+
+1. **Use Specific Folders** - Connect specific folders rather than entire accounts
+2. **Set Appropriate Schedules** - Balance freshness with system load
+3. **Monitor Sync Status** - Regularly check sync success/failures
+4. **Test Connections** - Verify connections work before relying on them
+
+### Security
+
+1. **Use Service Accounts** - Prefer service accounts over personal accounts
+2. **Limit Permissions** - Grant only necessary permissions
+3. **Regular Audits** - Review connected accounts periodically
+4. **Secure Credentials** - Never share connection credentials
+
+### Performance
+
+1. **Selective Sync** - Sync only necessary content
+2. **Schedule Wisely** - Avoid peak usage times
+3. **Monitor Resources** - Watch for performance impacts
+4. **Optimize Queries** - For database connectors, use efficient queries
+
+## Troubleshooting
+
+### Connection Failures
+
+**Problem:** Connector fails to connect
+
+**Solutions:**
+1. Verify credentials are correct
+2. Check network connectivity
+3. Ensure permissions are granted
+4. Review connector-specific requirements
+
+### Sync Failures
+
+**Problem:** Content not syncing
+
+**Solutions:**
+1. Check sync schedule configuration
+2. Verify connector is still connected
+3. Review sync logs for errors
+4. Try manual sync to test connection
+
+### Missing Content
+
+**Problem:** Expected content not appearing
+
+**Solutions:**
+1. Verify sync completed successfully
+2. Check folder/query configuration
+3. Ensure content matches sync criteria
+4. Review sync filters and settings
+
+## Related Features
+
+- **Settings** - Configure chunking and processing
+- **Crawlers** - Automatically fetch web content
+- **Sync & Schedule** - Manage sync schedules
+
+<Card title="Settings" icon="settings" href="/knowledge-base/settings">
+  Learn about knowledge base settings
+</Card>
+
+<Card title="Crawlers" icon="spider" href="/knowledge-base/kb-crawler">
+  Learn about web crawlers
+</Card>
+
+<Card title="Sync & Schedule" icon="clock" href="/knowledge-base/sync-and-schedule">
+  Learn about sync scheduling
+</Card>

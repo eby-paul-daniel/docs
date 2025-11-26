@@ -1,0 +1,175 @@
+---
+title: Communication Toolkits
+icon: "envelope"
+description: Email, messaging, and communication integrations for your agents
+---
+
+# Communication Toolkits
+
+Communication toolkits enable your AI agents to send emails, manage messages, and interact with various communication platforms. These integrations are essential for agents that need to send notifications, respond to inquiries, or manage communication workflows.
+
+## Available Communication Toolkits
+
+### Gmail
+
+**Category**: Communication  
+**Setup**: OAuth Required  
+**Complexity**: Medium
+
+Connect your agent to Gmail for comprehensive email management.
+
+**Key Features:**
+
+- Send emails with attachments
+- Read and search email messages
+- Manage email labels and folders
+- Compose and reply to emails
+- Access Gmail contacts
+
+**Use Cases:**
+
+- Automated email responses
+- Email marketing campaigns
+- Customer support automation
+- Email-based notifications
+
+<Card title="Gmail Toolkit" icon="envelope" href="/agents/toolkits/gmail">
+  Learn how to set up and use Gmail integration
+</Card>
+
+### Office 365 (Outlook)
+
+**Category**: Communication  
+**Setup**: OAuth Required  
+**Complexity**: Advanced
+
+Access Outlook emails, calendar, and Office 365 services through Microsoft Graph API.
+
+**Key Features:**
+
+- Send and receive emails
+- Manage calendar events
+- Access OneDrive files
+- SharePoint integration
+- Teams integration (when available)
+
+**Use Cases:**
+
+- Enterprise email automation
+- Calendar management
+- Document collaboration
+- Meeting scheduling
+
+<Card
+  title="Office 365 Toolkit"
+  icon="microsoft"
+  href="/agents/toolkits/office365"
+>
+  Set up Microsoft 365 integration for your agents
+</Card>
+
+### Slack
+
+**Category**: Communication  
+**Setup**: OAuth Required  
+**Complexity**: Easy
+
+Integrate with Slack workspaces for team communication and notifications.
+
+**Key Features:**
+
+- Send messages to channels and users
+- Read channel history
+- Manage user information
+- File sharing capabilities
+- Webhook support
+
+**Use Cases:**
+
+- Team notifications
+- Automated status updates
+- Customer support via Slack
+- Workflow notifications
+
+<Card title="Slack Toolkit" icon="slack" href="/agents/toolkits/slack">
+  Configure Slack integration for team communication
+</Card>
+
+## Setup Overview
+
+All communication toolkits require OAuth authentication. Here's what you need to know:
+
+### OAuth Setup Process
+
+1. **Create App**: Register your application with the service provider
+2. **Configure Permissions**: Set up the required OAuth scopes
+3. **Get Credentials**: Obtain Client ID and Client Secret
+4. **Configure Redirect URI**: Set up the callback URL
+5. **Add to EKB**: Enter credentials in the Super Admin panel
+
+### Shared OAuth Groups
+
+Some toolkits share OAuth configurations:
+
+- **Google Workspace**: Gmail shares OAuth with other Google services (Drive, Docs, Sheets, etc.)
+- **Microsoft 365**: Outlook shares OAuth with Excel, Word, and other Microsoft services
+
+## Best Practices
+
+### Security
+
+- Use minimal required permissions
+- Regularly rotate OAuth credentials
+- Monitor access logs
+- Implement proper error handling
+
+### Performance
+
+- Cache authentication tokens
+- Implement rate limiting
+- Use batch operations when possible
+- Handle API rate limits gracefully
+
+### User Experience
+
+- Provide clear error messages
+- Implement retry mechanisms
+- Use appropriate message formatting
+- Respect user preferences
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Errors**
+
+- Verify OAuth credentials are correct
+- Check redirect URI matches exactly
+- Ensure required scopes are granted
+- Verify app is approved (if required)
+
+**Permission Errors**
+
+- Confirm OAuth scopes include required permissions
+- Check if admin consent is needed
+- Verify user has access to requested resources
+
+**Rate Limiting**
+
+- Implement exponential backoff
+- Use batch operations
+- Monitor API usage
+- Consider upgrading API limits
+
+## Getting Started
+
+1. **Choose Your Toolkit**: Select the communication platform you need
+2. **Review Requirements**: Check the specific setup guide for your chosen toolkit
+3. **Set Up OAuth**: Follow the OAuth configuration steps
+4. **Test Integration**: Verify the connection works properly
+5. **Configure Your Agent**: Add the toolkit to your agent configuration
+
+<Note>
+  Communication toolkits handle sensitive data and user communications. Ensure
+  you comply with all relevant privacy regulations and service terms of use.
+</Note>

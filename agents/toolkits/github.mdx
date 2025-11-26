@@ -1,0 +1,182 @@
+---
+title: GitHub Toolkit
+icon: "github"
+description: Access GitHub repositories, issues, and code management
+---
+
+# GitHub Toolkit
+
+The GitHub toolkit enables your AI agents to access GitHub repositories, manage issues, and interact with code repositories. This integration is perfect for development workflow automation, code management, and team collaboration.
+
+## Overview
+
+**Category**: Development  
+**Setup Complexity**: Medium  
+**Authentication**: OAuth 2.0  
+**Provider**: GitHub
+
+## Available Tools
+
+### Repository Management
+
+- **List Repositories** - Get user and organization repositories
+- **Get Repository** - Retrieve repository details
+- **Create Repository** - Create new repositories
+- **Update Repository** - Modify repository settings
+- **Delete Repository** - Remove repositories
+
+### Issue Management
+
+- **List Issues** - Get repository issues
+- **Get Issue** - Retrieve issue details
+- **Create Issue** - Create new issues
+- **Update Issue** - Modify issue details
+- **Close Issue** - Close issues
+- **Add Labels** - Add labels to issues
+
+### Pull Request Management
+
+- **List Pull Requests** - Get repository pull requests
+- **Get Pull Request** - Retrieve pull request details
+- **Create Pull Request** - Create new pull requests
+- **Update Pull Request** - Modify pull request details
+- **Merge Pull Request** - Merge pull requests
+- **Review Pull Request** - Add reviews to pull requests
+
+### Code Management
+
+- **Get File Contents** - Read repository files
+- **Create File** - Create new files
+- **Update File** - Modify existing files
+- **Delete File** - Remove files
+- **List Branches** - Get repository branches
+- **Create Branch** - Create new branches
+
+## Setup Instructions
+
+### Cloud Customers (EKB Hosted)
+
+**No setup required!** GitHub toolkit is enabled by default for all cloud customers. Users can connect their GitHub accounts directly:
+
+1. **Connect GitHub Account**
+   - Users can connect their GitHub accounts directly from their agent settings
+   - OAuth flow uses EKB's pre-configured GitHub app
+   - Access to repositories, issues, and pull requests
+   - No additional setup or credentials needed
+
+### On-Premise Customers (Self-Hosted)
+
+If you're running EKB on your own infrastructure, you'll need to set up your own OAuth app:
+
+#### Prerequisites
+
+- GitHub account with repository access
+- GitHub Developer access
+- EKB Super Admin access
+
+#### Step 1: GitHub OAuth App Setup
+
+1. **Go to GitHub Developer Settings**
+
+   - Visit [github.com/settings/developers](https://github.com/settings/developers)
+   - Click "OAuth Apps" > "New OAuth App"
+
+2. **Configure App Details**
+
+   - **Application name**: Choose a descriptive name
+   - **Homepage URL**: Your application URL
+   - **Authorization callback URL**: `https://your-odin-domain.com/user/integrations/github/oauth/callback`
+
+3. **Set OAuth Scopes**
+
+   - **Required Scopes**:
+     - `repo` - Full access to repositories
+     - `user` - Read user profile information
+     - `admin:org` - Full access to organizations (if needed)
+
+4. **Register Application**
+   - Click "Register application"
+   - Note the Client ID and Client Secret
+
+#### Step 2: Get Credentials
+
+1. **Copy Client ID and Secret**
+
+   - From the OAuth app settings page
+   - Copy the Client ID and Client Secret
+
+2. **Note the Callback URL**
+   - Ensure it matches your EKB installation URL
+
+#### Step 3: Configure in EKB
+
+1. **Access Super Admin Panel**
+
+   - Log in to your EKB instance as Super Admin
+   - Navigate to Super Admin > Toolkits
+
+2. **Add GitHub Configuration**
+
+   - Find GitHub in the toolkit list
+   - Enter the following credentials:
+     - **GitHub Client ID**: Your OAuth Client ID
+     - **GitHub Client Secret**: Your OAuth Client Secret
+     - **GitHub Redirect URI**: Your configured callback URL
+
+3. **Save Configuration**
+   - Click "Save" to store the configuration
+
+
+## Best Practices
+
+### Security
+
+- Use minimal required scopes
+- Regularly rotate OAuth credentials
+- Monitor API usage and access logs
+- Implement proper error handling
+- Use repository secrets for sensitive data
+
+### Performance
+
+- Use batch operations when possible
+- Implement rate limiting to respect API limits
+- Cache frequently accessed data
+- Use appropriate query parameters
+- Handle API rate limits gracefully
+
+### User Experience
+
+- Provide clear error messages
+- Implement retry mechanisms for failed operations
+- Use appropriate issue and PR templates
+- Respect repository settings and permissions
+- Provide helpful automation comments
+
+## Rate Limits
+
+GitHub API has the following rate limits:
+
+- **5,000 requests per hour** for authenticated requests
+- **60 requests per hour** for unauthenticated requests
+- **Rate limit headers** included in responses
+- **Secondary rate limits** for certain operations
+
+## Related Toolkits
+
+- **Python** - Code execution and analysis
+- **SQL Database** - Database operations
+- **Slack** - Development notifications
+- **Asana** - Project management integration
+
+<Card
+  title="Development Toolkits"
+  icon="code"
+  href="/agents/toolkits/development"
+>
+  Learn about other development integrations
+</Card>
+
+## Support
+
+Need help with GitHub integration? Contact support at support@getodin.ai.
