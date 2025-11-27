@@ -4,25 +4,31 @@ icon: "upload"
 description: "Export your workflows and import them into other environments."
 mode: "wide"
 ---
+
 EKB Workflows (also referred to as Flows) allow you to **Export** your Workflows as JSON files. This enables you to export flows in one project and iumport them into another or build multiple environments, according to your Software Development Lifecycle (SDLC), and **Import** approved Workflows from development to testing, as an example. When you create a workflow, Versions of that workflow are craeted each time you make changes and save them. However, Exported Workflows do not retain their version history. Instead, a new set Versions will be created as an Imported Workflow is modified and saved. This article will walk you through the steps to **Export** and **Import** your Workflows.
 
 ## Exporting a Workflow
+
 Workflows are exported from the Workflows list. If you want to export a workflow you are editing, save your changes and select the house icon in the upper left corner of the editor to return to the list.
 
-![Exporting a workflow](/img/tools/export.gif)
+![Exporting a workflow](/img/tools/export.png)
 
 1. Select **Workflows** from the left navigation menu to open the Workflows list.
-2. Select the **three vertical dots*** (<Icon icon="ellipsis-v" />) on the right side of the workflow you want to export.
+2. Select the **three vertical dots\*** (<Icon icon="ellipsis-v" />) on the right side of the workflow you want to export.
 3. Select **Export** from the context menu that appears.
 
-The a JSON file will be automatically created and downloaded to your Downloads directory with the name of the workflow as the filename, e.g., "*My Workflow.json*"
+The a JSON file will be automatically created and downloaded to your Downloads directory with the name of the workflow as the filename, e.g., "_My Workflow.json_"
 
 ## Importing a Workflow
-Workflows are imported in the Workflows list. Upon import, the workflow is automatically saved and the editor will open for you to review and edit the imported workflow. 
 
-![Importing a workflow](/img/tools/import.gif)
+Workflows are imported in the Workflows list. Upon import, the workflow is automatically saved and the editor will open for you to review and edit the imported workflow.
 
-<Warning>The EKB application where the exported workflow came from must be the same version as the EKB you intend to import the workflow into.</Warning>
+![Importing a workflow](/img/tools/import.png)
+
+<Warning>
+  The EKB application where the exported workflow came from must be the same
+  version as the EKB you intend to import the workflow into.
+</Warning>
 
 <Note>We're preventing 50 files in the initially released version.</Note>
 
