@@ -19,16 +19,6 @@
             "pages": ["Introduction", "documentation/chatbot-configuration"]
           },
           {
-            "group": "SDK",
-            "icon": "code",
-            "pages": [
-              "sdk/overview",
-              "sdk/chat",
-              "sdk/smart-tables",
-              "sdk/voice"
-            ]
-          },
-          {
             "group": "Chat",
             "icon": "comment-lines",
             "pages": ["chat/chat", "chat/chat-kb"]
