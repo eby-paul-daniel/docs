@@ -7,7 +7,7 @@
     "light": "#FF5A10",
     "dark": "#FF5A10"
   },
-  "favicon": "/OdinAI.png",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
