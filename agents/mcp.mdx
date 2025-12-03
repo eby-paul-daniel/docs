@@ -1,0 +1,731 @@
+---
+title: MCP (Model Context Protocol)
+icon: "network-wired"
+description: Connect agents to external systems and tools using the Model Context Protocol
+---
+
+# MCP (Model Context Protocol)
+
+The Model Context Protocol (MCP) is an open standard that enables you to build secure, two-way connections between your data sources and AI-powered tools. Think of MCP as a universal translator that allows AI Agents to seamlessly communicate with any external system such as databases, file systems, web services, and APIs.
+
+## Overview
+
+MCP servers extend your agent's capabilities by providing:
+
+- **External Tool Access** - Connect to third-party services and APIs
+- **Data Source Integration** - Access databases, file systems, and cloud storage
+- **Custom Functionality** - Add specialized tools for your specific use cases
+- **Standardized Interface** - Use a consistent protocol for all integrations
+- **Secure Authentication** - Support for OAuth 2.0 and custom headers
+
+## How It Works
+
+### 1. MCP Server Connection
+
+When you add an MCP server to your agent:
+
+1. **Server Registration** - The server is registered with your agent configuration
+2. **Tool Discovery** - The agent discovers available tools from the MCP server
+3. **Tool Integration** - Tools become available to the agent during conversations
+4. **Dynamic Execution** - The agent can call these tools as needed
+
+### 2. Tool Execution Flow
+
+```
+User Query → Agent → MCP Tool Call → MCP Server → External System → Response → Agent → User
+```
+
+### 3. Multiple Servers
+
+You can configure multiple MCP servers per agent:
+
+- Each server provides its own set of tools
+- Tools are prefixed with the server name (e.g., `sentry_get_errors`)
+- Servers can be enabled or disabled independently
+
+## Quick Start
+
+### Adding Popular MCP Servers
+
+1. Navigate to **Agents** in the sidebar
+2. Select or create an agent
+3. Click **Edit** to open the agent builder
+4. Go to the **MCP** tab
+5. In the **Quick Add Popular Servers** section, click on a server tile to add it
+
+### Popular Servers
+
+#### Sentry
+
+Monitor errors and performance issues in your applications.
+
+- **URL**: `https://mcp.sentry.dev/mcp`
+- **Transport**: HTTP
+- **Authentication**: OAuth 2.0
+- **Scopes**: `org:read project:write team:write event:write`
+
+**Capabilities:**
+
+- View error reports
+- Monitor performance metrics
+- Manage projects and teams
+- Track events and issues
+
+## Video Tutorial
+
+Watch this video to see how to add and configure MCP servers:
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/WPS8JW4SA6M?si=nLhjPWtmyFuqCFKy"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+## Adding Custom MCP Servers
+
+### Step 1: Access MCP Configuration
+
+1. Navigate to **Agents** in the sidebar
+2. Select or create an agent
+3. Click **Edit** to open the agent builder
+4. Go to the **MCP** tab
+5. Scroll to the **Advanced Configuration** section
+
+### Step 2: Add New Server
+
+1. Click **Add Server** button
+2. The server configuration form will appear
+
+### Step 3: Configure Server Settings
+
+#### Server Name
+
+Enter a unique name for your MCP server (e.g., `my-custom-server`, `weather-api`, `database-connector`).
+
+**Best Practices:**
+
+- Use lowercase letters and hyphens
+- Be descriptive but concise
+- Avoid special characters
+
+#### Transport Type
+
+Select how the agent will communicate with the MCP server:
+
+**HTTP (streamable_http)**
+
+- Standard HTTP requests
+- Best for REST APIs and web services
+- Supports request/response pattern
+
+**SSE (Server-Sent Events)**
+
+- Real-time streaming communication
+- Best for live data feeds
+- Supports one-way server-to-client streaming
+
+#### Server URL
+
+Enter the endpoint URL for your MCP server:
+
+**HTTP Examples:**
+
+- `https://api.example.com/mcp`
+- `http://localhost:8000/mcp/`
+- `https://mcp.example.com/v1`
+
+**SSE Examples:**
+
+- `https://api.example.com/sse`
+- `https://stream.example.com/events`
+
+### Step 4: Configure Authentication
+
+#### No Authentication
+
+Select **No Authentication** if your MCP server doesn't require authentication.
+
+#### OAuth 2.0
+
+For OAuth-protected servers:
+
+1. Select **OAuth 2.0** as the authentication method
+2. Enter **OAuth Scopes** (space-separated)
+   - Example: `read write admin`
+   - Example: `org:read project:write team:write`
+
+**OAuth Flow:**
+
+- When a user interacts with the agent, they'll be prompted to authorize
+- Authorization is handled automatically
+- Tokens are securely stored and refreshed as needed
+
+### Step 5: Custom Headers (Optional)
+
+If your MCP server requires custom HTTP headers:
+
+1. Click **Add Header**
+2. Enter the header name (e.g., `X-API-Key`, `Authorization`)
+3. Enter the header value
+4. Add additional headers as needed
+
+**Common Headers:**
+
+- `X-API-Key`: `your-api-key`
+- `Authorization`: `Bearer token`
+- `X-Custom-Header`: `custom-value`
+
+### Step 6: Enable/Disable Server
+
+Toggle the **Enabled** checkbox to control whether the server is active:
+
+- **Enabled**: Server tools are available to the agent
+- **Disabled**: Server tools are hidden but configuration is preserved
+
+### Step 7: Test Connection
+
+1. Click the **Test** button to verify the connection
+2. Wait for the test result:
+   - **Success**: Server is reachable and configured correctly
+   - **Error**: Check your configuration and network connectivity
+
+### Step 8: Save Configuration
+
+1. Click **Save** to store your MCP server configuration
+2. The server is now available to your agent
+
+## Managing MCP Servers
+
+### Viewing Configured Servers
+
+In the **MCP** tab, you can see:
+
+- **Server Count** - Number of configured servers
+- **Server Status** - Enabled/disabled status
+- **Server Names** - List of all configured servers
+
+### Editing Server Configuration
+
+1. Find the server in the **Advanced Configuration** section
+2. Click to expand the server configuration
+3. Modify any settings
+4. Click **Test** to verify changes
+5. Configuration is saved automatically
+
+### Removing Servers
+
+1. Find the server you want to remove
+2. Click the **Remove** icon (trash can)
+3. Confirm removal
+4. The server is removed from your agent configuration
+
+<Warning>
+  Removing an MCP server will make its tools unavailable to the agent. Make sure
+  no active conversations depend on these tools.
+</Warning>
+
+### Enabling/Disabling Servers
+
+Toggle the **Enabled** checkbox for any server:
+
+- **Enable**: Makes server tools available
+- **Disable**: Hides server tools but preserves configuration
+
+This is useful for:
+
+- Temporarily disabling problematic servers
+- Testing different server configurations
+- Managing server availability without removing configuration
+
+## Transport Types
+
+### HTTP (streamable_http)
+
+**Use When:**
+
+- Connecting to REST APIs
+- Standard request/response patterns
+- Web services and microservices
+
+**Configuration:**
+
+- URL should point to the MCP endpoint
+- Supports standard HTTP methods
+- Works with most web services
+
+**Example:**
+
+```
+URL: https://api.example.com/mcp
+Transport: HTTP
+```
+
+### SSE (Server-Sent Events)
+
+**Use When:**
+
+- Real-time data streams
+- Live updates and notifications
+- One-way server-to-client communication
+
+**Configuration:**
+
+- URL should point to the SSE endpoint
+- Server must support SSE protocol
+- Automatic reconnection on disconnect
+
+**Example:**
+
+```
+URL: https://stream.example.com/sse
+Transport: SSE
+```
+
+## Authentication Methods
+
+### No Authentication
+
+Use when your MCP server doesn't require authentication:
+
+- Public APIs
+- Internal services
+- Development/testing servers
+
+**Configuration:**
+
+- Select **No Authentication**
+- No additional configuration needed
+
+### OAuth 2.0
+
+Use for secure, user-authorized access:
+
+- Third-party services (Sentry, Canva, etc.)
+- User-specific data access
+- Scoped permissions
+
+**Configuration:**
+
+1. Select **OAuth 2.0**
+2. Enter OAuth scopes (space-separated)
+3. Users will authorize on first use
+
+**OAuth Scopes Examples:**
+
+- Sentry: `org:read project:write team:write event:write`
+- Canva: `asset:read asset:write design:read design:write`
+- Custom: `read write admin`
+
+**OAuth Flow:**
+
+1. User interacts with agent
+2. Agent needs MCP tool from OAuth-protected server
+3. User is prompted to authorize
+4. Authorization completes automatically
+5. Token is stored securely
+6. Future requests use stored token
+
+## Custom Headers
+
+Use custom headers for:
+
+- API keys
+- Custom authentication tokens
+- Service-specific headers
+- Request metadata
+
+### Adding Headers
+
+1. In server configuration, find **Custom Headers** section
+2. Click **Add Header**
+3. Enter header name (e.g., `X-API-Key`)
+4. Enter header value
+5. Add more headers as needed
+
+### Common Header Patterns
+
+**API Key:**
+
+```
+Header: X-API-Key
+Value: your-api-key-here
+```
+
+**Bearer Token:**
+
+```
+Header: Authorization
+Value: Bearer your-token-here
+```
+
+**Custom Service Header:**
+
+```
+Header: X-Service-Name
+Value: your-service-identifier
+```
+
+## Use Cases
+
+### Error Monitoring
+
+**Sentry MCP Server**
+
+Monitor application errors and performance:
+
+```json
+{
+  "server_name": "sentry",
+  "transport": "streamable_http",
+  "url": "https://mcp.sentry.dev/mcp",
+  "auth_type": "oauth",
+  "oauth_scopes": "org:read project:write team:write event:write"
+}
+```
+
+**Agent Capabilities:**
+
+- "Show me errors from the last 24 hours"
+- "What's the error rate for project X?"
+- "List all unresolved issues"
+
+### Database Access
+
+**Custom Database MCP Server**
+
+Connect to your database:
+
+```json
+{
+  "server_name": "postgres-db",
+  "transport": "streamable_http",
+  "url": "https://mcp.example.com/database",
+  "auth_type": "oauth",
+  "headers": {
+    "X-Database-Name": "production"
+  }
+}
+```
+
+**Agent Capabilities:**
+
+- "Query the users table"
+- "Show me recent orders"
+- "Get customer statistics"
+
+### File System Access
+
+**File System MCP Server**
+
+Access files and directories:
+
+```json
+{
+  "server_name": "filesystem",
+  "transport": "streamable_http",
+  "url": "https://mcp.example.com/files",
+  "auth_type": "oauth"
+}
+```
+
+**Agent Capabilities:**
+
+- "List files in the documents folder"
+- "Read the config file"
+- "Search for files containing 'error'"
+
+### Real-Time Data Streams
+
+**SSE MCP Server**
+
+Connect to live data feeds:
+
+```json
+{
+  "server_name": "live-data",
+  "transport": "sse",
+  "url": "https://stream.example.com/sse",
+  "auth_type": "oauth"
+}
+```
+
+**Agent Capabilities:**
+
+- "Show me live stock prices"
+- "Monitor system metrics"
+- "Track real-time events"
+
+## Best Practices
+
+### Server Naming
+
+- **Be Descriptive**: Use clear, meaningful names
+- **Use Lowercase**: Prefer lowercase with hyphens
+- **Avoid Special Characters**: Stick to letters, numbers, and hyphens
+- **Be Consistent**: Follow a naming convention
+
+**Good Examples:**
+
+- `sentry-monitoring`
+- `postgres-production`
+- `weather-api`
+
+**Bad Examples:**
+
+- `Server1`
+- `my_mcp_server`
+- `MCP-Server!!!`
+
+### URL Configuration
+
+- **Use HTTPS**: Always prefer secure connections
+- **Include Full Path**: Specify the complete endpoint URL
+- **Test URLs**: Verify URLs are accessible before saving
+- **Document Endpoints**: Keep documentation of your endpoints
+
+### Authentication
+
+- **Use OAuth When Possible**: More secure than API keys
+- **Minimize Scopes**: Request only necessary permissions
+- **Store Securely**: Tokens are handled automatically
+- **Test Authorization**: Verify OAuth flow works correctly
+
+### Error Handling
+
+- **Test Connections**: Use the Test button before saving
+- **Monitor Logs**: Check for connection errors
+- **Handle Failures**: Configure fallbacks for critical servers
+- **Disable Problematic Servers**: Temporarily disable if needed
+
+### Performance
+
+- **Limit Server Count**: Too many servers can slow down agents
+- **Disable Unused Servers**: Keep only active servers enabled
+- **Optimize Headers**: Only include necessary custom headers
+- **Monitor Response Times**: Watch for slow MCP server responses
+
+## Troubleshooting
+
+### Connection Failures
+
+**Problem**: Test connection fails
+
+**Possible Causes:**
+
+- Incorrect URL
+- Network connectivity issues
+- Server not running
+- Firewall blocking connection
+
+**Solutions:**
+
+- Verify URL is correct and accessible
+- Check network connectivity
+- Ensure server is running
+- Review firewall rules
+
+### Authentication Errors
+
+**Problem**: OAuth authentication fails
+
+**Possible Causes:**
+
+- Incorrect OAuth scopes
+- Server doesn't support OAuth
+- User hasn't authorized
+- Token expired
+
+**Solutions:**
+
+- Verify OAuth scopes are correct
+- Check server OAuth documentation
+- Re-authorize the connection
+- Check token expiration settings
+
+### Tools Not Available
+
+**Problem**: MCP server tools don't appear
+
+**Possible Causes:**
+
+- Server is disabled
+- Connection not established
+- Server not responding
+- Tool discovery failed
+
+**Solutions:**
+
+- Enable the server
+- Test the connection
+- Verify server is running
+- Check server logs
+
+### Timeout Errors
+
+**Problem**: Requests timeout
+
+**Possible Causes:**
+
+- Slow server response
+- Network latency
+- Server overloaded
+- Incorrect timeout settings
+
+**Solutions:**
+
+- Check server performance
+- Verify network speed
+- Reduce server load
+- Adjust timeout settings if configurable
+
+## Testing MCP Servers
+
+### Test Connection
+
+1. Configure your MCP server
+2. Click the **Test** button
+3. Wait for results:
+   - **Success**: Green indicator with success message
+   - **Error**: Red indicator with error details
+
+### Test Results
+
+**Success Indicators:**
+
+- Connection successful message
+- Server responding correctly
+- Authentication working (if applicable)
+
+**Error Indicators:**
+
+- Connection timeout
+- Authentication failed
+- Invalid URL
+- Server not responding
+
+### Interpreting Results
+
+**Success:**
+
+```
+✓ Connection successful
+MCP server connection tested successfully
+```
+
+**Error:**
+
+```
+✗ Connection failed
+Failed to connect to server: Connection timeout
+```
+
+## Security Considerations
+
+### OAuth Security
+
+- **Token Storage**: Tokens are stored securely
+- **Token Refresh**: Automatic token refresh when expired
+- **Scope Limitation**: Request minimum necessary scopes
+- **User Authorization**: Users must explicitly authorize
+
+### Custom Headers
+
+- **Sensitive Data**: Don't put sensitive data in headers if avoidable
+- **API Keys**: Use OAuth when possible instead of API keys
+- **Header Visibility**: Headers are stored in configuration
+- **Access Control**: Limit who can view/edit MCP configurations
+
+### Network Security
+
+- **HTTPS Only**: Always use HTTPS for production servers
+- **Internal Networks**: Use internal URLs for private servers
+- **Firewall Rules**: Configure firewalls appropriately
+- **VPN Access**: Use VPN for secure connections when needed
+
+## Examples
+
+### Example 1: Sentry Integration
+
+**Configuration:**
+
+```json
+{
+  "server_name": "sentry",
+  "transport": "streamable_http",
+  "url": "https://mcp.sentry.dev/mcp",
+  "auth_type": "oauth",
+  "oauth_scopes": "org:read project:write team:write event:write",
+  "enabled": true
+}
+```
+
+**Usage:**
+
+- Agent can monitor errors
+- View performance metrics
+- Manage Sentry projects
+
+### Example 2: Custom API Integration
+
+**Configuration:**
+
+```json
+{
+  "server_name": "custom-api",
+  "transport": "streamable_http",
+  "url": "https://api.example.com/mcp",
+  "auth_type": "oauth",
+  "oauth_scopes": "read write",
+  "headers": {
+    "X-Client-ID": "your-client-id"
+  },
+  "enabled": true
+}
+```
+
+**Usage:**
+
+- Agent can call custom API endpoints
+- Access protected resources
+- Use custom headers for identification
+
+### Example 3: Internal Service
+
+**Configuration:**
+
+```json
+{
+  "server_name": "internal-service",
+  "transport": "streamable_http",
+  "url": "http://internal-service:8000/mcp",
+  "auth_type": "none",
+  "headers": {
+    "X-Internal-Key": "internal-key-value"
+  },
+  "enabled": true
+}
+```
+
+**Usage:**
+
+- Agent can access internal services
+- No OAuth required
+- Custom header for internal authentication
+
+## Related Features
+
+- **Toolkits** - Built-in integrations and tools
+- **Tools** - Custom tools and actions
+- **Agent Configuration** - Configure agent behavior
+- **API Integration** - Connect to external APIs
+
+<Card title="Toolkits" icon="toolbox" href="/agents/toolkits/overview">
+  Learn about built-in toolkits and integrations
+</Card>
+
+## Support
+
+Need help with MCP servers? Contact support at support@automationanywhere.com.

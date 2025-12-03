@@ -1,0 +1,491 @@
+---
+title: "Common API Errors"
+icon: "cloud-exclamation"
+description: "Troubleshooting Advice For API Errors"
+---
+This article will help you understand the most common API errors that may be encountered when utilizing EKB's cloud platform. You will find details on the various HTTP status codes and specific error codes, providing you with essential troubleshooting steps to resolve these issues effectively. By understanding the error response format and the common pitfalls associated with API usage, you will be better equipped to handle errors and enhance your development experience.
+
+## Error Response Format
+
+All API errors follow a consistent format:
+
+```json
+{
+  "status_code": 400,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable error message"
+  },
+  "detail": "Additional error details (optional)"
+}
+```
+
+Some errors may also include:
+
+- `error_id`: Unique identifier for tracking the error
+- `invalid_fields`: List of fields that failed validation (for validation errors)
+
+## HTTP Status Codes
+
+### 400 Bad Request
+
+Client-side errors due to invalid input or malformed requests.
+<AccordionGroup>
+  <Accordion title="#### VALIDATION_ERROR">
+
+  **Error Code**: `VALIDATION_ERROR`
+  **Status Code**: `400`
+
+  **Description**: Request validation failed. One or more fields in the request are invalid.
+
+  **Common Causes**:
+
+  - Missing required fields
+  - Invalid field format (e.g., invalid email, date format)
+  - Field values outside allowed range
+  - Invalid data types
+
+  **Example Response**:
+
+  ```json
+  {
+    "status_code": 400,
+    "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "Invalid input data",
+      "invalid_fields": ["email", "project_id"]
+    }
+  }
+  ```
+
+  **Troubleshooting**:
+
+  1. Review the `invalid_fields` array to identify problematic fields
+  2. Check field requirements in the API documentation
+  3. Verify data types match expected formats
+  4. Ensure all required fields are provided
+  </Accordion>
+  <Accordion title="#### INVALID_API_KEY">
+
+  **Error Code**: `INVALID_API_KEY`  
+  **Status Code**: `400`
+
+  **Description**: The provided API key is invalid or malformed.
+
+  **Troubleshooting**:
+
+  1. Verify the API key is correctly copied (no extra spaces)
+  2. Check if the API key is active in **My Account** > **API Keys**
+  3. Ensure you're using the correct API key for your environment
+  4. Regenerate the API key if necessary
+  </Accordion>
+  <Accordion title="#### INVALID_CREDENTIALS">
+
+  **Error Code**: `INVALID_CREDENTIALS`  
+  **Status Code**: `400`
+
+  **Description**: Authentication credentials are invalid.
+
+  **Troubleshooting**:
+
+  1. Verify email and password are correct
+  2. Check if account is locked or disabled
+  3. Try resetting your password
+  4. Ensure you're using the correct authentication method
+  </Accordion>
+  <Accordion title="#### INVALID_OR_EXPIRED_JWT_TOKEN">
+
+  **Error Code**: `INVALID_OR_EXPIRED_JWT_TOKEN`  
+  **Status Code**: `400`
+
+  **Description**: The JWT token is invalid, expired, or malformed.
+
+  **Troubleshooting**:
+
+  1. Refresh your authentication token
+  2. Log out and log back in
+  3. Check token expiration time
+  4. Verify token is being sent in the correct header format
+  </Accordion>
+</AccordionGroup>
+
+### 401 Unauthorized
+
+Authentication required or authentication failed.
+<AccordionGroup>
+  <Accordion title="#### AUTHENTICATION">
+
+  **Error Code**: `AUTHENTICATION`  
+  **Status Code**: `401`
+
+  **Description**: Authentication is required to access this resource.
+
+  **Troubleshooting**:
+
+  1. Ensure you're logged in
+  2. Check if your session has expired
+  3. Verify authentication headers are included in the request
+  4. Re-authenticate if necessary
+  </Accordion>
+  <Accordion title="#### INVALID_BEARER_TOKEN">
+
+  **Error Code**: `INVALID_BEARER_TOKEN`  
+  **Status Code**: `401`
+
+  **Description**: The Bearer token provided is invalid.
+
+  **Troubleshooting**:
+
+  1. Verify the token format: `Bearer <token>`
+  2. Check if the token has expired
+  3. Regenerate authentication token
+  4. Ensure token is not revoked
+  </Accordion>
+  <Accordion title="#### EMAIL_IS_NOT_VERIFIED">
+
+  **Error Code**: `EMAIL_IS_NOT_VERIFIED`  
+  **Status Code**: `401`
+
+  **Description**: Email address has not been verified.
+
+  **Troubleshooting**:
+
+  1. Check your email for verification link
+  2. Request a new verification email
+  3. Verify email address is correct
+  4. Check spam/junk folder
+  </Accordion>
+</AccordionGroup>
+
+### 403 Forbidden
+
+Access denied due to insufficient permissions.
+<AccordionGroup>
+  <Accordion title="#### AUTHORIZATION">
+
+  **Error Code**: `AUTHORIZATION`  
+  **Status Code**: `403`
+
+  **Description**: You don't have permission to perform this action.
+
+  **Troubleshooting**:
+
+  1. Verify you have the required role/permissions
+  2. Check if you're a member of the project/team
+  3. Contact project/team admin to grant access
+  4. Ensure you're accessing the correct resource
+  </Accordion>
+  <Accordion title="#### PERMISSION_DENIED">
+
+  **Error Code**: `PERMISSION_DENIED`  
+  **Status Code**: `403`
+
+  **Description**: Permission denied for the requested operation.
+
+  **Troubleshooting**:
+
+  1. Review your user role and permissions
+  2. Check project/team access settings
+  3. Verify resource ownership
+  4. Contact administrator for access
+  </Accordion>
+  <Accordion title="#### DOMAIN_NOT_ALLOWED">
+
+  **Error Code**: `DOMAIN_NOT_ALLOWED`  
+  **Status Code**: `403`
+
+  **Description**: Your email domain is not allowed for this operation.
+
+  **Troubleshooting**:
+
+  1. Verify your email domain is whitelisted
+  2. Contact administrator to add your domain
+  3. Use an allowed email address
+  </Accordion>
+</AccordionGroup>
+
+### 404 Not Found
+
+Requested resource does not exist.
+<AccordionGroup>
+  <Accordion title="#### ENTITY_NOT_FOUND">
+
+  **Error Code**: `ENTITY_NOT_FOUND`  
+  **Status Code**: `404`
+
+  **Description**: The requested resource was not found.
+
+  **Common Scenarios**:
+
+  - Project not found
+  - Agent not found
+  - Document not found
+  - User not found
+
+  **Troubleshooting**:
+
+  1. Verify the resource ID is correct
+  2. Check if the resource was deleted
+  3. Ensure you have access to the resource
+  4. Verify you're using the correct project/workspace
+  </Accordion>
+  <Accordion title="#### FILE_NOT_FOUND">
+
+  **Error Code**: `FILE_NOT_FOUND`  
+  **Status Code**: `404`
+
+  **Description**: The requested file does not exist.
+
+  **Troubleshooting**:
+
+  1. Verify the file ID or path is correct
+  2. Check if the file was deleted
+  3. Ensure the file is in the expected location
+  4. Verify file permissions
+  </Accordion>
+  <Accordion title="#### FLOW_NOT_FOUND">
+
+  **Error Code**: `FLOW_NOT_FOUND`  
+  **Status Code**: `404`
+
+  **Description**: The requested workflow/flow was not found.
+
+  **Troubleshooting**:
+
+  1. Verify the flow ID is correct
+  2. Check if the flow was deleted
+  3. Ensure you have access to the flow
+  4. Verify the flow exists in the current project
+  </Accordion>
+  <Accordion title="#### CONFIG_NOT_FOUND">
+
+  **Error Code**: `CONFIG_NOT_FOUND`  
+  **Status Code**: `404`
+
+  **Description**: Required configuration was not found.
+
+  **Troubleshooting**:
+
+  1. Verify configuration exists
+  2. Check configuration setup in settings
+  3. Ensure required services are configured
+  4. Review configuration documentation
+  </Accordion>
+</AccordionGroup>
+
+### 500 Internal Server Error
+
+Server-side errors that require investigation.
+
+<AccordionGroup>
+  <Accordion title="#### ENGINE_OPERATION_FAILURE">
+
+  **Error Code**: `ENGINE_OPERATION_FAILURE`  
+  **Status Code**: `500`
+
+  **Description**: An internal engine operation failed.
+
+  **Troubleshooting**:
+
+  1. Retry the request after a few moments
+  2. Check system status at `status.getodin.ai`
+  3. If persistent, contact support with error details
+  4. Provide error ID if available
+  </Accordion>
+  <Accordion title="#### EXTERNAL_SERVICE">
+
+  **Error Code**: `EXTERNAL_SERVICE`  
+  **Status Code**: `500`
+
+  **Description**: An external service required for this operation failed.
+
+  **Common Scenarios**:
+
+  - LLM provider API failure
+  - Third-party integration failure (Google Drive, Slack, etc.)
+  - External API timeout
+
+  **Troubleshooting**:
+
+  1. Check external service status
+  2. Verify API keys/credentials for external services
+  3. Retry the request
+  4. Check integration configuration
+  5. Contact support if issue persists
+  </Accordion>
+  <Accordion title="#### INFRASTRUCTURE">
+
+  **Error Code**: `INFRASTRUCTURE`  
+  **Status Code**: `500`
+
+  **Description**: Infrastructure error (database, storage, etc.).
+
+  **Troubleshooting**:
+
+  1. Retry the request
+  2. Check system status
+  3. If persistent, contact support
+  4. Provide error details and timestamp
+  </Accordion>
+  <Accordion title="#### OPEN_AI_FAILED">
+
+  **Error Code**: `OPEN_AI_FAILED`  
+  **Status Code**: `500`
+
+  **Description**: OpenAI API call failed.
+
+  **Troubleshooting**:
+
+  1. Check OpenAI service status
+  2. Verify API key is valid and has credits
+  3. Check rate limits
+  4. Retry with exponential backoff
+  5. Verify model availability
+  </Accordion>
+</AccordionGroup>
+
+### 503 Service Unavailable
+
+Service temporarily unavailable.
+
+<AccordionGroup>
+  <Accordion title="#### EXECUTION_TIMEOUT">
+
+  **Error Code**: `EXECUTION_TIMEOUT`  
+  **Status Code**: `503`
+
+  **Description**: Operation timed out.
+
+  **Troubleshooting**:
+
+  1. Retry the request
+  2. Simplify the operation if possible
+  3. Check if system is under heavy load
+  4. Break down large operations into smaller ones
+  5. Contact support if timeout persists
+  </Accordion>
+</AccordionGroup>
+
+## Business Logic Errors
+
+<AccordionGroup>
+  <Accordion title="#### QUOTA_EXCEEDED">
+
+  **Error Code**: `QUOTA_EXCEEDED`  
+  **Status Code**: `400` or `429`
+
+  **Description**: You have exceeded your quota limit.
+
+  **Troubleshooting**:
+
+  1. Check your current usage in **My Account** > **Dashboard**
+  2. Review subscription limits
+  3. Upgrade your plan if needed
+  4. Wait for quota reset period
+  5. Contact sales for quota increase
+  </Accordion>
+  <Accordion title="#### FEATURE_DISABLED">
+
+  **Error Code**: `FEATURE_DISABLED`  
+  **Status Code**: `400`
+
+  **Description**: This feature is disabled for your account.
+
+  **Troubleshooting**:
+
+  1. Check your subscription plan
+  2. Verify feature availability
+  3. Upgrade plan if feature requires higher tier
+  4. Contact support for feature access
+  </Accordion>
+  <Accordion title="#### FLOW_IN_USE">
+
+  **Error Code**: `FLOW_IN_USE`  
+  **Status Code**: `400`
+
+  **Description**: The workflow is currently in use and cannot be modified.
+
+  **Troubleshooting**:
+
+  1. Wait for active executions to complete
+  2. Cancel active workflow runs
+  3. Check workflow execution status
+  4. Retry after executions complete
+  </Accordion>
+  <Accordion title="#### EXISTING_USER">
+
+  **Error Code**: `EXISTING_USER`  
+  **Status Code**: `400`
+
+  **Description**: User with this email already exists.
+
+  **Troubleshooting**:
+
+  1. Try logging in instead of signing up
+  2. Use password reset if you forgot credentials
+  3. Use a different email address
+  4. Contact support if account recovery is needed
+  </Accordion>
+</AccordionGroup>
+
+## Integration-Specific Errors
+
+<AccordionGroup>
+  <Accordion title="#### INVALID_APP_CONNECTION">
+
+  **Error Code**: `INVALID_APP_CONNECTION`  
+  **Status Code**: `400`
+
+  **Description**: Invalid or expired app connection (OAuth integration).
+
+  **Troubleshooting**:
+
+  1. Re-authenticate the integration
+  2. Check OAuth token expiration
+  3. Verify integration credentials
+  4. Reconnect the integration in settings
+  </Accordion>
+  <Accordion title="#### INVALID_SAML_RESPONSE">
+
+  **Error Code**: `INVALID_SAML_RESPONSE`  
+  **Status Code**: `400`
+
+  **Description**: Invalid SAML response from SSO provider.
+
+  **Troubleshooting**:
+
+  1. Verify SSO configuration
+  2. Check SAML metadata URL
+  3. Ensure SSO provider is accessible
+  4. Contact support for SSO configuration review
+  </Accordion>
+  <Accordion title="#### RATE_LIMITED">
+
+  **Error Code**: `RATE_LIMITED` or `ratelimited`  
+  **Status Code**: `429`
+
+  **Description**: API rate limit exceeded.
+
+  **Troubleshooting**:
+
+  1. Wait for rate limit window to reset
+  2. Implement exponential backoff
+  3. Reduce request frequency
+  4. Check rate limit headers in response
+  5. Upgrade plan for higher rate limits
+  </Accordion>
+</AccordionGroup>
+
+## Getting Help
+
+If you encounter an error that's not listed here or need assistance:
+
+1. **Check Error Details**: Note the error code, message, and error_id
+2. **Check System Status**: Visit `status.getodin.ai` for known issues
+3. **Review Documentation**: Check relevant API documentation
+4. **Contact Support**: Email [Support](support@automationanywhere.com) with:
+   - Error code and message
+   - Error ID (if available)
+   - Steps to reproduce
+   - Request/response details (sanitized)
+   - Timestamp of the error

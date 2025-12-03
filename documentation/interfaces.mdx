@@ -1,0 +1,446 @@
+---
+title: 'Create Custom Interfaces For Your Project'
+icon: 'info-circle'
+description: 'Create Custom App-Like Interfaces'
+---
+Interfaces allow you to create custom, app-like experiences for your EKB projects. Instead of the default chat interface, you can build multi-page applications with different page types, custom layouts, and tailored configurations to match your specific use cases.
+
+Interfaces provide:
+
+- **Custom User Experience**: Replace the default chat mode with purpose-built interfaces
+- **Multi-Page Applications**: Create interfaces with multiple pages, each serving different functions
+- **Flexible Page Types**: Choose from chat, smart tables, knowledge base, actions, or custom pages
+- **Publishing & Sharing**: Publish interfaces and set them as default for your project
+- **Professional Branding**: Create branded interfaces for external users
+
+## Key Concepts
+
+### Interface
+
+An interface is a collection of pages that together form a complete user experience. Each project can have multiple interfaces, but only one can be set as the default.
+
+**Interface Properties:**
+- **Name**: Display name for the interface
+- **Description**: Optional description of the interface's purpose
+- **Published**: Whether the interface is published and available to users
+- **Default**: Whether this is the default interface for the project
+
+### Page
+
+A page is a single screen within an interface. Pages can be of different types, each with its own configuration options.
+
+**Page Types:**
+- **Chat Page**: Interactive chat interface with agents
+- **Smart Table Page**: Data tables with filtering, editing, and views
+- **Knowledge Base Page**: Document search and browsing
+- **Actions Page**: Browse and execute tools & workflows
+- **Custom Page**: Drag-and-drop page builder with custom elements
+
+### Page Configuration
+
+Each page type has specific configuration options that control its behavior and appearance.
+
+## Getting Started
+
+### Creating Your First Interface
+
+1. **Navigate to Interfaces**
+   - Go to your project
+   - Click on **Interfaces** in the project navigation
+
+2. **Create New Interface**
+   - Click **+ Create Interface**
+   - A new interface will be created with a default chat page
+   - You'll be redirected to the Interface Builder
+
+3. **Configure Your Interface**
+   - Use the Interface Builder to add pages, configure settings, and customize the layout
+   - See the [Interface Builder](#interface-builder) section for details
+
+### Setting Default Interface
+
+1. **From Interface List**
+   - Go to the Interfaces page
+   - Find the interface you want to set as default
+   - Click **Set as Default**
+
+2. **From Interface Builder**
+   - Open the interface you want to set as default
+   - Use the interface settings to mark it as default
+
+**Note**: Only one interface can be the default at a time. Setting a new default will automatically unset the previous default.
+
+## Interface Builder
+
+The Interface Builder is where you create and configure your interfaces. It provides:
+
+- **Page Management**: Add, edit, delete, and reorder pages
+- **Page Configuration**: Configure each page's settings and behavior
+- **Preview**: Preview your interface before publishing
+- **Publishing**: Publish your interface to make it available
+
+### Accessing the Builder
+
+1. From the Interfaces list, click **Edit** on any interface
+2. Or click **Open** to view the published interface
+
+### Interface Builder Layout
+
+The builder has three main areas:
+
+1. **Sidebar**: Page list and configuration panel
+2. **Canvas**: Preview of the current page
+3. **Configuration Panel**: Settings for the selected page
+
+## Page Types
+
+### Chat Page
+
+A chat page provides an interactive chat interface where users can converse with AI agents.
+
+**Configuration Options:**
+
+- **Agent Selection**:
+  - **Default Agent**: Set a default agent for the chat
+  - **Single Agent Mode**: Show only one agent (hide agent selector)
+  - **Enabled Agents**: Whitelist of agent IDs that should be available
+  - **Display Type**: Choose between 'compact' or 'detailed' chat list display
+
+- **Chat Settings**:
+  - **Hide Footer**: Hide the chat footer
+  - **Metadata**: Custom metadata to pass to chat sessions
+
+**Use Cases:**
+- Customer support chatbot
+- Interactive Q&A interface
+- Agent-specific chat interface
+
+### Smart Table Page
+
+A smart table page displays data tables with advanced filtering, sorting, and editing capabilities.
+
+**View Types:**
+
+1. **Table View**: Standard data table with rows and columns
+   - **Hide Toolbar**: Hide the table toolbar
+   - **Read Only**: Make the table read-only
+
+2. **Review View**: Review interface for data validation
+   - **Preset Filters**: Pre-configured filters for the review view
+   - **Hide Filters**: Hide filter controls
+   - **Default Edit Mode**: Start in edit mode
+
+3. **Dashboard View**: Analytics dashboard with charts and metrics
+   - **Dashboard View ID**: ID of the dashboard view to display
+   - **Hide Period Selector**: Hide the time period selector
+   - **Default Period**: Default time period for the dashboard
+
+**Tabs Support:**
+
+Smart table pages can have multiple tabs, each displaying a different table or view:
+
+- **Table Tabs**: Each tab can show a different smart table
+- **View Tabs**: Each tab can show a different view (table, review, dashboard) of the same table
+- **Tab Configuration**: Configure each tab independently
+
+**Configuration Steps:**
+
+1. Select the smart table to display
+2. Choose the view type (table, review, or dashboard)
+3. Configure view-specific settings
+4. Add tabs if needed (for multi-table or multi-view pages)
+
+**Use Cases:**
+- Data management interface
+- Review and approval workflows
+- Analytics dashboards
+- Multi-table data views
+
+### Knowledge Base Page
+
+A knowledge base page provides document search and browsing capabilities.
+
+**Configuration Options:**
+
+- **Search Enabled**: Enable/disable search functionality
+- **Categories Enabled**: Show/hide document categories
+
+**Use Cases:**
+- Document library interface
+- Knowledge repository
+- Help center
+
+### Actions Page
+
+An actions page allows users to browse and execute tools and workflows.
+
+**Display Modes:**
+
+1. **Multi-Action Mode**: Display multiple actions in a grid or list
+   - **Show Search**: Enable search functionality
+   - **View Mode**: Choose between 'grid' or 'list' display
+   - **Hide Toolbar**: Hide the actions toolbar
+   - **Enable Filtering**: Enable action filtering
+   - **Default Filter**: Default filter to apply
+   - **Allowed Actions**: Whitelist of action flow_ids to display
+
+2. **Single-Action Mode**: Display one action as a form
+   - **Selected Action ID**: The flow_id of the specific action to display
+   - **Hide Form Header**: Hide the action title/description
+   - **Auto Execute**: Auto-execute on page load if all required fields have defaults
+
+**Configuration Steps:**
+
+1. Choose display mode (multi or single)
+2. Configure mode-specific settings
+3. Select allowed actions (if using whitelist)
+
+**Use Cases:**
+- Workflow execution interface
+- Tool library
+- Single-action forms
+- Process automation interface
+
+### Custom Page
+
+A custom page allows you to build a page from scratch using drag-and-drop elements.
+
+**Available Elements:**
+
+**Data Elements:**
+- **Grid**: Data grid display
+- **Chart**: Chart visualization
+- **Number**: Number display
+- **Filter**: Filter controls
+
+**UI Elements:**
+- **Text**: Text display
+- **Button**: Interactive button
+- **Divider**: Visual divider
+
+**Interactive Elements:**
+- **Record Picker**: Record selection component
+- **Field**: Form field
+
+**Building Custom Pages:**
+
+1. **Add Elements**: Drag elements from the palette onto the canvas
+2. **Position Elements**: Click and drag to position elements
+3. **Configure Elements**: Select an element to configure its settings
+4. **Save**: Save your changes
+
+**Use Cases:**
+- Custom dashboards
+- Form interfaces
+- Data visualization pages
+- Branded landing pages
+
+## Managing Pages
+
+### Adding Pages
+
+1. In the Interface Builder, click **+ Add Page**
+2. Choose a page template:
+   - Chat Page
+   - Smart Table
+   - Knowledge Base
+   - Actions
+   - Custom Page
+3. Configure the page settings
+4. The page will be added to your interface
+
+### Editing Pages
+
+1. Select a page from the sidebar
+2. Configure the page settings in the configuration panel
+3. Changes are saved automatically
+
+### Reordering Pages
+
+1. In the page list, click and drag pages to reorder
+2. The order determines the navigation order in the published interface
+
+### Deleting Pages
+
+1. Select the page you want to delete
+2. Click the delete button
+3. Confirm the deletion
+
+**Note**: You cannot delete the last page in an interface. You must have at least one page.
+
+## Publishing Interfaces
+
+### Publishing an Interface
+
+1. **From Interface Builder**:
+   - Open the interface you want to publish
+   - Click **Publish** in the interface settings
+   - The interface will be marked as published
+
+2. **From Interface List**:
+   - Find the interface you want to publish
+   - Use the publish toggle or button
+
+**Published interfaces are:**
+- Available to users when they access the project
+- Visible in the interface list with a "Published" badge
+- Accessible via the project's app URL
+
+### Unpublishing an Interface
+
+1. Open the published interface
+2. Click **Unpublish** in the interface settings
+3. The interface will no longer be available to users
+
+## Best Practices
+
+### Interface Design
+
+1. **Start with a Plan**: Plan your interface structure before building
+   - Identify the pages you need
+   - Determine the page types
+   - Plan the navigation flow
+
+2. **Use Descriptive Names**: Use clear, descriptive names for interfaces and pages
+   - Helps users understand the purpose
+   - Makes management easier
+
+3. **Organize Pages Logically**: Arrange pages in a logical order
+   - Most important pages first
+   - Related pages grouped together
+
+### Page Configuration
+
+1. **Configure Chat Pages Carefully**:
+   - Set appropriate default agents
+   - Use single agent mode when only one agent is needed
+   - Whitelist agents for better control
+
+2. **Optimize Smart Table Pages**:
+   - Choose the right view type for your use case
+   - Use tabs for multi-table views
+   - Configure filters and settings appropriately
+
+3. **Test Actions Pages**:
+   - Test actions in both multi and single modes
+   - Verify action whitelists work correctly
+   - Test auto-execute functionality
+
+### Performance
+
+1. **Limit Page Count**: Keep the number of pages reasonable
+   - Too many pages can slow down the interface
+   - Consider using tabs within pages instead
+
+2. **Optimize Custom Pages**: 
+   - Don't overload custom pages with too many elements
+   - Use efficient element configurations
+
+3. **Test Before Publishing**: Always preview and test before publishing
+   - Check all page configurations
+   - Test navigation flow
+   - Verify all functionality works
+
+## Use Cases
+
+### Customer Support Interface
+
+**Structure:**
+- **Page 1: Chat** - Main support chat with support agent
+- **Page 2: Knowledge Base** - Help articles and documentation
+- **Page 3: Actions** - Submit ticket or request action
+
+**Configuration:**
+- Chat page: Single agent mode with support agent
+- Knowledge base: Search and categories enabled
+- Actions: Multi-action mode with support workflows
+
+### Data Management Interface
+
+**Structure:**
+- **Page 1: Dashboard** - Smart table dashboard view
+- **Page 2: Data Entry** - Smart table with review view
+- **Page 3: Reports** - Smart table with multiple tabs
+
+**Configuration:**
+- Dashboard: Default period set, period selector visible
+- Data Entry: Preset filters, edit mode enabled
+- Reports: Multiple tabs with different table views
+
+### Workflow Automation Interface
+
+**Structure:**
+- **Page 1: Actions** - Browse and execute workflows
+- **Page 2: Status** - Smart table showing workflow status
+- **Page 3: Custom Dashboard** - Custom page with charts and metrics
+
+**Configuration:**
+- Actions: Grid view, search enabled, filtered by category
+- Status: Table view, read-only, auto-refresh
+- Dashboard: Custom elements showing key metrics
+
+## Troubleshooting
+
+### Interface Not Appearing
+
+**Issue**: Interface doesn't show up in the list or isn't accessible.
+
+**Solutions:**
+- Check if the interface is published
+- Verify you're looking at the correct project
+- Ensure you have proper permissions
+
+### Page Not Loading
+
+**Issue**: A page doesn't load or shows an error.
+
+**Solutions:**
+- Check the page configuration
+- Verify all required resources (tables, agents, actions) exist
+- Check for configuration errors in the page settings
+
+### Default Interface Not Working
+
+**Issue**: The default interface isn't being used.
+
+**Solutions:**
+- Verify the interface is set as default
+- Check if another interface is also set as default
+- Refresh the page or clear cache
+
+### Smart Table Page Issues
+
+**Issue**: Smart table page doesn't display data or has errors.
+
+**Solutions:**
+- Verify the table exists and is accessible
+- Check the view type configuration
+- Ensure table permissions are correct
+- Verify tab configurations if using tabs
+
+### Actions Page Issues
+
+**Issue**: Actions don't appear or can't be executed.
+
+**Solutions:**
+- Check the action whitelist configuration
+- Verify actions exist and are published
+- Check action permissions
+- Verify display mode settings
+
+## API Integration
+
+Interfaces can be accessed programmatically via the EKB API. See the [API Reference](/api-reference) for details on:
+
+- Creating and managing interfaces
+- Configuring pages
+- Publishing interfaces
+- Accessing interface data
+
+## Next Steps
+
+- Learn about [Agents](/agents/agents) to configure chat pages
+- Explore [Smart Tables](/knowledge-base/smart-tables) for data management
+- Check out [Workflows](/tools/workflows-v2) for actions pages
+- Review [Knowledge Base](/knowledge-base/kb-overview) for document management
+

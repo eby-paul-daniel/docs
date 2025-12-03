@@ -1,0 +1,395 @@
+---
+title: Knowledge Base Templates
+icon: "file-text"
+description: Create and manage templates to guide AI agents with FAQs, response templates, and examples
+---
+
+# Knowledge Base Templates
+
+Knowledge Base Templates are pre-defined pairs of questions and answers, response templates, and examples that help guide your AI agents in generating more accurate and contextually relevant responses. Instead of searching through full documents, agents can use these templates to provide faster, more precise answers.
+
+## Overview
+
+Templates serve as a quick-reference guide for your AI agents, enabling them to:
+
+- **Respond Faster** - Use pre-defined templates instead of searching entire documents
+- **Improve Accuracy** - Provide exact answers you've curated
+- **Maintain Consistency** - Ensure uniform responses across interactions
+- **Enhance Context** - Associate templates with specific documents for additional context
+
+## Template Types
+
+Knowledge Base Templates support three types of content:
+
+### FAQ (Frequently Asked Questions)
+
+Question and answer pairs for common queries.
+
+**Use Cases:**
+
+- Customer support questions
+- Product information queries
+- Policy clarifications
+- Common troubleshooting steps
+
+**Example:**
+
+- **Question**: "What is your return policy?"
+- **Answer**: "Our return policy allows returns within 30 days of purchase. Items must be in original condition with tags attached. Please contact support to initiate a return."
+
+### Template
+
+Response templates with placeholders for dynamic content.
+
+**Use Cases:**
+
+- Email response templates
+- Standardized communication formats
+- Form letter templates
+- Structured response patterns
+
+**Example:**
+
+- **Template Name**: "Email Response Template"
+- **Template Content**: "Dear {name}, Thank you for your inquiry about {topic}. We have reviewed your request and {response}. Please let us know if you need any further assistance."
+
+### Example
+
+Code examples, usage patterns, or demonstration content.
+
+**Use Cases:**
+
+- API integration examples
+- Code snippets
+- Usage demonstrations
+- Best practice examples
+
+**Example:**
+
+- **Example Title**: "API Integration Example"
+- **Example Content**: "Here's how to integrate with our API: `const response = await fetch('/api/endpoint', { method: 'POST', body: JSON.stringify(data) })`"
+
+## Creating Templates
+
+### Step 1: Access Templates Section
+
+1. Navigate to **Knowledge Base** in the sidebar
+2. Click on the **Templates** tab
+3. You'll see the templates interface with search and management options
+
+### Step 2: Create New Template
+
+1. Click the **Add Template** button
+2. The template creation modal will open
+
+### Step 3: Configure Template
+
+#### Select Content Type
+
+Choose the type of template you want to create:
+
+- **FAQ** - Question and answer pair
+- **Template** - Response template with placeholders
+- **Example** - Code or usage example
+
+#### Enter Content
+
+**For FAQ:**
+
+- **Question**: Enter the question users might ask
+- **Answer**: Provide the exact answer you want the agent to give
+
+**For Template:**
+
+- **Template Name**: Enter a descriptive name for the template
+- **Template Content**: Enter the template with placeholders (e.g., `{name}`, `{topic}`)
+
+**For Example:**
+
+- **Example Title**: Enter a descriptive title
+- **Example Content**: Enter the example code or content
+
+#### Associate File (Optional)
+
+For FAQ templates, you can associate a file from your Knowledge Base:
+
+1. Click **Associate a File (Optional)**
+2. Browse and select a document from your Knowledge Base
+3. The file provides additional context for the AI agent
+4. Only one file can be associated per template
+
+**Benefits of File Association:**
+
+- Provides context for the template
+- Helps agents understand the source material
+- Enables better answer generation
+- Links templates to source documents
+
+### Step 4: Save Template
+
+1. Review your template content
+2. Click **Create Template** to save
+3. The template is now available for your agents to use
+
+## Managing Templates
+
+### Viewing Templates
+
+In the Templates tab, you can:
+
+- **Browse All Templates** - See all templates in your knowledge base
+- **Search Templates** - Use the search bar to find specific templates
+- **Filter by Type** - View templates by type (FAQ, Template, Example)
+
+### Editing Templates
+
+1. Find the template you want to edit
+2. Click on the template to open it
+3. Modify the question/answer or content
+4. Update the associated file if needed
+5. Click **Update** to save changes
+
+### Deleting Templates
+
+1. Open the template you want to delete
+2. Click the **Delete** button
+3. Confirm deletion
+4. The template is removed from your knowledge base
+
+<Warning>
+  Deleting a template will remove it from all agents using it. Make sure no
+  active agents depend on the template before deleting.
+</Warning>
+
+## Auto-Generate Templates
+
+You can automatically generate templates from documents in your Knowledge Base.
+
+### Step 1: Access Auto-Generate
+
+1. Go to the **Templates** tab
+2. Click **Auto Generate Templates** (if available)
+3. The auto-generate modal will open
+
+### Step 2: Select Document
+
+1. Choose a document from your Knowledge Base
+2. Select the content type (FAQ, Template, or Example)
+3. Click **Generate Templates**
+
+### Step 3: Review Generated Templates
+
+1. Review the AI-generated templates
+2. Edit or refine as needed
+3. Save the templates you want to keep
+
+**Auto-Generate Benefits:**
+
+- Quickly create multiple templates from documents
+- Extract key information automatically
+- Save time on manual template creation
+- Generate FAQs from documentation
+
+## How Agents Use Templates
+
+### Template Priority
+
+When an agent receives a query:
+
+1. **Template Matching** - Agent checks if the query matches a template
+2. **Template Response** - If matched, agent uses the template answer
+3. **Document Search** - If no template matches, agent searches documents
+4. **Context Enhancement** - Associated files provide additional context
+
+### Template Matching
+
+Agents use semantic matching to find relevant templates:
+
+- **Question Similarity** - Matches user queries to template questions
+- **Content Relevance** - Considers template content and context
+- **File Association** - Uses associated files for better matching
+
+### Response Generation
+
+When a template is matched:
+
+- **Direct Answer** - Agent provides the template answer directly
+- **Template Filling** - For templates with placeholders, agent fills in values
+- **Context Integration** - Combines template with associated file context
+- **Citation** - References the template and associated file
+
+## Best Practices
+
+### Template Creation
+
+1. **Be Specific** - Create templates for common, specific questions
+2. **Use Clear Language** - Write questions as users would ask them
+3. **Provide Complete Answers** - Include all necessary information
+4. **Update Regularly** - Keep templates current with your content
+
+### FAQ Templates
+
+- **Common Questions** - Focus on frequently asked questions
+- **Clear Answers** - Provide complete, accurate answers
+- **Associate Files** - Link FAQs to relevant documents
+- **Organize by Topic** - Group related FAQs together
+
+### Response Templates
+
+- **Use Placeholders** - Include `{variable}` placeholders for dynamic content
+- **Standardize Format** - Maintain consistent template structure
+- **Document Variables** - Explain what each placeholder represents
+- **Test Templates** - Verify templates work with different inputs
+
+### Example Templates
+
+- **Real Examples** - Use actual, working examples
+- **Include Context** - Explain when and how to use the example
+- **Keep Updated** - Update examples as APIs or processes change
+- **Add Comments** - Include explanatory comments in code examples
+
+### File Association
+
+- **Relevant Documents** - Associate files that provide context
+- **Source Material** - Link templates to source documents
+- **Single File** - Only one file can be associated per template
+- **Update Associations** - Keep file associations current
+
+## Template Organization
+
+### Search and Filter
+
+- **Search Bar** - Quickly find templates by keyword
+- **Type Filter** - Filter by FAQ, Template, or Example
+- **Content Search** - Search within template content
+
+### Categorization
+
+Organize templates by:
+
+- **Topic** - Group by subject matter
+- **Use Case** - Organize by application
+- **Department** - Categorize by team or function
+- **Priority** - Mark frequently used templates
+
+## Use Cases
+
+### Customer Support
+
+**Scenario**: Provide consistent support responses
+
+**Templates:**
+
+- FAQ templates for common support questions
+- Response templates for standard communications
+- Examples of troubleshooting steps
+
+**Benefits:**
+
+- Consistent support experience
+- Faster response times
+- Accurate information delivery
+
+### Product Documentation
+
+**Scenario**: Answer product-related questions
+
+**Templates:**
+
+- FAQ templates for product features
+- Usage examples for product APIs
+- Response templates for product inquiries
+
+**Benefits:**
+
+- Quick access to product information
+- Standardized product explanations
+- Better user experience
+
+### Internal Knowledge
+
+**Scenario**: Share internal processes and procedures
+
+**Templates:**
+
+- FAQ templates for company policies
+- Response templates for standard communications
+- Examples of internal workflows
+
+**Benefits:**
+
+- Consistent internal communication
+- Faster information access
+- Standardized processes
+
+## Troubleshooting
+
+### Templates Not Being Used
+
+**Problem**: Agents aren't using templates
+
+**Possible Causes:**
+
+- Query doesn't match template questions
+- Template content is too vague
+- No associated file for context
+
+**Solutions:**
+
+- Review template questions for clarity
+- Ensure questions match user query patterns
+- Associate relevant files for better matching
+- Test template matching with sample queries
+
+### Incorrect Template Matches
+
+**Problem**: Wrong templates are being matched
+
+**Possible Causes:**
+
+- Similar questions causing confusion
+- Template questions too generic
+- Multiple templates with similar content
+
+**Solutions:**
+
+- Make template questions more specific
+- Review and refine template content
+- Consolidate similar templates
+- Test and refine matching logic
+
+### Template Updates Not Reflecting
+
+**Problem**: Changes to templates aren't being used
+
+**Possible Causes:**
+
+- Template not saved correctly
+- Agent cache needs refresh
+- Template not properly associated
+
+**Solutions:**
+
+- Verify template was saved
+- Refresh agent configuration
+- Check template associations
+- Test with a new query
+
+## Related Features
+
+- **Knowledge Base** - Upload and manage documents
+- **Agents** - Configure agents to use templates
+- **Smart Tables** - Structure data for better retrieval
+- **Documents** - Create and edit documents
+
+<Card
+  title="Knowledge Base Overview"
+  icon="folder-open"
+  href="/knowledge-base/kb-overview"
+>
+  Learn more about the Knowledge Base
+</Card>
+
+## Support
+
+Need help with Knowledge Base Templates? Contact support at support@automationanywhere.com.

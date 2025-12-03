@@ -1,0 +1,72 @@
+---
+title: "Integrate EKB Chatbot to Slack"
+icon: "slack"
+description: "Bring EKB to Slack"
+mode: "wide"
+---
+Integrating EKB with Slack brings intelligent, context-aware chat directly into your workspace, allowing teams to interact with your AI agent without leaving Slack. This guide walks you through installing the EKB app in Slack, configuring permissions, and setting up a channel for seamless communication with your AI agent.
+<Warning>Each EKB project can only be linked to a single Slack app. You will need to create a new Slack app for each additional EKB project you want to connect.</Warning>
+## Prerequisites
+* You have:
+    * your Project's `project id` at hand
+    * a set of **API Key + Secret** to setup the EKB app in Slack
+## Install and Set Up EKB App in Slack
+1. Go to [Slack API Apps](https://api.slack.com/apps). You may need to log in to your Slack workspace.
+2. Click **Create an App**.<br/>![Create Slack App](/img/public-chatbot/create_slack_app.png)
+3. Select **From scratch**.<br/>![Create Slack App From Scratch](/img/public-chatbot/create_slack_app_from_scratch.png)
+4. Enter the **App Name** (e.g., "EKB Chatbot").
+5. Select the **Development Slack Workspace** where you want to install the app.
+6. Click **Create App**.<br/>![Create Slack App Details](/img/public-chatbot/create_slack_app_details.png)
+7. In the **Basic Information** section, note down the following values: `App ID`, `Client ID`, `Client Secret`, `Signing Secret`, and `Verfication Token`. You will need these to configure the app in step 11 below.
+8. In the left sidebar, click on **OAuth & Permissions**:<br/>
+    a. Click **Add Redirect URL** and enter the following URL:
+        ```
+        https://api.getodin.ai/slack/oauth
+        ```
+    b. Click **Add** and then **Save URLs**.<br/>![Slack OAuth Redirect URL](/img/public-chatbot/slack_oauth_redirect_url.png)
+    c. Under **Scopes**, add the following **Bot Token Scopes**:
+        - `app_mentions:read` – to allow the bot to read messages where it is mentioned in conversations the app is in.
+        - `channels:history` – to allow the bot to view messages and other content in public channels that the app is a member of.
+        - `channels:manage` – to allow the bot to manage channels, including creating, archiving, and renaming channels.
+        - `channels:read` – to allow the bot to view basic information about public channels in a workspace.
+        - `chat:write` – to allow the bot to send messages as the app.
+        - `commands` – to allow the bot to add slash commands that users can invoke.
+        - `groups:read` – to allow the bot to view basic information about private channels that the app is a member of.
+        - `im:history` – to allow the bot to view messages and other content in direct messages that the app is a member of.
+        - `im:write` – to allow the bot to send direct messages as the app.
+        - `users.profile:read` – to allow the bot to view user profiles.
+        - `users:read` – to allow the bot to view people in a workspace.
+        - `users:read.email` – to allow the bot to view users emails.
+9. Click **App Home** in the left sidebar. Under **Show Tabs**, ensure **Messages Tab** is enabled, as well as the checkbox below it.<br/>![Slack App Home Tab](/img/public-chatbot/slack_app_home_tab.png)
+10. In the left side bar, click **Slash Commands**:<br/>
+    a. Click **Create New Command**.
+    b. In the **Command** field, enter `/setup`.<br/>
+    c. In the **Request URL** field, enter:
+        ```
+        https://api.getodin.ai/slack/events
+        ```
+    d. In the **Short Description** field, enter something like "Channel Setup".<br/>
+    e. Optionally, you can add a longer description in the **Usage Hint** field.<br/>
+    f. Click **Save**.<br/>![Slack Slash Command](/img/public-chatbot/slack_slash_command.png)
+11. Complete the following API endpoint URL, with the values gathered in step 7:
+    ```
+    https://api.getodin.ai/slack/custom_install/{client_id}/{client_secret}/{signing_secret}/{verification_token}
+    ```
+    Replace `{client_id}`, `{client_secret}`, `{signing_secret}`, and `{verification_token}` with the values from your Slack app found in the **Basic Information** section.
+12. Open the completed URL in a new browser. This will redirect you to a page with an **Add to Slack** button. Click this button to install the app to your workspace.<br/>![Slack Add to Workspace](/img/public-chatbot/slack_add_to_workspace.png)
+13. You will be redirected to a page crequesting permission to access your workspace. Click **Allow** to grant the necessary permissions.<br/>![Slack Allow Permissions](/img/public-chatbot/slack_allow_permissions.png)
+14. You should see a confirmation message indicating that the installation was successful and you'll be redirected to your Slack workspace.![Slack Installation Successful](/img/public-chatbot/slack_installation_successful.png)
+15. Go to your Slack workspace, and you should see the EKB app in the list of apps on the left sidebar.<br/>![Slack EKB App Installed](/img/public-chatbot/slack_odin_ai_app_installed.png)
+<Check>App is successfully installed in your Slack workspace! The next step is to run the setup command to configure a channel for EKB.</Check>
+## Set Up a Channel for EKB App
+To set up a channel for EKB, you need to run the `/setup` command in the desired channel. This command will configure the channel to work with EKB.
+1. Open your Slack workspace and navigate to the channel where you want to set up EKB.
+2. In the message input box, type `/setup` and press **Enter**.<br/>![Slack Setup Command](/img/public-chatbot/public-chatbot/slack_setup_command.png)
+3. A pop-up will appear, prompting you to enter the following information:
+    - **Channel** – Select the channel you want to set up for EKB.<br/><Note>If you want to use the app in direct messages, select your own user name.</Note>
+    - **Project ID**: Enter your EKB Project ID.
+    - **API Key**: Enter your EKB API Key.
+    - **API Secret**: Enter your EKB API Secret.<br/>![Slack Setup Command Popup](/img/public-chatbot/slack_setup_command_popup.png)
+4. Click **Submit** to complete the setup process. The app will validate the information and configure the channel.
+5. If the setup is successful, you will see a confirmation message in the channel indicating that EKB has been set up successfully.
+<Check>EKB is now set up in your selected channel! You can start interacting with the bot by mentioning it in messages or using the slash commands.</Check>

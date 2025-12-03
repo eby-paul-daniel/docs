@@ -1,0 +1,60 @@
+---
+title: "Custom Single Sign-On (SSO)"
+icon: "id-card"
+description: "Configure SSO Using Your Custom Provider"
+---
+This article provides guidance on configuring Custom Single Sign-On (SSO) for EKB using any SAML 2.0 compatible identity provider. By integrating a custom SSO solution, your organization can leverage existing authentication systems while ensuring a seamless user experience. You will find prerequisites, detailed configuration steps, and troubleshooting tips specifically for custom SSO implementations.
+
+Implementing Custom SSO offers several benefits:
+
+- **Centralized Authentication** - One login for all enterprise applications
+- **Enhanced Security** - Organization-controlled access
+- **User Management** - Centralized user provisioning and deprovisioning
+- **Compliance** - Meets enterprise security requirements
+- **User Experience** - Seamless authentication experience
+
+## Custom SSO Configuration
+
+This section outlines the steps required to configure Custom SSO for your EKB instance. EKB supports custom SSO providers that are SAML 2.0 compatible, allowing integration with any identity provider that supports SAML.
+
+### Prerequisites
+
+Before proceeding, ensure you have:
+
+- SAML 2.0 compatible identity provider
+- Identity provider administrator access
+- SAML metadata URL or XML file
+
+### Step 1: Identity Provider Setup
+
+1. **Configure SAML Application**  
+   In your identity provider, create a new SAML application and configure the following settings:
+   - **Assertion Consumer Service (ACS) URL**: `https://your-odin-domain.com/user/sso/saml/acs/admin`
+   - **Entity ID / Audience**: `https://your-odin-domain.com`
+   - **Name ID Format**: `EmailAddress` or `Unspecified`
+   - **Attribute Mappings**: Map email, name, and other attributes.
+
+2. **Get SAML Metadata**  
+   Obtain the SAML metadata URL or XML file, which contains all necessary configuration information.
+
+### Step 2: Submit Configuration to EKB
+
+EKB's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**  
+   Email [**Support**](mailto:support@automationanywhere.com) with the following:
+   - **Provider**: Your identity provider name (e.g., "PingIdentity", "OneLogin", "Auth0")
+   - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+   - **Metadata URL**: The SAML metadata URL from Step 1
+   - **Alternative**: Attach the SAML metadata XML file if you have it.
+   - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain.
+
+2. **EKB Configuration**  
+   EKB's support team will configure SSO on your instance and test the connection. You will be notified once configuration is complete.
+
+3. **Testing**  
+   EKB's team will test the SSO connection, and you may be asked to verify that it works. Once confirmed, SSO will be enabled for your organization.
+
+## Contact
+
+For SSO configuration questions or issues, contact [Support](mailto:support@automationanywhere.com).

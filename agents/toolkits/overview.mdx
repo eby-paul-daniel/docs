@@ -1,0 +1,182 @@
+---
+title: Agent Toolkits Overview
+icon: "award"
+description: Comprehensive guide to all available agent toolkits and integrations
+mode: "wide"
+---
+
+# Agent Toolkits Overview
+
+Agent toolkits are pre-built integrations that extend your AI agents' capabilities by connecting them to external services, APIs, and platforms. Each toolkit provides a set of specialized tools that your agents can use to perform specific tasks.
+
+## What are Toolkits?
+
+Toolkits are collections of tools that enable your AI agents to interact with external services. They handle authentication, API calls, and data processing, making it easy for your agents to:
+
+- **Send emails** via Gmail or Outlook
+- **Manage documents** in Google Drive or Dropbox
+- **Create tasks** in project management tools like Asana or Jira
+- **Access databases** and run SQL queries
+- **Execute Python code** for data analysis
+- **Search the web** for real-time information
+- **And much more!**
+
+## Toolkit Categories
+
+Our toolkits are organized into several categories based on their functionality:
+
+### 📧 Communication
+
+- **Gmail** - Send and manage emails
+- **Office 365 (Outlook)** - Access Outlook emails and calendar
+- **Slack** - Send messages and interact with Slack workspaces
+
+### 📊 Productivity & Project Management
+
+- **Asana** - Project and task management
+- **ClickUp** - Task and project collaboration
+- **Jira** - Issue tracking and project workflows
+- **Notion** - Create and manage pages and databases
+
+### 📁 File & Document Management
+
+- **Google Drive** - Access and manage files
+- **Google Docs** - Read and manage documents
+- **Google Sheets** - Read and edit spreadsheets
+- **Google Slides** - Create and manage presentations
+- **Microsoft Excel** - Work with Excel spreadsheets
+- **Microsoft Word** - Create and edit Word documents
+- **Dropbox** - Manage files and folders
+
+### 🔧 Development & Technical
+
+- **GitHub** - Access repositories and code management
+- **Python** - Execute Python code in secure sandbox
+- **SQL Database** - Run database queries
+- **Web Search** - Search the web for information
+
+### 💼 Business & CRM
+
+- **Salesforce** - Access CRM data and operations
+- **HubSpot** - CRM and marketing automation
+- **DocuSign** - Digital signature workflows
+
+### 📈 Analytics & Data
+
+- **Yahoo Finance** - Access financial market data
+- **Assembly AI** - Speech-to-text and audio analysis
+
+### 🔐 Identity & Security
+
+- **Azure Active Directory** - Manage users and directory operations
+
+## Setup Requirements
+
+### Cloud Customers (EKB Hosted)
+
+**All toolkits are enabled by default!** No setup required for cloud customers:
+
+- **OAuth Toolkits** - Users can connect their accounts directly using EKB's pre-configured OAuth apps
+- **API Key Toolkits** - Pre-configured with EKB's API keys
+- **No Setup Toolkits** - Work immediately without any configuration
+
+### On-Premise Customers (Self-Hosted)
+
+Setup requirements vary by toolkit type:
+
+### 🟢 **No Setup Required**
+
+These toolkits work immediately without any configuration:
+
+- **Python** - Code execution environment
+- **Yahoo Finance** - Financial data access
+- **Web Search** - Internet search capabilities
+
+### 🟡 **API Key Required**
+
+These toolkits need an API key from the service provider:
+
+- **Assembly AI** - Requires Assembly AI API key
+- **Web Search** - Optional API keys for enhanced search
+
+### 🔴 **OAuth Authentication Required**
+
+These toolkits require OAuth setup through the service provider:
+
+- **Google Workspace** (Gmail, Drive, Docs, Sheets, Slides, Calendar)
+- **Microsoft 365** (Excel, Word, Outlook)
+- **Salesforce, Slack, GitHub, Asana, Jira, ClickUp, HubSpot, Dropbox, DocuSign, LinkedIn, Notion**
+
+## OAuth Provider Groups
+
+Some toolkits share OAuth configurations for easier setup:
+
+### Google Workspace
+
+- Gmail, Google Calendar, Google Drive, Google Sheets, Google Docs, Google Slides
+- **Single OAuth setup** covers all Google services
+
+### Microsoft 365
+
+- Microsoft Excel, Microsoft Word, Office 365 (Outlook)
+- **Shared Azure app registration** for all Microsoft services
+
+## Getting Started
+
+### For Cloud Customers
+
+1. **Choose Your Toolkits**: Select the toolkits that match your agent's needs
+2. **Connect Your Accounts**: Users can connect their service accounts directly from agent settings
+3. **Start Using**: All toolkits are pre-configured and ready to use
+
+### For On-Premise Customers
+
+1. **Choose Your Toolkits**: Select the toolkits that match your agent's needs
+2. **Check Setup Requirements**: Review what authentication or configuration is needed
+3. **Configure OAuth** (if required): Follow the setup guides for each service
+4. **Enable in Your Agent**: Add the toolkit to your agent configuration
+5. **Test Integration**: Verify that your agent can use the toolkit tools
+
+## Next Steps
+
+Explore the individual toolkit documentation to learn about:
+
+- **Available tools** in each toolkit
+- **Setup instructions** and requirements
+- **Usage examples** and best practices
+- **Troubleshooting** common issues
+
+<CardGroup cols={2}>
+  <Card
+    title="Communication Toolkits"
+    icon="envelope"
+    href="/agents/toolkits/communication"
+  >
+    Gmail, Outlook, Slack integrations for messaging and communication
+  </Card>
+  <Card
+    title="Productivity Toolkits"
+    icon="briefcase"
+    href="/agents/toolkits/productivity"
+  >
+    Project management, task tracking, and collaboration tools
+  </Card>
+  <Card
+    title="File Management Toolkits"
+    icon="folder"
+    href="/agents/toolkits/file-management"
+  >
+    Document creation, editing, and file storage solutions
+  </Card>
+  <Card
+    title="Development Toolkits"
+    icon="code"
+    href="/agents/toolkits/development"
+  >
+    Code execution, version control, and technical integrations
+  </Card>
+</CardGroup>
+
+## Support
+
+Need help with toolkit setup or configuration? Check out our [troubleshooting guide](/agents/toolkits/troubleshooting) or contact support at support@automationanywhere.com.

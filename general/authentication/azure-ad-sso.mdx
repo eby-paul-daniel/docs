@@ -1,0 +1,116 @@
+---
+title: "Azure AD Single Sign-On (SSO)"
+icon: "microsoft"
+description: "Configure SSO Authentication With Azure AD"
+---
+This article serves as a comprehensive guide for configuring Single Sign-On (SSO) using Azure Active Directory (AD) as your identity provider. By integrating Azure AD with EKB, your organization can enhance user authentication by allowing users to access the platform using their existing Microsoft credentials. You will find prerequisites, detailed configuration steps, and troubleshooting tips specifically for Azure AD SSO.
+
+Utilizing Azure AD SSO provides several key advantages:
+
+- **Centralized Authentication** - One login for all enterprise applications.
+- **Enhanced Security** - Organization-controlled access.
+- **User Management** - Centralized user provisioning and deprovisioning.
+- **Compliance** - Meets enterprise security requirements.
+- **User Experience** - Seamless authentication experience.
+
+## Azure AD SSO Configuration
+
+This section outlines the steps required to configure Azure AD SSO for your EKB instance.
+
+### Prerequisites
+
+Before proceeding, ensure you have:
+
+- Azure Portal administrator access.
+- Microsoft 365 account with admin access.
+- Your EKB instance URL.
+
+### Step 1: Azure Portal Setup
+
+1. **Go to Azure Portal**  
+   Visit [portal.azure.com](https://portal.azure.com) and sign in with your administrator account.
+
+2. **Navigate to Azure Active Directory**  
+   Go to **Azure Active Directory** > **Enterprise applications** and click **New application**.
+
+3. **Create Enterprise Application**  
+   Click **Create your own application**, enter an application name (e.g., "EKB"), select **Integrate any other application you do not find in the gallery**, and click **Create**.
+
+### Step 2: Configure SAML SSO
+
+1. **Set Up Single Sign-On**  
+   In your application, go to **Single sign-on** and select **SAML** as the method.
+
+2. **Basic SAML Configuration**  
+   Enter the following details:
+   - **Identifier (Entity ID)**: `https://your-odin-domain.com`
+   - **Reply URL (Assertion Consumer Service URL)**: `https://your-odin-domain.com/user/azure/sso/saml/acs/admin`
+   - **Sign-on URL**: `https://your-odin-domain.com`
+   - **Relay State** (Optional): Leave blank or configure as needed.
+
+3. **User Attributes & Claims**  
+   Map the following attributes:
+   - **Unique User Identifier**: `user.mail` or `user.userprincipalname`
+   - **Email**: `user.mail`
+   - **First Name**: `user.givenname`
+   - **Last Name**: `user.surname`
+   - **Display Name**: `user.displayname`
+
+4. **SAML Signing Certificate**  
+   Note the certificate details and download the certificate if needed (Base64 format).
+
+### Step 3: Get Azure Configuration
+
+1. **Download Federation Metadata**  
+   In the SAML configuration, find **SAML Signing Certificate** and click **Download** for Federation Metadata XML. Save the metadata file.
+
+2. **Alternative: Copy Metadata URL**  
+   Note the **App Federation Metadata Url** in the specified format.
+
+### Step 4: Assign Users
+
+1. **In Azure Portal**  
+   Go to your Enterprise Application, navigate to **Users and groups**, click **Add user/group**, select users or groups to assign, and click **Assign**.
+
+2. **User Access**  
+   Assigned users can sign in via SSO once configuration is complete and will be redirected to Azure AD for authentication.
+
+### Step 5: Submit Configuration to EKB
+
+EKB's support team will configure and test your SSO setup. Please provide the following information:
+
+1. **Send Configuration Details**  
+   Email [**Support**](mailto:support@automationanywhere.com) with the following:
+   - **Provider**: Azure AD (or Azure)
+   - **Enterprise ID**: Your organization's domain (e.g., `company.com`)
+   - **Metadata URL**: The Azure metadata URL from Step 3
+   - **Alternative**: Attach the Federation Metadata XML file if you downloaded it.
+   - **SSO Sign-In Only** (Optional): Specify if you want to require SSO for all users with this domain.
+
+2. **EKB Configuration**  
+   EKB's support team will configure SSO on your instance and test the connection. You will be notified once configuration is complete.
+
+3. **Testing**  
+   EKB's team will test the SSO connection, and you may be asked to verify that it works. Once confirmed, SSO will be enabled for your organization.
+
+### Troubleshooting Azure AD SSO
+
+In this section, you will find common issues and solutions related to Azure AD SSO.
+
+**Issue**: SAML assertion errors  
+**Solutions**:
+- Verify Reply URL matches exactly.
+- Check Identifier (Entity ID) is correct.
+- Ensure user attributes are mapped correctly.
+- Verify the certificate is valid and not expired.
+
+**Issue**: User not found after SSO login  
+**Solutions**:
+- Verify the user is assigned to the application in Azure AD.
+- Check email attribute mapping.
+- Ensure the user exists in EKB.
+- Verify the enterprise ID matches the email domain.
+
+## Contact
+
+For SSO configuration questions or issues, contact [Support](mailto:support@automationanywhere.com).

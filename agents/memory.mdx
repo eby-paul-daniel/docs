@@ -1,0 +1,368 @@
+---
+title: Memory
+icon: "brain"
+description: Enable agents to learn and remember user preferences, facts, and context
+---
+
+# Agent Memory
+
+The Agent Memory feature allows your AI agents to learn and remember important information about users from their conversations. This enables personalized, context-aware interactions that improve over time. This article will explain how this feature works as well as how to enable and fine-tune it for your specific use case. At the end of the article we offer some examples to get you started. Get more out of your AI Agents with the Memory feature. 
+
+## Overview
+
+Agent Memory is an intelligent system that:
+
+- **Automatically detects** memorable information from user conversations
+- **Learns user preferences** and important facts
+- **Remembers context** for future interactions
+- **Personalizes responses** based on stored memories
+- **Requires approval** before storing memories (configurable)
+
+## How It Works
+
+### 1. Automatic Detection
+
+When memory is enabled, the agent analyzes each user message in the background to identify:
+
+- **User Preferences** - Likes, dislikes, working styles, communication preferences
+- **Important Facts** - Role, company, specific needs, requirements
+- **Context** - Important background information that helps personalize responses
+
+### 2. Memory Creation
+
+When memorable information is detected:
+
+1. **Analysis** - The agent uses AI to analyze the message content
+2. **Duplicate Check** - Checks against existing memories to avoid duplicates
+3. **Confidence Scoring** - Assigns a confidence score (0.0 to 1.0)
+4. **Pending Status** - Creates a memory with "pending" status
+5. **Expiration** - Pending memories expire after 7 days if not approved
+
+### 3. Approval Workflow
+
+Memories go through an approval process:
+
+- **Pending** - Newly detected memories awaiting review
+- **Approved** - Memories that have been reviewed and accepted
+- **Rejected** - Memories that have been declined
+
+### 4. Integration
+
+Approved memories are automatically:
+
+- **Included in system prompts** - Added to agent context for every conversation
+- **Formatted by type** - Organized as User Preferences, User Information, or Important Context
+- **User-specific** - Only memories for the current user are included
+
+## Memory Types
+
+### Preference
+
+User preferences and working styles:
+
+- Communication preferences
+- Format preferences
+- Workflow preferences
+- Style preferences
+
+**Example:**
+
+- "User prefers detailed explanations with examples"
+- "User likes to receive summaries in bullet points"
+- "User prefers morning meetings"
+
+### Fact
+
+Important factual information about the user:
+
+- Role and responsibilities
+- Company information
+- Technical expertise
+- Specific requirements
+
+**Example:**
+
+- "User is a software engineer at TechCorp"
+- "User specializes in Python and machine learning"
+- "User works in the healthcare industry"
+
+### Context
+
+Important background information:
+
+- Project context
+- Current situation
+- Relevant history
+- Special circumstances
+
+**Example:**
+
+- "User is working on a deadline for Q4 launch"
+- "User's team uses Agile methodology"
+- "User is new to the platform"
+
+## Enabling Memory
+
+### Step 1: Access Agent Settings
+
+1. Navigate to **Agents** in the sidebar
+2. Select the agent you want to configure
+3. Click **Edit** to open the agent builder
+4. Go to the **Memory** tab
+
+### Step 2: Enable Memory
+
+1. Toggle **Enable Memory** to ON
+2. The agent will now start analyzing messages for memorable information
+
+### Step 3: Configure Settings (Optional)
+
+You can customize memory behavior:
+
+- **Max Memories** - Maximum number of memories per user (default: 50)
+- **Auto Approve** - Automatically approve memories without review (default: false)
+- **Memory Types** - Which types of memories to detect (preference, fact, context)
+
+## Managing Memories
+
+### Viewing Memories
+
+In the Memory tab, you can view:
+
+- **Approved Memories** - All active memories organized by user
+- **Pending Approvals** - New memories awaiting your review
+- **Memory Statistics** - Total memories, approved, pending, and user count
+
+### Approving Memories
+
+1. Go to the **Pending** tab
+2. Review each memory suggestion
+3. See the original message that triggered the memory
+4. Check the confidence score
+5. Click **Approve** or **Reject**
+
+### Filtering Memories
+
+- **By User** - Filter to see memories for a specific user
+- **By Type** - View memories by type (preference, fact, context)
+- **By Status** - Switch between Approved and Pending views
+
+### Deleting Memories
+
+1. Find the memory in the **Approved** tab
+2. Click the **Delete** icon
+3. Confirm the deletion
+
+## Memory Settings
+
+### Enable Memory
+
+Toggle to enable or disable memory detection for the agent.
+
+<Note>
+  When memory is disabled, no new memories will be created, but existing
+  approved memories will still be used in conversations.
+</Note>
+
+### Max Memories
+
+Limit the total number of memories stored per user. When the limit is reached, older memories may be replaced or new ones may be rejected.
+
+### Auto Approve
+
+When enabled, detected memories are automatically approved without requiring manual review. This is useful for:
+
+- High-confidence memories
+- Low-risk environments
+- Automated workflows
+
+<Warning>
+  Auto-approve bypasses the review process. Use with caution to ensure memory
+  quality.
+</Warning>
+
+### Memory Types
+
+Select which types of memories the agent should detect:
+
+- **Preference** - User preferences and styles
+- **Fact** - Important factual information
+- **Context** - Background and situational context
+
+## Best Practices
+
+### For Administrators
+
+1. **Review Regularly** - Check pending memories periodically
+2. **Quality Control** - Reject low-quality or irrelevant memories
+3. **User Privacy** - Ensure memories comply with privacy policies
+4. **Monitor Usage** - Track memory statistics to optimize settings
+
+### For Users
+
+1. **Be Explicit** - Clearly state preferences and important information
+2. **Provide Context** - Share relevant background when needed
+3. **Update Memories** - Inform the agent when preferences change
+4. **Review Suggestions** - Approve or reject memory suggestions as appropriate
+
+### Memory Quality
+
+- **Be Specific** - Vague memories are less useful
+- **Be Relevant** - Focus on information that improves future interactions
+- **Avoid Duplicates** - The system checks for duplicates, but review carefully
+- **Keep Updated** - Remove outdated memories
+
+## Memory Lifecycle
+
+### Creation
+
+1. User sends a message
+2. Agent analyzes message in background
+3. AI detects memorable information
+4. Memory created with "pending" status
+5. Expiration timer starts (7 days)
+
+### Approval
+
+1. Admin/user reviews pending memory
+2. Approves or rejects the memory
+3. If approved, memory becomes active
+4. If rejected, memory is archived
+
+### Usage
+
+1. User starts a conversation
+2. System loads approved memories for that user
+3. Memories are formatted and added to system prompt
+4. Agent uses memories to personalize responses
+
+### Expiration
+
+- **Pending memories** expire after 7 days if not approved
+- **Approved memories** do not expire (unless manually deleted)
+- Expired pending memories are automatically rejected
+
+## Privacy and Security
+
+### Data Storage
+
+- Memories are stored securely in the database
+- Each memory is linked to a specific user and agent
+- Memories are isolated per user (users can't see each other's memories)
+
+### Access Control
+
+- Only users with agent access can view memories
+- Users can only see their own memories
+- Admins can view all memories for their agents
+
+### Data Retention
+
+- Approved memories persist until manually deleted
+- Rejected memories are archived
+- Expired pending memories are automatically removed
+
+## Troubleshooting
+
+### Memories Not Being Created
+
+**Possible Causes:**
+
+- Memory is disabled for the agent
+- Messages are too short (< 10 characters) or too long (> 2000 characters)
+- No memorable information detected in messages
+- Duplicate of existing memory
+
+**Solutions:**
+
+- Check that memory is enabled in agent settings
+- Ensure messages contain clear preferences or facts
+- Review existing memories to avoid duplicates
+
+### Too Many Pending Memories
+
+**Possible Causes:**
+
+- High message volume
+- Auto-approve is disabled
+- Not reviewing memories regularly
+
+**Solutions:**
+
+- Enable auto-approve for high-confidence memories
+- Set up regular review schedule
+- Adjust memory detection sensitivity
+
+### Memories Not Being Used
+
+**Possible Causes:**
+
+- Memories are still pending (not approved)
+- Memory was rejected
+- Agent is not loading memories correctly
+
+**Solutions:**
+
+- Approve pending memories
+- Check memory status in the Memory tab
+- Verify memory is enabled for the agent
+
+## API Integration
+
+The memory feature is accessible via API endpoints:
+
+- `GET /agents/{agent_id}/memories` - Get all memories for an agent
+- `GET /agents/{agent_id}/memories/user/{user_id}` - Get memories for a specific user
+- `GET /memory-approvals/pending` - Get pending approvals
+- `POST /memory-approvals/{memory_id}/action` - Approve or reject a memory
+- `PUT /agents/{agent_id}/memory-settings` - Update memory settings
+- `GET /agents/{agent_id}/memory-settings` - Get memory settings
+- `DELETE /memories/{memory_id}` - Delete a memory
+
+## Examples
+
+### Example 1: Preference Memory
+
+**User Message:**
+"I prefer to receive code examples in Python rather than pseudocode"
+
+**Detected Memory:**
+
+- **Type:** Preference
+- **Content:** "User prefers Python code examples over pseudocode"
+- **Confidence:** 0.9
+
+**Future Impact:**
+Agent will provide Python code examples when the user asks for code.
+
+### Example 2: Fact Memory
+
+**User Message:**
+"I'm the CTO at StartupCorp and we're building a SaaS platform"
+
+**Detected Memory:**
+
+- **Type:** Fact
+- **Content:** "User is CTO at StartupCorp building a SaaS platform"
+- **Confidence:** 0.95
+
+**Future Impact:**
+Agent will understand the user's role and company context in future conversations.
+
+### Example 3: Context Memory
+
+**User Message:**
+"We're launching our product next month, so I need everything ready quickly"
+
+**Detected Memory:**
+
+- **Type:** Context
+- **Content:** "User has product launch deadline next month requiring quick turnaround"
+- **Confidence:** 0.85
+
+**Future Impact:**
+Agent will prioritize speed and urgency in responses.
+
+## Support
+
+Need help with the memory feature? Contact [Support](mailto:support@automationanywhere.com).

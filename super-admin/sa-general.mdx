@@ -1,0 +1,41 @@
+---
+title: "General"
+icon: "list"
+description: "Learn how to monitor your EKB instance"
+mode: "wide"
+---
+## Purpose
+
+The **General** tab gives a real-time system snapshot. It is the first place an admin should check for:
+
+- Platform stability
+- Task execution patterns
+- AI model activity
+- User load
+
+![General tab overview](/img/sa/sa-general.png)
+
+---
+## Section 1: System Overview
+
+1. **Total Users:** Total number of registered users in your on-prem EKB instance. Indicates system adoption across your organization.
+2. **Active Projects:** Count of projects that are currently running, being modified, or associated with users/teams. Reflects platform engagement.
+3. **System Status:** A quick health indicator. “Healthy” means all components (database, backend workers, LLMs, routing layers) are functioning without errors. If degraded, action is needed.
+## Section 2: Task & System Monitoring
+
+This block shows how efficiently the system is processing tasks.
+
+4. **Active Tasks:** Number of tasks currently executing in real time. If 0, the queue is idle. If high, investigate system load or delays.
+5. **Task Success Rate:** Percent of tasks that completed successfully. 100% is ideal. A drop may indicate API errors, timeouts, or bad data.
+6. **Total Executions (7d):** Total tasks (automations, LLM requests, flows, agents) executed in the last 7 days. Indicates workload trends.
+7. **Avg Task Duration:** Time taken per task on average. If duration rises suddenly, it may suggest backend slowness or heavy payloads.
+8. **Active Workers:** Number of backend compute agents (workers) currently online and processing. Low worker count can bottleneck execution.
+## Section 3: AI & LLM Usage
+
+This section reflects how much AI is being used and how well it’s performing.
+
+9. **LLM Calls (7d):** Total number of requests made to LLMs (Large Language Models) over the past 7 days. Higher count shows greater AI engagement.
+10. **LLM Success Rate:** How many LLM requests completed without timeout, failure, or bad output. A success rate below 80% may need tuning or monitoring.
+11. **Top AI Tool:** Shows which AI model or tool is most used (e.g., GPT-4, Claude, EKB Custom Agent). “N/A” means no dominant tool used yet.
+
+**Why this matters:** This helps you optimize cost and performance—especially when managing usage across teams or during heavy automation cycles.

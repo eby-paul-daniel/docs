@@ -1,0 +1,81 @@
+---
+title: "Security & Data Practices"
+icon: "table-cells-lock"
+description: "How EKB Protects Your Data and Keeps Your Information Secure"
+mode: "wide"
+---
+EKB is committed to providing a secure platform for your data and AI operations. This article outlines our security measures, encryption standards, and data handling practices. It is crucial for users to understand these practices to appreciate the importance of data protection and the steps we take to ensure the security of their information.
+
+## Multiple Layers of Security
+
+EKB implements multiple layers of security to protect your data. This section details the various strategies employed, including encryption in transit and at rest, authentication and access control measures, secure credential management, and comprehensive audit logging. Each of these components plays a vital role in safeguarding your information from unauthorized access and ensuring its integrity.
+
+### Encryption in Transit
+
+In this section, you will learn about the critical role of **Transport Layer Security (TLS)** protocols in safeguarding your data during transmission. Understanding how TLS works is essential for ensuring the confidentiality and integrity of the information exchanged between clients and servers. EKB employs **TLS 1.2** and the latest **TLS 1.3**, each offering robust security features and performance enhancements. This knowledge will provide you with a comprehensive understanding of how TLS/SSL encryption protects your data in transit.
+
+#### Supported Encryption Protocols
+
+- **TLS 1.2**: An industry-standard encryption protocol that provides strong encryption for data in transit and supports modern cipher suites.
+- **TLS 1.3**: The latest TLS protocol version, offering enhanced security, improved handshake processes, and reduced latency compared to TLS 1.2.
+
+#### Encryption Features
+
+EKB ensures that data transmission is secure through various encryption features, including automatic protocol negotiation, strong cipher suites, certificate validation, and perfect forward secrecy. These features work together to prevent man-in-the-middle attacks and ensure that your data remains confidential.
+
+#### Configuration
+
+For on-premise deployments, TLS/SSL can be configured using valid SSL/TLS certificates and specific environment variables. This allows for tailored security settings that meet the unique needs of your deployment.
+
+### Encryption at Rest
+
+Protecting sensitive data stored in databases is paramount to prevent unauthorized access. In this section, you will learn how our encryption strategies safeguard this information. We cover the use of AES-256-CBC encryption for securing credentials and secrets, as well as the importance of effective encryption key management. Understanding these practices will clarify how encryption at rest protects your data and the measures in place to ensure its security.
+
+#### Credential Encryption
+
+EKB employs AES-256-CBC encryption, which is widely recognized for its robustness against brute-force attacks. This encryption method is essential for protecting credentials and secrets, ensuring that unauthorized access to sensitive information is effectively mitigated. By using AES-256-CBC, we maintain the confidentiality and integrity of your data.
+
+#### Sensitive Data Handling
+
+All sensitive data, including API keys, OAuth tokens, and user credentials, is securely encrypted. This section outlines how each type of sensitive data is handled to ensure that it remains protected at all times.
+
+### Authentication and Access Control
+
+In this section, you will learn about the various authentication methods and access control measures employed by EKB. Understanding these mechanisms is vital for recognizing how we manage user access and ensure that only authorized individuals can interact with sensitive data.
+
+#### Authentication Methods
+
+EKB supports multiple authentication methods, including secure password-based authentication, OAuth 2.0, Single Sign-On (SSO), and optional Two-Factor Authentication (2FA). These methods work together to enhance security and protect user accounts.
+
+#### Access Control
+
+Our role-based access control (RBAC) system allows for granular permissions based on user roles, ensuring that access to sensitive information is limited to authorized personnel. This section will detail how project-level access, team permissions, and resource-level permissions contribute to a secure environment.
+
+### Data Handling Practices
+
+This section provides an overview of how EKB handles data, including secure storage, data processing, and data transmission practices. Understanding these practices is essential for recognizing how we ensure the safety and integrity of your data throughout its lifecycle.
+
+#### Data Storage and Retention
+
+EKB employs secure storage solutions, regular backups, and configurable data retention policies to safeguard your information. We also implement secure data deletion procedures to ensure that data is permanently removed when no longer needed.
+
+#### Data Processing and Transmission
+
+Sensitive data is processed in secure memory, and all data transmitted is done over encrypted channels. This section highlights the importance of secure data processing and transmission in maintaining data integrity and confidentiality.
+
+### Compliance and Standards
+
+EKB adheres to industry best practices and standards, including modern encryption protocols and secure coding practices. This section emphasizes our commitment to compliance and the measures taken to protect your data privacy.
+
+### Security Monitoring
+
+Continuous security monitoring is essential for detecting unusual activities and responding to potential threats. This section outlines our audit logging practices and monitoring systems, which provide comprehensive oversight of security-related events.
+
+### Best Practices for Users and Administrators
+
+This section provides actionable recommendations for users and administrators to enhance security. By following these best practices, you can contribute to a safer environment for your data and operations.
+
+### Support and Reporting
+
+If you discover a security vulnerability, please report it to our [support](mailto:support@automationanywhere.com) team. We follow responsible disclosure practices and are committed to addressing security issues promptly. This section provides information on how to contact us for security-related questions or concerns.
+

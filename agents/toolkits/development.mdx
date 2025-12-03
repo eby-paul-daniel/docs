@@ -1,0 +1,320 @@
+---
+title: Development Toolkits
+icon: "code"
+description: Code execution, version control, and technical integrations for your agents
+---
+
+# Development Toolkits
+
+Development toolkits enable your AI agents to execute code, manage version control, access databases, and perform technical operations. These integrations are essential for agents that need to process data, run calculations, manage code repositories, or interact with technical systems.
+
+## Available Development Toolkits
+
+### Python Code Execution
+
+**Category**: Development  
+**Setup**: No Setup Required  
+**Complexity**: Easy
+
+Execute Python code in a secure sandbox environment.
+
+**Key Features:**
+
+- **Code Execution**: Run Python code snippets safely
+- **Package Installation**: Install and use Python packages
+- **File Operations**: Read and write files within sandbox
+- **Data Processing**: Perform data analysis and calculations
+- **Visualization**: Generate charts and graphs
+
+**Use Cases:**
+
+- Data analysis and processing
+- Mathematical calculations
+- File processing and manipulation
+- Chart and graph generation
+- API data processing
+
+<Card title="Python Toolkit" icon="python" href="/agents/toolkits/python">
+  Learn how to use Python code execution in your agents
+</Card>
+
+### GitHub
+
+**Category**: Development  
+**Setup**: OAuth Required  
+**Complexity**: Medium
+
+Access GitHub repositories, issues, and code management.
+
+**Key Features:**
+
+- **Repository Management**: Access and manage repositories
+- **Issue Tracking**: Create and manage issues and pull requests
+- **Code Access**: Read and analyze code files
+- **Branch Management**: Work with branches and commits
+- **Collaboration**: Manage team access and permissions
+
+**Use Cases:**
+
+- Code repository management
+- Issue tracking and bug reports
+- Automated code reviews
+- Release management
+- Team collaboration workflows
+
+<Card title="GitHub Toolkit" icon="github" href="/agents/toolkits/github">
+  Set up GitHub integration for code management
+</Card>
+
+### SQL Database
+
+**Category**: Development  
+**Setup**: Connection Required  
+**Complexity**: Medium
+
+Run SQL queries and manage database operations.
+
+**Key Features:**
+
+- **Query Execution**: Run SQL queries safely
+- **Data Retrieval**: Fetch and process database data
+- **Data Manipulation**: Insert, update, and delete records
+- **Schema Management**: Access database schema information
+- **Connection Management**: Support for multiple database types
+
+**Use Cases:**
+
+- Data analysis and reporting
+- Database maintenance
+- Data migration and synchronization
+- Automated data processing
+- Business intelligence
+
+<Card
+  title="SQL Database Toolkit"
+  icon="database"
+  href="/agents/toolkits/sql-database"
+>
+  Configure database connections and SQL operations
+</Card>
+
+### Web Search
+
+**Category**: Development  
+**Setup**: API Key Optional  
+**Complexity**: Medium
+
+Search the web for information using various search engines.
+
+**Key Features:**
+
+- **Web Search**: Search the internet for real-time information
+- **Multiple Engines**: Support for various search providers
+- **Result Processing**: Parse and analyze search results
+- **API Integration**: Optional API keys for enhanced search
+- **Content Extraction**: Extract relevant information from web pages
+
+**Use Cases:**
+
+- Real-time information gathering
+- Research and fact-checking
+- Market analysis
+- News monitoring
+- Competitive intelligence
+
+<Card
+  title="Web Search Toolkit"
+  icon="search"
+  href="/agents/toolkits/search"
+>
+  Set up web search capabilities for your agents
+</Card>
+
+## Setup Overview
+
+### No Setup Required
+
+- **Python**: Works immediately with secure sandbox environment
+- **Basic Web Search**: Limited functionality without API keys
+
+### API Key Required
+
+- **Web Search**: Enhanced search with API keys (optional)
+- **Assembly AI**: Speech-to-text capabilities (separate toolkit)
+
+### OAuth Required
+
+- **GitHub**: Requires GitHub OAuth app setup
+- **Other OAuth services**: Various authentication requirements
+
+### Connection Required
+
+- **SQL Database**: Requires database connection configuration
+- **Other databases**: Various connection types supported
+
+## Common Use Cases
+
+### Data Processing
+
+- **Data Analysis**: Process and analyze large datasets
+- **Data Transformation**: Convert data between formats
+- **Data Validation**: Check data quality and consistency
+- **Data Visualization**: Create charts and graphs
+- **Statistical Analysis**: Perform statistical calculations
+
+### Code Management
+
+- **Repository Operations**: Manage code repositories
+- **Issue Tracking**: Handle bug reports and feature requests
+- **Code Reviews**: Automate code review processes
+- **Release Management**: Manage software releases
+- **Documentation**: Generate and maintain code documentation
+
+### Database Operations
+
+- **Query Execution**: Run complex database queries
+- **Data Migration**: Move data between systems
+- **Backup Management**: Create and manage database backups
+- **Performance Monitoring**: Monitor database performance
+- **Schema Management**: Manage database structure
+
+### Research and Analysis
+
+- **Web Research**: Gather information from the internet
+- **Market Analysis**: Analyze market trends and data
+- **Competitive Intelligence**: Monitor competitor activities
+- **News Monitoring**: Track relevant news and updates
+- **Fact Checking**: Verify information accuracy
+
+## Best Practices
+
+### Security
+
+- Use secure coding practices
+- Validate all inputs and outputs
+- Implement proper error handling
+- Monitor resource usage
+- Follow principle of least privilege
+
+### Performance
+
+- Optimize code for efficiency
+- Use appropriate data structures
+- Implement caching where beneficial
+- Monitor resource consumption
+- Use batch operations when possible
+
+### User Experience
+
+- Provide clear error messages
+- Implement progress indicators
+- Use appropriate timeouts
+- Handle edge cases gracefully
+- Provide helpful debugging information
+
+## Technical Considerations
+
+### Python Execution Environment
+
+- **Sandboxed Environment**: Secure code execution
+- **Package Management**: Install packages as needed
+- **Resource Limits**: Memory and execution time limits
+- **File System Access**: Limited to sandbox directory
+- **Network Access**: Controlled network permissions
+
+### Database Connections
+
+- **Connection Pooling**: Efficient connection management
+- **Query Optimization**: Optimize SQL queries for performance
+- **Transaction Management**: Proper transaction handling
+- **Error Handling**: Graceful handling of database errors
+- **Security**: Protect against SQL injection
+
+### API Integration
+
+- **Rate Limiting**: Respect API rate limits
+- **Authentication**: Secure API authentication
+- **Error Handling**: Handle API errors gracefully
+- **Retry Logic**: Implement retry mechanisms
+- **Monitoring**: Monitor API usage and performance
+
+## Integration Patterns
+
+### Webhook Integration
+
+Some development tools support webhooks:
+
+- **GitHub**: Webhook notifications for repository events
+- **Database Systems**: Event-driven database operations
+
+### API Rate Limits
+
+Each service has different rate limits:
+
+- **GitHub API**: 5,000 requests per hour (authenticated)
+- **Web Search APIs**: Varies by provider
+- **Database Systems**: Depends on database configuration
+
+## Troubleshooting
+
+### Common Issues
+
+**Code Execution Errors**
+
+- Check Python syntax and logic
+- Verify package availability
+- Monitor resource usage
+- Handle exceptions properly
+- Check file permissions
+
+**Database Connection Errors**
+
+- Verify connection parameters
+- Check database availability
+- Ensure proper permissions
+- Monitor connection pool
+- Handle connection timeouts
+
+**API Authentication Errors**
+
+- Verify OAuth credentials
+- Check API key validity
+- Ensure proper scopes
+- Monitor rate limits
+- Handle token refresh
+
+### Debug Tips
+
+1. **Test Code Independently**
+
+   - Run code outside the agent environment
+   - Use debugging tools and logging
+   - Verify package installations
+   - Check resource requirements
+
+2. **Monitor API Usage**
+
+   - Review API usage statistics
+   - Monitor rate limit consumption
+   - Set up alerts for errors
+   - Track performance metrics
+
+3. **Database Debugging**
+   - Test queries independently
+   - Check database logs
+   - Monitor connection status
+   - Verify data integrity
+
+## Getting Started
+
+1. **Choose Your Toolkit**: Select the development tools that match your needs
+2. **Review Requirements**: Check setup requirements for each toolkit
+3. **Configure Authentication**: Set up OAuth or API keys as needed
+4. **Test Integration**: Verify connections and functionality
+5. **Configure Your Agent**: Add toolkits to your agent configuration
+
+<Note>
+  Development toolkits have access to system resources and external services.
+  Ensure you follow security best practices and monitor resource usage to
+  prevent abuse.
+</Note>

@@ -1,0 +1,309 @@
+---
+title: "Tools"
+icon: "wrench"
+description: "Add custom tools and workflows to your agents"
+---
+
+# Tools
+
+The **Tools** tab in the Agent Builder allows you to add custom tools and workflows to your agents. Unlike **Toolkits** (which are pre-built integrations), **Tools** are user-created custom tools and workflows that extend your agent's capabilities with specific functionality tailored to your needs.
+
+## Overview
+
+**Tools** enable you to:
+
+- **Add Custom Tools**: Attach custom tools you've created in your project
+- **Add Workflows**: Include workflows/actions that execute multi-step processes
+- **Create New Tools**: Build new custom tools directly from the agent builder
+- **Manage Tool Configuration**: Configure how tools are used by the agent
+- **Browse Tool Library**: Access thousands of pre-built tools from the public library
+
+## Tools vs. Toolkits
+
+Understanding the difference helps you choose the right approach:
+
+| Feature | Tools | Toolkits |
+|---------|-------|----------|
+| **Type** | Custom tools and workflows | Pre-built integrations |
+| **Creation** | User-created or from library | Pre-configured by EKB |
+| **Scope** | Project-specific or public | Platform-wide integrations |
+| **Configuration** | Full customization | Pre-configured with options |
+| **Examples** | Custom API calls, workflows, business logic | Gmail, Slack, Google Drive, etc. |
+
+**When to Use Tools:**
+- You need custom business logic
+- You want to create reusable workflows
+- You need to integrate with custom APIs
+- You want to combine multiple operations into one tool
+
+**When to Use Toolkits:**
+- You need standard integrations (Gmail, Slack, etc.)
+- You want pre-configured authentication
+- You need common operations (send email, create task, etc.)
+
+## Accessing the Tools Tab
+
+1. **Open Agent Builder**
+   - Navigate to **Agents** in the sidebar
+   - Click **Edit** on an existing agent or **Create Agent**
+   - The Agent Builder will open
+
+2. **Navigate to Tools Tab**
+   - In the left sidebar, click on **Tools**
+   - The Tools tab will display with your selected tools and options to add more
+
+## Adding Tools to Your Agent
+
+### Adding Existing Custom Tools
+
+1. **Open Tools Selector**
+   - Click **+ Add Tool** button in the Tools tab
+   - The Tools Selector modal will open
+
+2. **Browse Available Tools**
+   - **Custom Tools**: Tools you've created in your project
+   - **Public Tools**: Tools from the public library (9,000+ available)
+   - **Workflows**: Existing workflows from your project
+
+3. **Search and Filter**
+   - Use the search bar to find specific tools
+   - Filter by category or type
+   - Browse by popularity or recent additions
+
+4. **Select a Tool**
+   - Click on a tool to view its details
+   - Review the tool's description and inputs
+   - Click **Add** to attach it to your agent
+
+### Creating a New Custom Tool
+
+1. **From Tools Selector**
+   - Click **+ Add Tool** in the Tools tab
+   - Click **Create Custom Tool** in the modal
+   - You'll be redirected to the Tool Builder
+
+2. **From Empty State**
+   - If you have no tools, click **Create Your First Tool**
+   - This opens the Tool Builder for a new tool
+
+3. **Configure Your Tool**
+   - **Name**: Give your tool a descriptive name
+   - **Description**: Explain what the tool does
+   - **Inputs**: Define input parameters
+   - **Steps**: Configure the tool's execution steps
+   - **Save**: Save as draft or publish
+
+4. **Return to Agent**
+   - After creating, the tool will be available in your project
+   - Return to the agent builder and add it via the Tools selector
+
+### Adding Workflows
+
+1. **Open Tools Selector**
+   - Click **+ Add Tool** in the Tools tab
+   - Click **Create Workflow** in the modal
+
+2. **Select Workflow Trigger**
+   - Choose the trigger type:
+     - **Form Input**: User fills out a form
+     - **File Upload**: User uploads files
+     - **Manual**: Execute on demand
+
+3. **Configure Workflow**
+   - Set up workflow steps
+   - Define inputs and outputs
+   - Configure trigger settings
+
+4. **Add to Agent**
+   - Once created, the workflow appears in your tools list
+   - It can be executed by the agent when needed
+
+## Managing Tools
+
+### Viewing Added Tools
+
+The **Tools** tab displays:
+
+- **Sidebar**: Shows all tools added to the agent
+  - Custom tools
+  - Workflows
+  - Actions from your project
+- **Main Area**: Shows tool details and management options
+
+### Tool Status
+
+Tools can have different statuses:
+
+- **Active**: Tool is ready to use
+- **Draft**: Tool is being edited (not yet published)
+- **Published**: Tool has been published and is available
+
+### Configuring Tools
+
+1. **Edit Tool Configuration**
+   - Click **Configure** on an added tool
+   - Adjust tool-specific settings
+   - Set approval requirements (if needed)
+
+2. **Tool Approval Settings**
+   - **Auto-execute**: Tool runs automatically when triggered
+   - **Require Approval**: Agent asks for confirmation before executing
+
+3. **Input Defaults**
+   - Set default values for tool inputs
+   - Configure required vs. optional inputs
+
+### Removing Tools
+
+1. **Remove from Agent**
+   - Click the **X** button on a tool in the sidebar
+   - Or click **Remove** in the tool details
+   - Confirm removal
+
+2. **Delete Custom Tool**
+   - For custom tools, you can delete them entirely
+   - Click the three dots menu on a custom tool
+   - Select **Delete**
+   - **Note**: This permanently deletes the tool from your project
+
+## Tool Types
+
+### Custom Tools
+
+Custom tools are tools you create with:
+
+- **Custom Logic**: Your own business rules and processes
+- **API Integrations**: Connect to your own APIs
+- **Multi-Step Operations**: Combine multiple actions
+- **Data Processing**: Transform and manipulate data
+
+**Creating Custom Tools:**
+1. Define inputs (parameters the tool accepts)
+2. Configure steps (what the tool does)
+3. Set up error handling
+4. Test the tool
+5. Publish when ready
+
+### Workflows
+
+Workflows are multi-step processes that can:
+
+- **Execute Sequences**: Run multiple operations in order
+- **Handle Triggers**: Respond to form inputs or file uploads
+- **Process Data**: Transform data through multiple steps
+- **Integrate Services**: Connect multiple services together
+
+**Workflow Triggers:**
+- **Form Input**: User provides input via a form
+- **File Upload**: User uploads files for processing
+- **Manual**: Execute on demand by the agent
+
+### Public Tools
+
+The public tool library includes:
+
+- **9,000+ Tools**: Pre-built tools from the community
+- **Various Categories**: Communication, productivity, data, etc.
+- **Ready to Use**: Clone and customize for your needs
+- **Regularly Updated**: New tools added frequently
+
+**Using Public Tools:**
+1. Browse the public library
+2. Find a tool that matches your needs
+3. Clone it to your project
+4. Customize if needed
+5. Add to your agent
+
+## Best Practices
+
+### Tool Organization
+
+1. **Name Clearly**: Use descriptive names that explain the tool's purpose
+2. **Document Well**: Add clear descriptions for each tool
+3. **Group Related Tools**: Organize tools by function or category
+4. **Version Control**: Use drafts for testing before publishing
+
+### Tool Selection
+
+1. **Start Simple**: Begin with basic tools and add complexity gradually
+2. **Test Thoroughly**: Test tools before adding to production agents
+3. **Consider Performance**: Too many tools can slow down agent responses
+4. **Review Regularly**: Remove unused tools to keep agents efficient
+
+### Tool Configuration
+
+1. **Set Appropriate Defaults**: Configure sensible default values
+2. **Use Approval When Needed**: Require approval for sensitive operations
+3. **Handle Errors**: Ensure tools have proper error handling
+4. **Document Inputs**: Clearly document what each input does
+
+## Use Cases
+
+### Customer Support Agent
+
+**Tools Needed:**
+- **Create Ticket Tool**: Custom tool to create support tickets
+- **Search Knowledge Base**: Tool to search documentation
+- **Escalate Issue**: Workflow to escalate to human agent
+
+### Data Analysis Agent
+
+**Tools Needed:**
+- **Data Processing Tool**: Custom tool for data transformation
+- **Report Generation**: Workflow to generate reports
+- **Export Data**: Tool to export results
+
+### Content Creation Agent
+
+**Tools Needed:**
+- **Content Generator**: Custom tool for content creation
+- **Image Generation**: Tool to create images
+- **Publishing Workflow**: Workflow to publish content
+
+## Troubleshooting
+
+### Tool Not Appearing
+
+**Issue**: Tool doesn't show up in the selector
+
+**Solutions:**
+- Check if the tool is published (drafts may not appear)
+- Verify you're in the correct project
+- Refresh the tools list
+- Check tool permissions
+
+### Tool Not Executing
+
+**Issue**: Agent doesn't use the tool
+
+**Solutions:**
+- Verify the tool is added to the agent
+- Check tool configuration
+- Review agent's system prompt (may need to mention the tool)
+- Test the tool independently
+
+### Tool Execution Errors
+
+**Issue**: Tool fails when executed
+
+**Solutions:**
+- Check tool inputs are correct
+- Verify tool configuration
+- Review error messages in tool execution logs
+- Test tool with sample inputs
+
+### Approval Not Working
+
+**Issue**: Tool executes without approval when it should require it
+
+**Solutions:**
+- Check approval settings in tool configuration
+- Verify agent has permission to request approval
+- Review tool's approval configuration
+
+## Related Documentation
+
+- [Workflows](/tools/workflows-v2) - Learn about creating workflows
+- [Toolkits](/agents/toolkits/overview) - Understand pre-built integrations
+- [Agent Builder](/agents/agents) - General agent configuration guide
+

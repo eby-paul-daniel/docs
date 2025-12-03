@@ -1,0 +1,279 @@
+---
+title: Productivity Toolkits
+icon: "briefcase"
+description: Project management, task tracking, and collaboration tools for your agents
+---
+
+# Productivity Toolkits
+
+Productivity toolkits enable your AI agents to manage projects, track tasks, and collaborate with teams across various project management platforms. These integrations are essential for agents that need to automate project workflows, manage deadlines, and coordinate team activities.
+
+## Available Productivity Toolkits
+
+### Asana
+
+**Category**: Productivity  
+**Setup**: OAuth Required  
+**Complexity**: Medium
+
+Comprehensive project and task management with Asana integration.
+
+**Key Features:**
+
+- Create and manage projects
+- Add and update tasks
+- Track project progress
+- Manage team assignments
+- Access workspace data
+
+**Use Cases:**
+
+- Automated project creation
+- Task assignment and tracking
+- Progress monitoring
+- Team collaboration workflows
+
+<Card title="Asana Toolkit" icon="list-check" href="/agents/toolkits/asana">
+  Set up Asana integration for project management
+</Card>
+
+### ClickUp
+
+**Category**: Productivity  
+**Setup**: OAuth Required  
+**Complexity**: Easy
+
+Flexible task and project collaboration platform.
+
+**Key Features:**
+
+- Task and project management
+- Team collaboration tools
+- Time tracking capabilities
+- Custom field management
+- Workflow automation
+
+**Use Cases:**
+
+- Task automation
+- Project tracking
+- Team coordination
+- Workflow management
+
+<Card title="ClickUp Toolkit" icon="arrow-up-circle-fill" href="/agents/toolkits/clickup">
+  Configure ClickUp for task management
+</Card>
+
+### Jira
+
+**Category**: Productivity  
+**Setup**: OAuth Required  
+**Complexity**: Medium
+
+Issue tracking and project management for software development teams.
+
+**Key Features:**
+
+- Issue and bug tracking
+- Project management
+- Agile workflow support
+- Custom field management
+- Integration with development tools
+
+**Use Cases:**
+
+- Bug tracking automation
+- Sprint management
+- Issue triage
+- Development workflow automation
+
+<Card title="Jira Toolkit" icon="jira" href="/agents/toolkits/jira">
+  Set up Jira for issue tracking and project management
+</Card>
+
+### Notion
+
+**Category**: Productivity  
+**Setup**: OAuth Required  
+**Complexity**: Easy
+
+Create and manage pages, databases, and knowledge bases.
+
+**Key Features:**
+
+- Page and database creation
+- Content management
+- Knowledge base organization
+- Team collaboration
+- Template management
+
+**Use Cases:**
+
+- Documentation automation
+- Knowledge base management
+- Content creation workflows
+- Team collaboration
+
+<Card title="Notion Toolkit" icon="box-seam" href="/agents/toolkits/notion">
+  Integrate Notion for content and knowledge management
+</Card>
+
+## Setup Overview
+
+All productivity toolkits require OAuth authentication. Here's the general process:
+
+### OAuth Setup Process
+
+1. **Create App**: Register your application with the service provider
+2. **Configure Permissions**: Set up the required OAuth scopes
+3. **Get Credentials**: Obtain Client ID and Client Secret
+4. **Configure Redirect URI**: Set up the callback URL
+5. **Add to EKB**: Enter credentials in the Super Admin panel
+
+### Service-Specific Requirements
+
+**Asana**
+
+- Requires Asana Developer Console account
+- OAuth scopes: `read_user`, `read_workspace`
+- Redirect URI: `{BACKEND_ROOT_URL}/user/integrations/asana/oauth/callback`
+
+**ClickUp**
+
+- Requires ClickUp API access
+- OAuth scopes: `read`, `write`, `admin`
+- Redirect URI: `{BACKEND_ROOT_URL}/user/integrations/clickup/oauth/callback`
+
+**Jira**
+
+- Requires Atlassian Developer Console account
+- OAuth scopes: `read:jira-work`, `write:jira-work`, `read:jira-user`
+- Redirect URI: `{BACKEND_ROOT_URL}/user/integrations/jira/oauth/callback`
+
+**Notion**
+
+- Requires Notion Integration Token
+- OAuth scopes: `read`, `update`, `insert`
+- Uses Internal Integration Token (starts with `secret_`)
+
+## Common Use Cases
+
+### Project Management Automation
+
+- **Project Creation**: Automatically create projects from templates
+- **Task Assignment**: Assign tasks based on workload and skills
+- **Progress Tracking**: Monitor project milestones and deadlines
+- **Status Updates**: Generate and send progress reports
+
+### Workflow Automation
+
+- **Issue Triage**: Automatically categorize and prioritize issues
+- **Sprint Planning**: Generate sprint backlogs and assignments
+- **Documentation**: Create and update project documentation
+- **Notifications**: Send alerts for deadlines and updates
+
+### Team Collaboration
+
+- **Task Distribution**: Distribute work based on team capacity
+- **Communication**: Send updates and notifications to team members
+- **Meeting Management**: Schedule and manage team meetings
+- **Knowledge Sharing**: Maintain and update team knowledge bases
+
+## Best Practices
+
+### Security
+
+- Use minimal required permissions
+- Regularly rotate OAuth credentials
+- Monitor access logs and API usage
+- Implement proper error handling
+
+### Performance
+
+- Use batch operations when possible
+- Implement rate limiting to respect API limits
+- Cache frequently accessed data
+- Use appropriate filters to minimize API calls
+
+### User Experience
+
+- Provide clear error messages
+- Implement retry mechanisms for failed operations
+- Use consistent naming conventions
+- Respect user preferences and settings
+
+## Integration Patterns
+
+### Webhook Integration
+
+Many productivity tools support webhooks for real-time updates:
+
+- **Asana**: Webhook notifications for task updates
+- **ClickUp**: Webhook events for task changes
+- **Jira**: Webhook notifications for issue updates
+
+### API Rate Limits
+
+Each service has different rate limits:
+
+- **Asana**: 1,500 requests per minute
+- **ClickUp**: 100 requests per minute
+- **Jira**: Varies by plan and endpoint
+- **Notion**: 3 requests per second
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Errors**
+
+- Verify OAuth credentials are correct
+- Check redirect URI matches exactly
+- Ensure required scopes are granted
+- Verify app is approved (if required)
+
+**Permission Errors**
+
+- Confirm OAuth scopes include required permissions
+- Check if admin consent is needed
+- Verify user has access to requested resources
+
+**Rate Limiting**
+
+- Implement exponential backoff
+- Use batch operations when available
+- Monitor API usage
+- Consider upgrading API limits
+
+### Debug Tips
+
+1. **Test API Access**
+
+   - Use service-specific API testing tools
+   - Verify credentials work independently
+   - Check scope permissions
+
+2. **Monitor API Usage**
+
+   - Review service dashboards for usage statistics
+   - Monitor quota consumption
+   - Set up alerts for rate limit approaches
+
+3. **Check Service Status**
+   - Verify service is operational
+   - Check for maintenance windows
+   - Review service status pages
+
+## Getting Started
+
+1. **Choose Your Toolkit**: Select the productivity platform that matches your needs
+2. **Review Requirements**: Check the specific setup guide for your chosen toolkit
+3. **Set Up OAuth**: Follow the OAuth configuration steps
+4. **Test Integration**: Verify the connection works properly
+5. **Configure Your Agent**: Add the toolkit to your agent configuration
+
+<Note>
+  Productivity toolkits often handle sensitive project data and team
+  information. Ensure you comply with all relevant privacy regulations and
+  service terms of use.
+</Note>

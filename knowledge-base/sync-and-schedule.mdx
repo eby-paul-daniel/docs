@@ -1,0 +1,213 @@
+---
+title: Sync & Schedule
+icon: "clock"
+description: Manage sync schedules and automatic updates for your knowledge base
+---
+
+# Sync & Schedule
+
+The **Sync & Schedule** tab in Knowledge Base Settings allows you to manage automatic syncing and scheduling for your knowledge base. Configure when and how often your connectors and crawlers should sync to keep your knowledge base up-to-date.
+
+## Overview
+
+Sync & Schedule enables:
+
+- **Automatic Syncing** - Schedule regular syncs for connectors and crawlers
+- **Sync Management** - View and manage sync schedules
+- **Manual Sync** - Trigger immediate syncs when needed
+- **Schedule Configuration** - Set sync frequency and timing
+
+## Accessing Sync & Schedule
+
+1. Navigate to **Knowledge Base** in the sidebar
+2. Go to the **KB Data** section
+3. Click the **Settings** icon (gear icon)
+4. Select the **Sync & Schedule** tab
+
+## Enabling Auto-Sync
+
+### Basic Configuration
+
+1. Toggle **Enable Auto-Sync** to on
+2. Select sync mode:
+   - **Interval** - Sync at regular intervals
+   - **Cron** - Sync on specific days and times
+3. Configure sync settings
+4. Save configuration
+
+### Interval Mode
+
+Sync at regular intervals (e.g., every 7 days).
+
+**Configuration:**
+- **Interval Amount** - Number of intervals
+- **Interval Unit** - Days or weeks
+- **Timezone** - Timezone for scheduling
+
+**Example:**
+- Interval: 7 days
+- Syncs every 7 days from the last sync
+
+### Cron Mode
+
+Sync on specific days and times using cron-like scheduling.
+
+**Configuration:**
+- **Days** - Select days of the week (Sunday-Saturday)
+- **Time** - Set the time for sync (24-hour format)
+- **Timezone** - Timezone for scheduling
+
+**Example:**
+- Days: Monday, Wednesday, Friday
+- Time: 02:00
+- Syncs at 2 AM on selected days
+
+## Managing Sync Schedules
+
+### Viewing Schedules
+
+The Sync & Schedule tab displays:
+- Current sync configuration
+- Next scheduled run time
+- Upcoming sync runs
+- Sync history
+
+### Editing Schedule
+
+1. Find the sync schedule
+2. Click **Edit** or modify settings
+3. Update configuration
+4. Save changes
+
+### Disabling Auto-Sync
+
+1. Toggle **Enable Auto-Sync** to off
+2. Confirm the action
+3. Auto-sync is disabled
+
+<Warning>
+Disabling auto-sync will stop all scheduled syncing. Manual syncs can still be triggered.
+</Warning>
+
+## Manual Sync
+
+### Triggering Manual Sync
+
+Manually sync connectors or crawlers immediately:
+
+1. Go to **Sync & Schedule** tab
+2. Find the connector or crawler
+3. Click **Sync Now** or **Manual Sync**
+4. Wait for sync to complete
+
+### Manual Sync for Connectors
+
+1. Go to **Connectors** tab
+2. Find the connector
+3. Click **Sync Now**
+4. Monitor sync progress
+
+### Manual Sync for Crawlers
+
+1. Go to **Crawlers** tab
+2. Find the crawler
+3. Click **Sync Now**
+4. Monitor crawl progress
+
+## Sync Status
+
+### Viewing Sync Status
+
+Check sync status for:
+- Last sync time
+- Next scheduled sync
+- Sync success/failure
+- Sync progress
+
+### Sync Indicators
+
+- **Success** - Green checkmark or success message
+- **Failure** - Red error indicator
+- **In Progress** - Spinning indicator or progress bar
+- **Pending** - Scheduled but not yet run
+
+### Sync Logs
+
+Review sync logs to:
+- Identify sync failures
+- Monitor sync frequency
+- Track sync performance
+- Debug sync issues
+
+## Best Practices
+
+### Schedule Configuration
+
+1. **Balance Freshness and Load** - Sync frequently enough to keep data fresh without overloading the system
+2. **Off-Peak Hours** - Schedule syncs during off-peak hours
+3. **Time Zone Awareness** - Consider time zones for global teams
+4. **Test Schedules** - Verify schedules work as expected
+
+### Sync Frequency
+
+1. **High-Change Content** - Sync more frequently (daily or multiple times per day)
+2. **Stable Content** - Sync less frequently (weekly or monthly)
+3. **Critical Data** - Sync more frequently for important information
+4. **Resource Constraints** - Balance frequency with system resources
+
+### Monitoring
+
+1. **Regular Checks** - Monitor sync status regularly
+2. **Error Alerts** - Set up alerts for sync failures
+3. **Performance Tracking** - Monitor sync performance over time
+4. **Usage Patterns** - Adjust schedules based on usage patterns
+
+## Troubleshooting
+
+### Sync Not Running
+
+**Problem:** Scheduled syncs not executing
+
+**Solutions:**
+1. Verify auto-sync is enabled
+2. Check schedule configuration
+3. Verify timezone settings
+4. Check for system errors
+
+### Sync Failures
+
+**Problem:** Syncs failing repeatedly
+
+**Solutions:**
+1. Check connector/crawler status
+2. Verify credentials are valid
+3. Review sync logs for errors
+4. Test manual sync to isolate issues
+
+### Incorrect Schedule
+
+**Problem:** Syncs running at wrong times
+
+**Solutions:**
+1. Verify timezone configuration
+2. Check cron expression or interval settings
+3. Review schedule configuration
+4. Test with manual sync first
+
+## Related Features
+
+- **Settings** - Configure chunking and processing
+- **Connectors** - Connect external data sources
+- **Crawlers** - Automatically fetch web content
+
+<Card title="Settings" icon="settings" href="/knowledge-base/settings">
+  Learn about knowledge base settings
+</Card>
+
+<Card title="Connectors" icon="plug" href="/knowledge-base/connectors">
+  Learn about connectors
+</Card>
+
+<Card title="Crawlers" icon="spider" href="/knowledge-base/kb-crawler">
+  Learn about web crawlers
+</Card>

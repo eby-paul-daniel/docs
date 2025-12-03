@@ -1,0 +1,738 @@
+---
+title: "Smart Tables SDK"
+icon: "table"
+description: "Create and manage structured data tables with advanced querying, filtering, and AI-powered data processing."
+---
+The SmartTablesSDK provides a comprehensive solution for managing structured data tables with advanced querying, filtering, sorting, and data manipulation capabilities. Build powerful data management applications with ease, featuring support for custom views, data import/export, and AI-powered data processing.
+
+## Installation
+
+```bash
+npm install @odin-ai-staging/sdk
+```
+
+## Quick Start
+In this example, you will learn how to use the SmartTablesSDK to programmatically create and manage structured data tables through the EKB API. You start by initializing the SDK with your API credentials (base URL, project ID, API key, and secret), then follow a straightforward workflow to build a functional database: first, you create a new table with `createTable()` by providing a name and description (in this case, "Customer Database"), then you define the table's structure by adding columns with `addColumn()`, specifying each column's name, data type (like 'text' or 'email'), and description. Once your table structure is set up, you can populate it with data using `addRow()` to insert records as key-value pairs, and finally query your data with `queryTable()`, which supports filtering (using operators like 'contains'), pagination, and other query parameters to retrieve exactly the data you need. This gives you a complete programmatic solution for creating database-like structures with AI-powered capabilities, perfect for building dynamic data management systems, CRM tools, or any application where you need to store, organize, and query structured information through an API—all without managing traditional database infrastructure.
+
+```typescript
+import { SmartTablesSDK } from '@odin-ai-staging/sdk';
+
+// Initialize the SDK
+const smartTablesSDK = new SmartTablesSDK({
+  baseUrl: 'https://your-api-endpoint.com/',
+  projectId: 'your-project-id',
+  apiKey: 'your-api-key',
+  apiSecret: 'your-api-secret'
+});
+
+// Quick example: Create table and add data
+async function quickExample() {
+  // Create a new table
+  const table = await smartTablesSDK.createTable(
+    'Customer Database',
+    'Manage customer information'
+  );
+  
+  // Add columns
+  await smartTablesSDK.addColumn(table.id, {
+    name: 'name',
+    type: 'text',
+    description: 'Customer name'
+  });
+  
+  await smartTablesSDK.addColumn(table.id, {
+    name: 'email',
+    type: 'email',
+    description: 'Customer email address'
+  });
+  
+  // Add data
+  await smartTablesSDK.addRow(table.id, {
+    name: 'John Doe',
+    email: 'john@example.com'
+  });
+  
+  // Query data
+  const results = await smartTablesSDK.queryTable(table.id, {
+    filters: [{ column: 'name', operator: 'contains', value: 'John' }],
+    pagination: { limit: 10, page: 1 }
+  });
+  
+  console.log('Query results:', results.data);
+}
+```
+
+## Configuration
+
+### SmartTablesSDKConfig Interface
+
+```typescript
+interface SmartTablesSDKConfig {
+  baseUrl: string;          // API endpoint URL
+  projectId: string;        // Your project identifier
+  apiKey?: string;          // API key for authentication
+  apiSecret?: string;       // API secret for authentication
+  accessToken?: string;     // Access token for web app usage
+}
+```
+
+The SmartTablesSDK uses the same configuration as other SDK components, extending the BaseClientConfig.
+
+## Core Concepts
+
+### SmartTable
+
+A SmartTable represents a structured data table with schema, metadata, and data management capabilities.
+
+```typescript
+interface SmartTable {
+  id: string;                    // Unique table identifier
+  project_id: string;            // Project this table belongs to
+  title: string;                 // Display name of the table
+  description: string;           // Table description
+  schema: SmartTableColumn[];    // Column definitions
+  table_name: string;           // Internal table name
+  created_at?: number;          // Creation timestamp
+  updated_at?: number;          // Last update timestamp
+}
+```
+
+### SmartTableColumn
+
+Defines the structure and properties of table columns.
+
+```typescript
+interface SmartTableColumn {
+  name: string;                           // Column name
+  type: ColumnType;                       // Data type
+  description?: string;                   // Column description
+  notNull?: boolean;                      // Required field
+  unique?: boolean;                       // Unique constraint
+  defaultValue?: string | number | boolean | null;  // Default value
+  options?: Record<string, unknown>;      // Additional options
+}
+
+type ColumnType = 'text' | 'number' | 'boolean' | 'date' | 'email' | 'url' | 'json';
+```
+
+### Filtering & Querying
+
+Advanced filtering system with multiple operators and sorting options.
+
+```typescript
+interface TableFilter {
+  column: string;
+  operator: FilterOperator;
+  value: string | number | boolean | null;
+}
+
+type FilterOperator = 'eq' | 'ne' | 'gt' | 'lt' | 'gte' | 'lte' | 'contains' | 'startswith' | 'endswith';
+
+interface TableSort {
+  column: string;
+  direction: 'asc' | 'desc';
+}
+
+interface TablePagination {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
+```
+
+## Table Management
+
+### `getAllTables()`
+
+Retrieve all tables in the project.
+
+```typescript
+async getAllTables(): Promise<SmartTable[]>
+```
+
+**Example:**
+```typescript
+const tables = await smartTablesSDK.getAllTables();
+tables.forEach(table => {
+  console.log(`Table: ${table.title} (${table.id})`);
+  console.log(`Columns: ${table.schema.length}`);
+});
+```
+
+### `getTable(tableId)`
+
+Get a specific table by ID.
+
+```typescript
+async getTable(tableId: string): Promise<SmartTable>
+```
+
+**Example:**
+```typescript
+const table = await smartTablesSDK.getTable('table_123');
+console.log('Table schema:', table.schema);
+```
+
+### `createTable(title, description, metadata?)`
+
+Create a new table.
+
+```typescript
+async createTable(
+  title: string,
+  description: string,
+  metadata?: Record<string, unknown>
+): Promise<SmartTable>
+```
+
+**Example:**
+```typescript
+const table = await smartTablesSDK.createTable(
+  'Product Catalog',
+  'Manage product information and inventory',
+  { category: 'inventory', owner: 'admin' }
+);
+```
+
+### `updateTable(tableId, title, description?, metadata?)`
+
+Update table metadata.
+
+```typescript
+async updateTable(
+  tableId: string,
+  title: string,
+  description?: string,
+  metadata?: Record<string, unknown>
+): Promise<void>
+```
+
+**Example:**
+```typescript
+await smartTablesSDK.updateTable(
+  'table_123',
+  'Updated Product Catalog',
+  'Enhanced product management system',
+  { version: '2.0' }
+);
+```
+
+### `deleteTable(tableId)`
+
+Delete a table and all its data permanently.
+
+```typescript
+async deleteTable(tableId: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await smartTablesSDK.deleteTable('table_123');
+```
+
+## Column Operations
+
+### `addColumn(tableId, column)`
+
+Add a new column to the table.
+
+```typescript
+async addColumn(tableId: string, column: SmartTableColumn): Promise<void>
+```
+
+**Example:**
+```typescript
+// Add a text column
+await smartTablesSDK.addColumn('table_123', {
+  name: 'product_name',
+  type: 'text',
+  description: 'Name of the product',
+  notNull: true
+});
+
+// Add a number column with default value
+await smartTablesSDK.addColumn('table_123', {
+  name: 'price',
+  type: 'number',
+  description: 'Product price in USD',
+  defaultValue: 0,
+  notNull: true
+});
+
+// Add an email column with validation
+await smartTablesSDK.addColumn('table_123', {
+  name: 'supplier_email',
+  type: 'email',
+  description: 'Supplier contact email',
+  unique: true
+});
+```
+
+### `updateColumn(tableId, columnName, updates)`
+
+Update column properties.
+
+```typescript
+async updateColumn(
+  tableId: string,
+  columnName: string,
+  updates: Partial<SmartTableColumn>
+): Promise<void>
+```
+
+**Example:**
+```typescript
+await smartTablesSDK.updateColumn('table_123', 'product_name', {
+  description: 'Updated product name field',
+  notNull: true,
+  unique: true
+});
+```
+
+### `deleteColumn(tableId, columnName)`
+
+Remove a column from the table.
+
+```typescript
+async deleteColumn(tableId: string, columnName: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await smartTablesSDK.deleteColumn('table_123', 'obsolete_column');
+```
+
+## Data Operations
+
+### `addRow(tableId, data)`
+
+Add a new row to the table.
+
+```typescript
+async addRow(tableId: string, data: Record<string, any>): Promise<any>
+```
+
+**Example:**
+```typescript
+const newRow = await smartTablesSDK.addRow('table_123', {
+  product_name: 'Wireless Headphones',
+  price: 99.99,
+  supplier_email: 'supplier@example.com',
+  in_stock: true
+});
+
+console.log('New row ID:', newRow.id);
+```
+
+### `updateRow(tableId, rowId, columnName, newValue)`
+
+Update a specific cell in the table.
+
+```typescript
+async updateRow(
+  tableId: string,
+  rowId: string,
+  columnName: string,
+  newValue: any
+): Promise<void>
+```
+
+**Example:**
+```typescript
+// Update product price
+await smartTablesSDK.updateRow(
+  'table_123',
+  'row_456',
+  'price',
+  89.99
+);
+
+// Update stock status
+await smartTablesSDK.updateRow(
+  'table_123',
+  'row_456',
+  'in_stock',
+  false
+);
+```
+
+### `deleteRow(tableId, rowId)`
+
+Delete a row from the table.
+
+```typescript
+async deleteRow(tableId: string, rowId: string): Promise<void>
+```
+
+**Example:**
+```typescript
+await smartTablesSDK.deleteRow('table_123', 'row_456');
+```
+
+## Querying & Filtering
+
+### `queryTable(tableId, options?)`
+
+Query table data with advanced filtering, sorting, and pagination.
+
+```typescript
+async queryTable(
+  tableId: string,
+  options?: TableQueryOptions
+): Promise<TableQueryResponse>
+```
+
+**TableQueryOptions:**
+```typescript
+interface TableQueryOptions {
+  filters?: TableFilter[];      // Filter conditions
+  sort?: TableSort[];          // Sort configurations
+  pagination?: TablePagination; // Pagination settings
+}
+```
+
+**Examples:**
+
+#### Basic Query
+```typescript
+const results = await smartTablesSDK.queryTable('table_123');
+console.log('All data:', results.data);
+```
+
+#### Filtered Query
+```typescript
+const results = await smartTablesSDK.queryTable('table_123', {
+  filters: [
+    { column: 'price', operator: 'gte', value: 50 },
+    { column: 'in_stock', operator: 'eq', value: true },
+    { column: 'product_name', operator: 'contains', value: 'headphones' }
+  ]
+});
+```
+
+#### Sorted Query with Pagination
+```typescript
+const results = await smartTablesSDK.queryTable('table_123', {
+  sort: [
+    { column: 'price', direction: 'desc' },
+    { column: 'product_name', direction: 'asc' }
+  ],
+  pagination: {
+    page: 2,
+    limit: 20,
+    search: 'wireless'
+  }
+});
+
+console.log(`Found ${results.total} items`);
+console.log(`Page ${results.page} of ${Math.ceil(results.total / results.limit)}`);
+```
+
+## Data Import/Export
+
+### `importTable(title, description, columnMappings, file)`
+
+Import data from CSV or Excel files.
+
+```typescript
+async importTable(
+  title: string,
+  description: string,
+  columnMappings: ColumnMapping[],
+  file: File
+): Promise<ImportResult>
+```
+
+**ColumnMapping Interface:**
+```typescript
+interface ColumnMapping {
+  sourceColumn: string;     // Column name in source file
+  targetColumn: string;     // Column name in target table
+  dataType: string;         // Target data type
+}
+```
+
+**Example:**
+```typescript
+const fileInput = document.getElementById('csvFile') as HTMLInputElement;
+const file = fileInput.files[0];
+
+const columnMappings: ColumnMapping[] = [
+  { sourceColumn: 'Name', targetColumn: 'product_name', dataType: 'text' },
+  { sourceColumn: 'Price', targetColumn: 'price', dataType: 'number' },
+  { sourceColumn: 'Email', targetColumn: 'supplier_email', dataType: 'email' }
+];
+
+const result = await smartTablesSDK.importTable(
+  'Imported Products',
+  'Products imported from CSV',
+  columnMappings,
+  file
+);
+
+console.log(`Imported ${result.rows_imported} rows`);
+console.log(`Table ID: ${result.data_type_id}`);
+```
+
+## AI-Powered Features
+
+### `computeRowColumns(dataTypeId, rowId, columnNames?)`
+
+Trigger AI computation for specific row columns.
+
+```typescript
+async computeRowColumns(
+  dataTypeId: string,
+  rowId: string,
+  columnNames?: string[]
+): Promise<void>
+```
+
+**Example:**
+```typescript
+// Compute specific columns for a row
+await smartTablesSDK.computeRowColumns(
+  'table_123',
+  'row_456',
+  ['ai_summary', 'sentiment_score']
+);
+```
+
+### `computeAllRows(dataTypeId)`
+
+Trigger AI computation for all rows in the table.
+
+```typescript
+async computeAllRows(dataTypeId: string): Promise<{
+  message: string;
+  total_rows_processed: number;
+  total_columns_updated: number;
+  updated_columns: string[];
+  failed_rows: number[];
+  stopped_due_to_failures: boolean;
+  retry_attempts: Record<number, number>;
+  computation_id?: string;
+  history_table?: string;
+}>
+```
+
+**Example:**
+```typescript
+const result = await smartTablesSDK.computeAllRows('table_123');
+console.log(`Processed ${result.total_rows_processed} rows`);
+console.log(`Updated ${result.total_columns_updated} columns`);
+console.log(`Updated columns: ${result.updated_columns.join(', ')}`);
+
+if (result.failed_rows.length > 0) {
+  console.log(`Failed rows: ${result.failed_rows.join(', ')}`);
+}
+```
+
+## Error Handling
+
+The SmartTablesSDK uses the same error handling as other SDK components:
+
+```typescript
+try {
+  const table = await smartTablesSDK.createTable('My Table', 'Description');
+} catch (error) {
+  if (error instanceof APIError) {
+    console.error(`API Error ${error.status}: ${error.message}`);
+    if (error.detail) {
+      console.error('Details:', error.detail);
+    }
+  } else {
+    console.error('Unexpected error:', error);
+  }
+}
+```
+
+## Examples
+
+### Complete Data Management Application
+In this example, you will learn how to build a complete product management system using the SmartTablesSDK with a well-structured class that handles inventory and product information. The `ProductManager` class initializes the SDK with environment variables and provides a full workflow for managing a product catalog: the `initializeTable()` method creates a new "Product Catalog" table and sets up a comprehensive schema with eight columns including various data types (text, number, boolean, email, url, and date), along with constraints like `notNull` for required fields and `defaultValue` for stock availability. Once initialized, you can add products using `addProduct()`, which inserts new rows and automatically timestamps each entry with the current date, and perform sophisticated searches with `searchProducts()`, which lets you filter products by category, price range (using 'gte' and 'lte' operators for greater-than-or-equal and less-than-or-equal comparisons), apply text search across the table, and sort results alphabetically by product name. This gives you a production-ready pattern for building e-commerce inventory systems, product databases, or any application requiring structured data management with advanced querying capabilities—demonstrating how to combine multiple filter conditions, pagination, sorting, and search functionality into a cohesive data management solution.
+
+```typescript
+import { SmartTablesSDK } from '@odin-ai-staging/sdk';
+
+class ProductManager {
+  private sdk: SmartTablesSDK;
+  private tableId?: string;
+
+  constructor() {
+    this.sdk = new SmartTablesSDK({
+      baseUrl: process.env.API_BASE_URL,
+      projectId: process.env.PROJECT_ID,
+      apiKey: process.env.API_KEY,
+      apiSecret: process.env.API_SECRET
+    });
+  }
+
+  async initializeTable() {
+    try {
+      // Create table
+      const table = await this.sdk.createTable(
+        'Product Catalog',
+        'Manage product inventory and information'
+      );
+      this.tableId = table.id;
+
+      // Add columns
+      await this.addColumns();
+      
+      console.log('Table initialized:', this.tableId);
+      return table;
+    } catch (error) {
+      console.error('Failed to initialize table:', error);
+      throw error;
+    }
+  }
+
+  private async addColumns() {
+    const columns = [
+      { name: 'name', type: 'text', description: 'Product name', notNull: true },
+      { name: 'description', type: 'text', description: 'Product description' },
+      { name: 'price', type: 'number', description: 'Price in USD', notNull: true },
+      { name: 'category', type: 'text', description: 'Product category' },
+      { name: 'in_stock', type: 'boolean', description: 'Stock availability', defaultValue: true },
+      { name: 'supplier_email', type: 'email', description: 'Supplier contact' },
+      { name: 'website', type: 'url', description: 'Product website' },
+      { name: 'created_at', type: 'date', description: 'Creation date' }
+    ];
+
+    for (const column of columns) {
+      await this.sdk.addColumn(this.tableId!, column);
+    }
+  }
+
+  async addProduct(productData: any) {
+    if (!this.tableId) throw new Error('Table not initialized');
+    
+    try {
+      const result = await this.sdk.addRow(this.tableId, {
+        ...productData,
+        created_at: new Date().toISOString()
+      });
+      
+      console.log('Product added:', result);
+      return result;
+    } catch (error) {
+      console.error('Failed to add product:', error);
+      throw error;
+    }
+  }
+
+  async searchProducts(searchTerm: string, category?: string, minPrice?: number, maxPrice?: number) {
+    if (!this.tableId) throw new Error('Table not initialized');
+
+    const filters = [];
+    
+    if (category) {
+      filters.push({ column: 'category', operator: 'eq', value: category });
+    }
+    
+    if (minPrice !== undefined) {
+      filters.push({ column: 'price', operator: 'gte', value: minPrice });
+    }
+    
+    if (maxPrice !== undefined) {
+      filters.push({ column: 'price', operator: 'lte', value: maxPrice });
+    }
+
+    try {
+      const results = await this.sdk.queryTable(this.tableId, {
+        filters,
+        pagination: {
+          search: searchTerm,
+          limit: 50
+        },
+        sort: [
+          { column: 'name', direction: 'asc' }
+        ]
+      });
+
+      return results;
+    } catch (error) {
+      console.error('Search failed:', error);
+      throw error;
+    }
+  }
+}
+
+// Usage
+const productManager = new ProductManager();
+await productManager.initializeTable();
+await productManager.addProduct({
+  name: 'Wireless Headphones',
+  price: 199.99,
+  category: 'Electronics'
+});
+```
+
+## Best Practices
+
+### Efficient Querying
+- Use pagination for large datasets
+- Apply filters to reduce data transfer
+- Combine multiple operations when possible
+
+```typescript
+// Good: Efficient query with filters and pagination
+const results = await smartTablesSDK.queryTable(tableId, {
+  filters: [{ column: 'status', operator: 'eq', value: 'active' }],
+  pagination: { limit: 50, page: 1 },
+  sort: [{ column: 'created_at', direction: 'desc' }]
+});
+
+// Bad: Fetching all data without filters
+const allResults = await smartTablesSDK.queryTable(tableId);
+```
+
+### Schema Design
+- Define appropriate column types
+- Use constraints (notNull, unique) appropriately
+- Provide meaningful descriptions
+
+```typescript
+// Good: Well-defined column schema
+await smartTablesSDK.addColumn(tableId, {
+  name: 'email',
+  type: 'email',
+  description: 'Customer email address',
+  notNull: true,
+  unique: true
+});
+
+// Bad: Vague column definition
+await smartTablesSDK.addColumn(tableId, {
+  name: 'data',
+  type: 'text'
+});
+```
+
+### Error Handling and Validation
+- Always handle errors gracefully
+- Validate data before operations
+- Use transactions for related operations
+
+```typescript
+async function safeTableOperation(tableId: string, data: any) {
+  try {
+    // Validate data first
+    if (!data.email || !data.email.includes('@')) {
+      throw new Error('Invalid email format');
+    }
+    
+    // Perform operation
+    const result = await smartTablesSDK.addRow(tableId, data);
+    return result;
+  } catch (error) {
+    console.error('Operation failed:', error);
+    // Handle specific error types
+    if (error.message.includes('unique constraint')) {
+      throw new Error('Email already exists');
+    }
+    throw error;
+  }
+}
+```
