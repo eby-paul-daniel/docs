@@ -16,7 +16,7 @@
           {
             "group": "Get Started!",
             "icon": "rocket",
-            "pages": ["Introduction", "documentation/chatbot-configuration"]
+            "pages": ["index", "documentation/chatbot-configuration"]
           },
           {
             "group": "Chat",
