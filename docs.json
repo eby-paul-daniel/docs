@@ -16,7 +16,7 @@
           {
             "group": "Get Started!",
             "icon": "rocket",
-            "pages": ["index", "documentation/chatbot-configuration"]
+            "pages": ["index"]
           },
           {
             "group": "Chat",
@@ -188,17 +188,12 @@
         "label": "Support",
         "href": "mailto:support@automationanywhere.com"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://odinai.mintlify.app"
-    }
+    ]
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/CodeGlo/Odin-AI-Docs.git",
-      "linkedin": "https://www.linkedin.com/company/get-odin-ai/"
+      "github": "https://github.com/eby-paul-daniel/docs.git",
+      "linkedin": "https://www.linkedin.com/company/automation-anywhere/"
     }
   }
 }
