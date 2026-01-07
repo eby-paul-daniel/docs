@@ -165,10 +165,22 @@ mode: "wide"
   </Tab>
   <Tab title="Roles" icon="user-gear">
     # Roles
-    EKB supports the RBAC (Role Based Access Control) security model by giving you three default **Role** types: Admin, Editor, and Viewer. These default Roles can be expanded by adding your own **Custom Roles** that enable you to have granular control over what Members of your project have access to and the actions they can perform. In this section you will learn about the default Roles and all of the Custom Role options available.
+    EKB supports project-level Role-Based Access Control (RBAC) security model, which determines what users can view, create, modify, and manage within a specific project in Enterprise Knowledge. These permissions apply only to the selected project and do not affect a user’s access to other projects or their team-level permissions.
+    
+    Each project starts with three default roles—Admin, Editor, and Viewer—which provide a baseline level of access. To support more complex collaboration models, project Admins can extend these defaults by creating Custom Roles. Custom Roles allow you to define fine-grained permissions for individual features, including chat, actions, agents, knowledge base content, workflows, analytics, settings, and member management.
+    
+    Project-level roles are evaluated independently from team-level roles. This means a user may have broad permissions at the team level (for example, the ability to create projects) while having limited or highly specific permissions within an individual project, depending on their assigned role.
+    
+    By using project-level RBAC, organizations can:
+    - Enforce the principle of least privilege within projects
+    - Assign access based on responsibilities rather than job titles
+    - Safely collaborate with cross-functional or external users
+    - Maintain consistency while still allowing flexibility through Custom Roles
+    
+    The following sections describe the available default roles, how Custom Roles work, and how to create, modify, and manage roles within a project.
 
     ## Default Roles
-    - **Admin**: Administrator of the project with full control to edit all settings, add, modify, and remove users, view analytics, and delete the project.
+    - **Admin**: Administrator of the project with complete control to edit all settings, add, modify, and remove users, view analytics, and delete the project.
     - **Editor**: Editors can edit all settings except for Roles. Editors cannot add or remove members, but can modify the project.
     - **Viewer**: Viewers can only view the project and do not have access to analytics or settings.
 
@@ -180,7 +192,7 @@ mode: "wide"
     />
 
     ## Custom roles
-    **Custom Roles** are created by setting the access controls for each of the following settings to **View Self**, **View All**, or **Edit**. With the exceptions of Chat, when View All or Edit are not selected, the default setting is **N/A** which means either the user will only have access to their own or will not have access to that feature or action. Details on what "N/A" will mean for a particular feature or action are detailed below.
+    **Custom Roles** are created by setting the access controls for each of the following settings to **View Self**, **View All**, or **Edit**. Except for Chat, when View All or Edit is not selected, the default setting is **N/A**, which means the user will either have access only to their own data or will not have access to that feature or action. Details on what “N/A” will mean for a particular feature or action are detailed below.
 
     <img
       src="/img/project-settings/custom-role.png"
@@ -190,55 +202,54 @@ mode: "wide"
     />
 
     ### Creating A Custom Role
-    1. In the Settings > Roles tab, select the Create New Role button in the upper-right corener of the page.
-    2. Enter a name for the Role in the **Role Name** field.
-    3. Select **View Self**, **View All**, or **Edit** for the **Chat** feature.
-        - **View Self**: Only allow this Role to view their own chats.
-        - **View All**: Allow this Role to view any chat created by any team member of this project.
-        - **Edit**: Allow this Role to edit or delete chats that they can View.
-    4. Set one or more of the following permissions to **View All** or **Edit**, otherwise the default will be **N/A** for that feature or action.
-        - **Actions**: Controls access to the Actions (Tools/Workflows) feature.
-          - **N/A**: Can only access their own Actions.
-          - **View All**: Can view all Actions created in the project by any member.
-          - **Edit**: Can Edit all Actions they have access to.
-        - **Agents**: Controls access to create or modify Agents.
-          - **N/A**: Can only access their own Agents.
-          - **View All**: Can view all Agents created in the project by any member.
-         - **Edit**: Can Edit all Agents they have access to.
-        - **Knowledge Base**: Controls access to add or modify content in the Knowledge Base, including Smart Tables.
-          - **N/A**: Cannot access the Knowledge Base.
-         - **View All**: Can view all content within the Knowledge Base.
-         - **Edit**: Can upload, modify, and remove content from the Knwoledge Base, including Smart Tables.
-        - **Documents**: Controls access to the Documents section of the Knowledge Base.
-          - **N/A**: Cannot access the Documents section of the Knowledge Base.
-          - **View All**: Can view all Documents in the Knowledge Base.
-          - **Edit**: Can add, edit, and delete Documents in the Knowledge Base.
-        - **Automator**: Controls access to Workflows.
-          - **N/A**: Can only access their own Workflows.
-          - **View All**: Can view all Workflows created in the project by any member. 
-          - **Edit**: Can Edit all Workflows they have access to.
-        - **Public Chatbot**: Controls access to the Public Chatbot feature.
-          - **N/A**: Has no access to this feature.
-          - **View All**: Can view the Public Chatbot feature.
-          - **Edit**: Can edit the settings within the Public Chatbot feature.
-        - **Analytics**: Controls access to the project Analytics feature.
-          - **N/A**: Cannot access the Analytics feature.
-          - **View All**: Can view the Analytics page.
-          - **Edit**: Can modify the dat ranges of the Analytics page.
-        - **Settings**: Controls access to the project Settings feature.
-          - **N/A**: Cannot access the project Settings feature.
-          - **View All**: Can view Settings for the project.
-          - **Edit**: Can access and modify all settings for the project.
-        - **Roles**: Controls access to the Roles feature within project Settings.
-          - **N/A**: Cannot access the Roles feature within project Settings.
-          - **View All**: Can view Roles within project Settings.
-          - **Edit**: Can add, modify, and delete Roles within project Settings.
-        - **Add Members**: Controls whether the user can add, modify, or remove Members from the project.
-          - **N/A**: Cannot add, modify, or remove Members from the project.
-          - **View All**: Can view Members of the project.
-          - **Edit**: Can add, modify, or remove Members from the project.
-    5. Select the **Create** button after you have set the permissions you want to set.
-    After slecting the Create button the new Custom Role will appear in the list of Role on this page and in the Roles dropdowns for creating Members and modifying their access.
+    1. In the project, navigate to Settings > Roles tab, select the Create New Role button in the upper-right corner of the page.
+    2. Enter a name for the Role in the Role Name field.
+    3. Select View Self, View All, or Edit for the Chat feature.
+        - View Self: Only allow this Role to view their own chats.
+        - View All: Allow this Role to view any chat created by any team member of this project.
+        - Edit: Allow this Role to edit or delete chats that they can view.
+    4. Set one or more of the following permissions to View All or Edit; the default will be N/A for that feature or action.
+        - Actions: Controls access to the Actions (Tools/Workflows) feature.
+          - N/A: Can only access their own Actions.
+          - View All: Can view all Actions created in the project by any member.
+          - Edit: Can Edit all Actions they have access to.
+        - Agents: Controls access to create or modify Agents.
+          - N/A: Can only access their own Agents.
+          - View All: Can view all Agents created in the project by any member.
+          - Edit: Can Edit all Agents they have access to.
+        - Knowledge Base: Controls access to add or modify Knowledge Base content, including Smart Tables.
+          - N/A: Cannot access the Knowledge Base.
+          -   View All: Can view all content within the Knowledge Base.
+          - Edit: Can upload, modify, and remove content from the Knowledge Base, including Smart Tables.
+        - Documents: Controls access to the Knowledge Base's Documents section.
+          - N/A: Cannot access the Documents section of the Knowledge Base.
+          - View All: Can view all Documents in the Knowledge Base.
+          - Edit: Can add, edit, and delete Documents in the Knowledge Base.
+        - Automator: Controls access to Workflows.
+          - N/A: Can only access their own Workflows.
+          - View All: Can view all Workflows created in the project by any member.
+          - Edit: Can Edit all Workflows they have access to.
+        - Public Chatbot: Controls access to the Public Chatbot feature.
+          - N/A: Has no access to this feature.
+          - View All: Can view the Public Chatbot feature.
+          - Edit: Can edit the settings within the Public Chatbot feature.
+        - Analytics: Controls access to the project Analytics feature.
+          - N/A: Cannot access the Analytics feature.
+          - View All: Can view the Analytics page.
+          - Edit: Can modify the data ranges of the Analytics page.
+        - Settings: Controls access to the project Settings feature.
+          - N/A: Cannot access the project Settings feature.
+          - View All: Can view the project's Settings.
+          - Edit: Can access and modify all project settings.
+        - Roles: Controls access to the Roles feature within project Settings.
+          - N/A: Cannot access the Roles feature within project Settings.
+          - View All: Can view Roles within project Settings.
+          - Edit: Can add, modify, and delete Roles within project Settings.
+        - Add Members: Controls whether the user can add, modify, or remove Members from the project.
+          - N/A: Cannot add, modify, or remove Members from the project.
+          - View All: Can view the project members.
+          - Edit: Can add, modify, or remove Members from the project.
+    5. Select the Create button after you have set the permissions you want. After selecting the Create button, the new Custom Role will appear in the Roles list on this page and in the Roles dropdowns used to create Members and modify their access.
 
     ## Modifying Roles
     1. From the list of Roles, select the Edit link for the Role you want to modify.

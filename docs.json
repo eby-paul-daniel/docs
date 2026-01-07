@@ -138,7 +138,8 @@
               "my-account/api-keys",
               "my-account/dashboard",
               "my-account/account-settings",
-              "my-account/tags"
+              "my-account/tags",
+              "my-account/team-members"
             ]
           },
           {
