@@ -1,200 +1,122 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Automation Anywhere EKB Docs",
+  "name": "Hello Starter Kit",
   "colors": {
-    "primary": "#FF5A10",
-    "light": "#FF5A10",
-    "dark": "#FF5A10"
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
   },
-  "favicon": "/favicon.ico",
+  "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started!",
-            "icon": "rocket",
-            "pages": ["index"]
-          },
-          {
-            "group": "Chat",
-            "icon": "comment-lines",
-            "pages": ["chat/chat", "chat/chat-kb"]
-          },
-          {
-            "group": "Agents",
-            "icon": "robot",
+            "group": "Getting started",
             "pages": [
-              "agents/agents",
-              "agents/agent-templates",
-              "agents/memory",
-              "agents/outputs",
-              "agents/models",
-              "agents/tools",
-              {
-                "group": "Toolkits",
-                "icon": "toolbox",
-                "pages": [
-                  "agents/toolkits/overview",
-                  "agents/toolkits/communication",
-                  "agents/toolkits/productivity",
-                  "agents/toolkits/file-management",
-                  "agents/toolkits/development",
-                  "agents/toolkits/troubleshooting",
-                  {
-                    "group": "Individual Toolkits",
-                    "icon": "wrench",
-                    "pages": [
-                      "agents/toolkits/gmail",
-                      "agents/toolkits/office365",
-                      "agents/toolkits/slack",
-                      "agents/toolkits/asana",
-                      "agents/toolkits/github",
-                      "agents/toolkits/salesforce",
-                      "agents/toolkits/python",
-                      "agents/toolkits/google-workspace"
-                    ]
-                  }
-                ]
-              },
-              "agents/mcp"
+              "index",
+              "quickstart",
+              "development"
             ]
           },
           {
-            "group": "Workflows",
-            "icon": "git-branch",
+            "group": "Customization",
             "pages": [
-              "tools/actions",
-              "tools/workflows-v2",
-              "tools/export-import-workflows"
+              "essentials/settings",
+              "essentials/navigation"
             ]
           },
           {
-            "group": "Interfaces",
-            "icon": "grid",
-            "pages": ["documentation/interfaces"]
-          },
-          {
-            "group": "Knowledge Base",
-            "icon": "folder-open",
+            "group": "Writing content",
             "pages": [
-              "knowledge-base/kb-overview",
-              {
-                "group": "Settings",
-                "icon": "gear",
-                "pages": [
-                  "knowledge-base/settings",
-                  {
-                    "group": "Connectors",
-                    "icon": "plug",
-                    "pages": [
-                      "knowledge-base/connectors",
-                      "knowledge-base/kb-connectors-confluence",
-                      "knowledge-base/kb-connectors-google-drive"
-                    ]
-                  },
-                  "knowledge-base/kb-crawler",
-                  "knowledge-base/sync-and-schedule"
-                ]
-              },
-              "knowledge-base/templates",
-              "knowledge-base/smart-tables"
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
             ]
           },
           {
-            "group": "Settings",
-            "icon": "gear",
-            "pages": ["project-settings/project-settings"]
-          },
-          {
-            "group": "Platform Admin",
-            "icon": "server",
+            "group": "AI tools",
             "pages": [
-              "platform-admin/on-premise-installation",
-              {
-                "group": "Super Admin Dashboard",
-                "icon": "gear",
-                "pages": [
-                  "super-admin/sa-dashboard",
-                  "super-admin/sa-general",
-                  "super-admin/sa-users",
-                  "super-admin/sa-teams",
-                  "super-admin/sa-system",
-                  "super-admin/sa-kb",
-                  "super-admin/sa-app-licenses",
-                  "super-admin/sa-secrets",
-                  "super-admin/sa-task-monitor"
-                ]
-              }
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "api-reference/introduction"
             ]
           },
           {
-            "group": "My Account",
-            "icon": "user",
+            "group": "Endpoint examples",
             "pages": [
-              "my-account/general",
-              "my-account/api-keys",
-              "my-account/dashboard",
-              "my-account/account-settings",
-              "my-account/tags",
-              "my-account/team-members"
-            ]
-          },
-          {
-            "group": "Public Chatbot",
-            "icon": "message-square",
-            "pages": [
-              "public-chatbot/chatbot-configuration",
-              "public-chatbot/chatbot-google-chat",
-              "public-chatbot/chatbot-integration",
-              "public-chatbot/chatbot-public",
-              "public-chatbot/chatbot-slack"
-            ]
-          },
-          {
-            "group": "General Information",
-            "icon": "book",
-            "pages": [
-              "general/security-data-practices",
-              "general/security-compliance",
-              {
-                "group": "Authentication",
-                "icon": "key",
-                "pages": [
-                  "general/authentication/email-password",
-                  "general/authentication/google-sign-in",
-                  "general/authentication/okta-sso",
-                  "general/authentication/azure-ad-sso",
-                  "general/authentication/custom-sso"
-                ]
-              },
-              "general/status-monitoring",
-              "general/on-premise-troubleshooting",
-              "general/api-errors"
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
             ]
           }
         ]
       }
-    ]
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://mintlify.com/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
   },
   "logo": {
-    "light": "/img/logo-aa.svg",
-    "dark": "/img/logo-aa-dark.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@automationanywhere.com"
+        "href": "mailto:hi@mintlify.com"
       }
-    ]
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.mintlify.com"
+    }
+  },
+  "contextual": {
+    "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/eby-paul-daniel/docs.git",
-      "linkedin": "https://www.linkedin.com/company/automation-anywhere/"
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
     }
   }
 }
