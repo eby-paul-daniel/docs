@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Automation Anywhere EKB Docs",
+  "name": "Hello Starter Kit",
   "colors": {
-    "primary": "#FF5A10",
-    "light": "#FF5A10",
-    "dark": "#FF5A10"
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
   },
-  "favicon": "/favicon.ico",
+  "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
@@ -15,24 +15,21 @@
         "groups": [
           {
             "group": "Get Started!",
-            "icon": "rocket",
-            "pages": ["index"]
+            "pages": [
+              "Introduction",
+              "documentation/best-practices",
+              "documentation/chatbot-configuration"
+            ]
           },
           {
             "group": "Chat",
-            "icon": "comment-lines",
             "pages": ["chat/chat", "chat/chat-kb"]
           },
           {
             "group": "Agents",
-            "icon": "robot",
             "pages": [
               "agents/agents",
               "agents/agent-templates",
-              "agents/memory",
-              "agents/outputs",
-              "agents/models",
-              "agents/tools",
               {
                 "group": "Toolkits",
                 "icon": "toolbox",
@@ -58,93 +55,77 @@
                     ]
                   }
                 ]
-              },
-              "agents/mcp"
-            ]
-          },
-          {
-            "group": "Workflows",
-            "icon": "git-branch",
-            "pages": [
-              "tools/actions",
-              "tools/workflows-v2",
-              "tools/export-import-workflows"
-            ]
-          },
-          {
-            "group": "Interfaces",
-            "icon": "grid",
-            "pages": ["documentation/interfaces"]
-          },
-          {
-            "group": "Knowledge Base",
-            "icon": "folder-open",
-            "pages": [
-              "knowledge-base/kb-overview",
-              {
-                "group": "Settings",
-                "icon": "gear",
-                "pages": [
-                  "knowledge-base/settings",
-                  {
-                    "group": "Connectors",
-                    "icon": "plug",
-                    "pages": [
-                      "knowledge-base/connectors",
-                      "knowledge-base/kb-connectors-confluence",
-                      "knowledge-base/kb-connectors-google-drive"
-                    ]
-                  },
-                  "knowledge-base/kb-crawler",
-                  "knowledge-base/sync-and-schedule"
-                ]
-              },
-              "knowledge-base/templates",
-              "knowledge-base/smart-tables"
-            ]
-          },
-          {
-            "group": "Settings",
-            "icon": "gear",
-            "pages": ["project-settings/project-settings"]
-          },
-          {
-            "group": "Platform Admin",
-            "icon": "server",
-            "pages": [
-              "platform-admin/on-premise-installation",
-              {
-                "group": "Super Admin Dashboard",
-                "icon": "gear",
-                "pages": [
-                  "super-admin/sa-dashboard",
-                  "super-admin/sa-general",
-                  "super-admin/sa-users",
-                  "super-admin/sa-teams",
-                  "super-admin/sa-system",
-                  "super-admin/sa-kb",
-                  "super-admin/sa-app-licenses",
-                  "super-admin/sa-secrets",
-                  "super-admin/sa-task-monitor"
-                ]
               }
             ]
           },
           {
+            "group": "Tools",
+            "pages": ["tools/actions"]
+          },
+          {
+            "group": "Knowledge Base",
+            "pages": [
+              "knowledge-base/kb-overview",
+              "knowledge-base/smart-tables",
+              "knowledge-base/kb-crawler",
+              "knowledge-base/kb-connectors-confluence",
+              "knowledge-base/kb-connectors-google-drive"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "documentation/building-flows",
+              "documentation/passing-data",
+              "documentation/publishing-flows",
+              "documentation/debugging-runs",
+              "documentation/version-history",
+              "documentation/technical-limits"
+            ]
+          },
+          {
+            "group": "Platform Admin",
+            "pages": [
+              "documentation/overview",
+              {
+                "group": "Super Admin Dashboard",
+                "icon": "toolbox",
+                "pages": [
+                  "super-admin/sa-dashboard",
+                  "super-admin/sa-general",
+                  "super-admin/sa-users",
+                  "super-admin/sa-teams"
+                ]   
+              }
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "documentation/environments-releases",
+              "documentation/audit-logs"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "documentation/security-data-practices",
+              "documentation/project-permissions",
+              "documentation/single-sign-on"
+            ]
+          },
+          {
             "group": "My Account",
-            "icon": "user",
             "pages": [
               "my-account/general",
               "my-account/api-keys",
               "my-account/dashboard",
-              "my-account/account-settings",
-              "my-account/tags",
-              "my-account/team-members"
+              "my-account/settings",
+              "my-account/tags"
             ]
           },
           {
             "group": "Public Chatbot",
-            "icon": "message-square",
             "pages": [
               "public-chatbot/chatbot-configuration",
               "public-chatbot/chatbot-google-chat",
@@ -153,26 +134,267 @@
               "public-chatbot/chatbot-slack"
             ]
           },
+
           {
-            "group": "General Information",
-            "icon": "book",
+            "group": "About",
             "pages": [
-              "general/security-data-practices",
-              "general/security-compliance",
+              "documentation/i18n-translations",
+              "documentation/editions",
+              "documentation/breaking-changes",
+              "documentation/change-log",
+              "documentation/telemetry",
+              "documentation/license"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Build Agents",
+        "groups": [
+          {
+            "group": "Build an Agent",
+            "pages": [
+              "build-agents/overview",
+              "build-agents/start-building",
+              "build-agents/fork-repository",
               {
-                "group": "Authentication",
-                "icon": "key",
+                "group": "Development Environment",
+                "icon": "circle-2",
                 "pages": [
-                  "general/authentication/email-password",
-                  "general/authentication/google-sign-in",
-                  "general/authentication/okta-sso",
-                  "general/authentication/azure-ad-sso",
-                  "general/authentication/custom-sso"
+                  "build-agents/getting-started",
+                  "build-agents/local-dev-env",
+                  "build-agents/dev-containers",
+                  "build-agents/github-codespaces"
                 ]
               },
-              "general/status-monitoring",
-              "general/on-premise-troubleshooting",
-              "general/api-errors"
+              "build-agents/create-an-agent",
+              "build-agents/add-personality",
+              "build-agents/create-trigger",
+              "build-agents/add-action",
+              {
+                "group": "Sharing Agents",
+                "icon": "circle-7",
+                "pages": [
+                  "build-agents/share-overview",
+                  "build-agents/contribute",
+                  "build-agents/community",
+                  "build-agents/private"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Agent Reference",
+            "pages": [
+              "agent-auth",
+              {
+                "group": "Triggers",
+                "pages": [
+                  "build-agents/triggers-overview",
+                  "build-agents/polling-trigger",
+                  "build-agents/webhook-trigger"
+                ]
+              },
+              "build-agents/props",
+              "build-agents/props-validation",
+              "build-agents/flow-control",
+              "build-agents/persistent-storage",
+              "build-agents/files",
+              "build-agents/external-libraries",
+              "build-agents/agent-versioning",
+              "build-agents/agent-examples",
+              "build-agents/enable-custom-api-calls",
+              "build-agents/agent-i18n",
+              "build-agents/ai-sdk-providers"
+            ]
+          },
+          {
+            "group": "Misc",
+            "pages": [
+              "build-agents/build-custom-agents",
+              "build-agents/publish-custom-agents",
+              "build-agents/custom-agents-ci-cd",
+              "build-agents/create-new-ai-provider",
+              "build-agents/setup-private-fork"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Embedding",
+        "groups": [
+          {
+            "group": "Essentials",
+            "pages": [
+              "embedding/embedding-overview",
+              "embedding/provision-users",
+              "embedding/embed-your-agent"
+            ]
+          },
+          {
+            "group": "Misc",
+            "pages": [
+              "embedding/show-hide-agents",
+              "embedding/create-update-connections",
+              "embedding/navigation",
+              "embedding/predefined-connections",
+              "embedding/sdk-changelog",
+              "embedding/api-requests"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["api-reference/overview"]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              {
+                "group": "Projects",
+                "icon": "box-open",
+                "pages": [
+                  "api-reference/project-schema",
+                  "api-reference/post-create-project",
+                  "api-reference/post-update-project",
+                  "api-reference/get-list-projects"
+                ]
+              },
+              {
+                "group": "Users",
+                "icon": "user",
+                "pages": [
+                  "api-reference/user-schema",
+                  "api-reference/get-list-users"
+                ]
+              },
+              {
+                "group": "User Invitations",
+                "icon": "envelope-open-text",
+                "pages": [
+                  "api-reference/user-invitation-schema",
+                  "api-reference/post-send-user-invitation",
+                  "api-reference/get-list-user-invitations",
+                  "api-reference/del-delete-user-invitation"
+                ]
+              },
+              {
+                "group": "Project Members",
+                "icon": "users",
+                "pages": [
+                  "api-reference/project-member-schema",
+                  "api-reference/get-list-project-member",
+                  "api-reference/del-delete-project-member"
+                ]
+              },
+              {
+                "group": "Connections",
+                "icon": "plug",
+                "pages": [
+                  "api-reference/connection-schema",
+                  "api-reference/post-upsert-connection",
+                  "api-reference/get-list-connections",
+                  "api-reference/del-delete-connection"
+                ]
+              },
+              {
+                "group": "Flows",
+                "icon": "arrow-progress",
+                "pages": [
+                  "api-reference/flow-schema",
+                  "api-reference/post-create-flow",
+                  "api-reference/post-apply-flow-operation",
+                  "api-reference/get-get-flow",
+                  "api-reference/get-list-flows",
+                  "api-reference/del-delete-flow"
+                ]
+              },
+              {
+                "group": "Flow Runs",
+                "icon": "arrow-rotate-right",
+                "pages": [
+                  "api-reference/flow-run-schema",
+                  "api-reference/get-get-flow-run",
+                  "api-reference/get-list-flows-runs"
+                ]
+              },
+              {
+                "group": "Sample Data",
+                "icon": "database",
+                "pages": ["api-reference/get-get-sample-data"]
+              },
+              {
+                "group": "Agents",
+                "icon": "robot",
+                "pages": [
+                  "api-reference/agent-schema",
+                  "api-reference/post-install-piece"
+                ]
+              },
+              {
+                "group": "Project Releases",
+                "icon": "rocket-launch",
+                "pages": [
+                  "api-reference/project-release-schema",
+                  "api-reference/post-create-project-release"
+                ]
+              },
+              {
+                "group": "Global Connections",
+                "icon": "globe",
+                "pages": [
+                  "api-reference/global-connection-schema",
+                  "api-reference/post-upsert-global-connection",
+                  "api-reference/post-update-global-connection",
+                  "api-reference/get-list-global-connections",
+                  "api-reference/del-delete-global-connection"
+                ]
+              },
+              {
+                "group": "Git Sync",
+                "icon": "code-branch",
+                "pages": [
+                  "api-reference/git-repos-schema",
+                  "api-reference/post-configure"
+                ]
+              },
+              {
+                "group": "Folders",
+                "icon": "folder-open",
+                "pages": [
+                  "api-reference/folder-schema",
+                  "api-reference/post-create-folder",
+                  "api-reference/post-update-folder",
+                  "api-reference/get-get-folder",
+                  "api-reference/get-list-folders",
+                  "api-reference/del-delete-folder"
+                ]
+              },
+              {
+                "group": "Flow Templates",
+                "icon": "copy",
+                "pages": [
+                  "api-reference/flow-template-schema",
+                  "api-reference/post-create-flow-template",
+                  "api-reference/del-delete-flow-template",
+                  "api-reference/get-get-flow-template",
+                  "api-reference/get-list-flow-templates"
+                ]
+              },
+              {
+                "group": "MCP Servers",
+                "icon": "server",
+                "pages": [
+                  "api-reference/mcp-server-schema",
+                  "api-reference/get-list-mcp-servers",
+                  "api-reference/post-rotate-mcp-server-token",
+                  "api-reference/post-update-mcp-server"
+                ]
+              }
             ]
           }
         ]
@@ -180,21 +402,39 @@
     ]
   },
   "logo": {
-    "light": "/img/logo-aa.svg",
-    "dark": "/img/logo-aa-dark.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@automationanywhere.com"
+        "href": "mailto:hi@mintlify.com"
       }
-    ]
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.mintlify.com"
+    }
+  },
+  "contextual": {
+    "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/eby-paul-daniel/docs.git",
-      "linkedin": "https://www.linkedin.com/company/automation-anywhere/"
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
     }
   }
 }
