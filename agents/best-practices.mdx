@@ -1,0 +1,48 @@
+---
+title: "Best Practices and Tips"
+icon: "lightbulb"
+description: "Security, Performance, and Production Guidelines for Agents"
+mode: "wide"
+---
+
+## Best Practices and Tips
+
+### Security & Privacy
+
+- **Principle of Least Privilege:** Grant agents only minimum required tools and permissions.
+- **Human-in-the-Loop:** Configure approval workflows for high-risk actions (bulk emails, DB writes).
+- **Data Access Controls:** Use role-based access and PII masking.
+- **Credential Management:** Secure storage, rotation policies, never hardcode.
+- **Audit Logging:** Log all actions for compliance.
+- **Prompt Injection Protection:** Protect against malicious inputs.
+
+### Performance Optimization
+
+- **System Prompt Engineering:** Use clear, structured prompts.
+- **Knowledge Base Optimization:** Optimize file sizes, chunking, and naming.
+- **Context & Token Management:** Balance quality with cost/latency.
+- **Tool Usage:** Minimize calls, use parallel execution and caching.
+
+### User Experience
+
+- **Latency Management:** Set expectations for long operations.
+- **Error Handling:** Graceful degradation and user-friendly messages.
+- **Feedback Loops:** Mechanisms for iterative improvement.
+
+### Production Readiness Checklist
+
+- **Configuration verification** (prompts, tools).
+- **Security verification** (permissions, approvals).
+- **Testing verification** (happy path, edge cases).
+- **Monitoring setup** (metrics, alerts).
+- **Documentation requirements** (guides, troubleshooting).
+- **Compliance verification** (GDPR, etc.).
+
+### Troubleshooting Guide
+
+| Issue | Symptoms | Solution |
+|-------|----------|----------|
+| Agent not using tools | Responds "I don't have access" | Check tool enabled, description clear, prompt instruction. |
+| Hallucinating data | Invents information | Instruct agents to say "I don't know" when information is missing. |
+| Slow responses | Queries >1 0 seconds | Check context size, optimize KB, use parallel execution. |
+| Tool auth failure | Unauthorized error | Verify credentials, check token expiry, confirm scopes. |

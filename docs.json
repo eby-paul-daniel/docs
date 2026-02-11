@@ -8,6 +8,9 @@
     "dark": "#FF5A10"
   },
   "favicon": "/favicon.ico",
+  "icons": {
+    "library": "lucide"
+  },
   "navigation": {
     "tabs": [
       {
@@ -33,30 +36,46 @@
               "agents/outputs",
               "agents/models",
               "agents/tools",
+              "agents/best-practices",
               {
                 "group": "Toolkits",
-                "icon": "toolbox",
+               "icon": "wrench",
                 "pages": [
-                  "agents/toolkits/overview",
-                  "agents/toolkits/communication",
-                  "agents/toolkits/productivity",
-                  "agents/toolkits/file-management",
-                  "agents/toolkits/development",
-                  "agents/toolkits/troubleshooting",
-                  {
-                    "group": "Individual Toolkits",
-                    "icon": "wrench",
-                    "pages": [
-                      "agents/toolkits/gmail",
-                      "agents/toolkits/office365",
-                      "agents/toolkits/slack",
-                      "agents/toolkits/asana",
-                      "agents/toolkits/github",
-                      "agents/toolkits/salesforce",
-                      "agents/toolkits/python",
-                      "agents/toolkits/google-workspace"
-                    ]
-                  }
+                  "agents/toolkits/knowledge-base",
+                  "agents/toolkits/image-generation",
+                  "agents/toolkits/web-search",
+                  "agents/toolkits/document-manager",
+                  "agents/toolkits/database",
+                  "agents/toolkits/smart-table-manager",
+                  "agents/toolkits/agent-communication",
+                  "agents/toolkits/python",
+                  "agents/toolkits/nodejs",
+                  "agents/toolkits/to-do-manager",
+                  "agents/toolkits/workflow-manager"
+                ]
+              },
+              {
+                "group": "External Integrations",
+                "icon": "plug",
+                "pages": [
+                  "agents/external-integrations/overview",
+                  "agents/external-integrations/microsoft-365",
+                  "agents/external-integrations/gmail",
+                  "agents/external-integrations/google-sheets",
+                  "agents/external-integrations/google-drive",
+                  "agents/external-integrations/google-slides",
+                  "agents/external-integrations/microsoft-excel",
+                  "agents/external-integrations/microsoft-word",
+                  "agents/external-integrations/dropbox",
+                  "agents/external-integrations/asana",
+                  "agents/external-integrations/jira",
+                  "agents/external-integrations/confluence",
+                  "agents/external-integrations/salesforce",
+                  "agents/external-integrations/hubspot",
+                  "agents/external-integrations/odoo-erp",
+                  "agents/external-integrations/yahoo-finance",
+                  "agents/external-integrations/azure-active-directory",
+                  "agents/external-integrations/github"
                 ]
               },
               "agents/mcp"

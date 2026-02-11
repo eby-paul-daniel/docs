@@ -1,0 +1,28 @@
+---
+title: Agent Communication Toolkit
+icon: "messages-square"
+description: Multi-Agent Systems - delegate tasks to specialized worker agents
+---
+
+# Agent Communication Toolkit
+
+Enables Multi-Agent Systems (MAS). Allows a "Manager" agent to delegate tasks to specialized "Worker" agents. This toolkit transforms a single-agent system into a coordinated multi-agent architecture where different agents with specialized capabilities can work together to solve complex problems.
+
+![Agent Communication configuration with target agent selection](/img/agents-toolkits/18.jpg)
+
+## Key Features
+
+- **Agent Selection**: Intelligent routing mechanism that analyzes task requirements and selects the most appropriate specialized agent for the job.
+- **Context Passing**: Seamlessly transfers conversation history and relevant context between agents to maintain continuity.
+- **Response Integration**: Aggregates outputs from multiple worker agents into a coherent response for the user.
+- **Fallback Handling**: If a specialist agent fails, the system can route to alternative agents or escalate to human intervention.
+- **Agent Discovery**: Automatically detects available agents in the workspace and their capabilities.
+- **Task Orchestration**: Coordinates complex workflows involving multiple agents working in sequence or parallel.
+
+## Design Patterns
+
+- **Hub and Spoke (Router)**: Central coordinator routes requests to specialized agents.
+- **Sequential Chain (Pipeline)**: Tasks flow through a sequence of agents.
+- **Parallel Processing (Fan-Out)**: Multiple agents work simultaneously on subtasks.
+- **Hierarchical (Tree)**: Multi-level delegation with supervisory agents.
+- **Expert Panel (Committee)**: Multiple specialists provide opinions; coordinator synthesizes.
