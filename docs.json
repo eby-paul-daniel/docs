@@ -41,6 +41,7 @@
                 "group": "Toolkits",
                "icon": "wrench",
                 "pages": [
+                  "agents/toolkits/overview",
                   "agents/toolkits/knowledge-base",
                   "agents/toolkits/image-generation",
                   "agents/toolkits/web-search",
